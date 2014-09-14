@@ -1,0 +1,43 @@
+\chapter{Introduction}\label{chapter:introduction}
+
+\section{Simulation : State of art}
+
+Simulation is widely used in Hardware Software Co-development. It allows Hardware Developers to analyze the performance impacts of design decisions at early stage of hardware development. For software developers it provides a tangible environment for early software development.
+
+\subsection{Abstraction Levels}
+Simulation can be performed at various levels of abstraction, to serve the different purposes.
+
+\subsubsection{Instruction Set Simulation}
+Hardware developers use \gls{iss} to simulate a target processor at the lowest level of abstraction. In \gls{iss}, the processor micro-architecture is simulated, taking into consideration details of how each instruction is executed. Accuracy is the focus here, as the simulation is mainly used for analyzing impact of hardware design decisions.
+
+Each stage of processor pipeline is simulated and data and control hazards between instructions are taken into account. Other building blocks like Cache Hierarchy and Branch Prediction units are also simulated, to provide a cycle-accurate estimation of performance.
+
+\gls{iss} is difficult to implement and time-consuming to execute because of the details that are addressed. It is not suitable for simulation long running software scenarios. An application that takes hours to execute on the target hardware, may take days to simulate using \gls{iss}.
+
+\subsubsection{Functional Simulation}
+Functional Simulation is used to simulate the target processor at a higher level of abstraction. It is mainly used by early stage software developers. It provides them with an opportunity to start developing applications that take advantage of the features provided by the hardware, before it has been fabricated. Performance estimation is not the focus of Functional Simulation.
+
+Simulation functionality in GDB uses this approach. The simulator maintains the state of each register. Each instruction in the binary code is decoded and the state of the registers is modified according to the instruction. However effects due to execution pipeline stages, and caching are ignored.
+
+This approach cannot provide users with accurate estimation of performance.
+
+\subsubsection{Sampling based approach} 
+The focus in this approach is to estimate performance. To speed up the execution, the benchmark application is mostly simulated using Functional Simulation, and certain samples are simulated in detail using Instruction Set Simulators approach. The sample size is chosen by the user, based on understanding about the benchmark application. The results gathered from the samples are interpolated to generate performance estimates.
+
+The approach still uses Instruction Set Simulators that are difficult to develop. Accuracy of results depend on the samples chosen. The statistical approach of interpolating results will introduce inaccuracy to the estimates.
+
+%TODO: Add content
+
+\section{Host Compiled Simulation}
+Host Compiled Simulation is a technique that improves upon the state-of-art by adhering to following objectives.
+
+\begin{itemize} \itemsep -10pt
+\item Easier to develop.
+\item Faster to execute.
+\item Higher accuracy of estimation.
+\end{itemize}
+
+This technique is based on instrumentation\footnote{Instrumentation is a technique to modify the source code of an application in order to collect statistics at run-time. This may be used to measure performance of the application, or diagnose errors.} approach. The benchmark application is cross-compiled to generate target binary. The binary is made of basic blocks. In a loop, the same basic block is repeatedly executed. We estimate the time spent in executing each basic block on the processor pipeline, and annotate the matching basic block in source code to accumulate the total time spent when a sequence of basic blocks are executed. 
+
+We also instrument the code for c
+

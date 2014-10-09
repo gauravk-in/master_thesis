@@ -10,7 +10,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.2}Related Work}{1}{section.1.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.2.1}Sampling Based Approach}{1}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.1}Sampling Based Approach}{2}{subsection.1.2.1}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.2.2}Host Compiled Simulation}{2}{subsection.1.2.2}
 \defcounter {refsection}{0}\relax 
@@ -24,12 +24,16 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {3}Host Compiled Simulation}{4}{chapter.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Implementation}{5}{chapter.4}
+\contentsline {section}{\numberline {3.1}The Approach}{4}{section.3.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Results}{6}{chapter.5}
+\contentsline {section}{\numberline {3.2}Mapping between Source and Binary Code}{5}{section.3.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Conclusion}{7}{chapter.6}
+\contentsline {chapter}{\numberline {4}Implementation}{6}{chapter.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\nonumberline List of Figures}{8}{appendix*.3}
+\contentsline {chapter}{\numberline {5}Results}{7}{chapter.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\nonumberline List of Tables}{9}{appendix*.4}
+\contentsline {chapter}{\numberline {6}Conclusion}{8}{chapter.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\nonumberline List of Figures}{9}{appendix*.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\nonumberline List of Tables}{10}{appendix*.4}

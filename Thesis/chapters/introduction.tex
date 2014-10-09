@@ -8,7 +8,9 @@ Simulation is widely used in Hardware Software Co-development. The behaviour of 
 
 The widely used approach in this area, is called \gls{iss}. In \gls{iss} the processor micro-architecture is simulated in great detail. Each stage of processor pipeline is simulated along with other building blocks of the processor like Caching and Branch Prediction Units. This approach provides cycle accurate estimates of performance. However, \gls{iss} is difficult to develop and slow to execute because of the amount of details that are simulated. \gls{iss} is not suitable for simulation of long running software scenarios.
 
-The focus of this research is to enable fast simulation of single core, embedded processors to provide accurate estimation of time and power spent in executing benchmark applications.
+Another approach is called Functional Simulation, which is done at a higher level of abstraction. The micro-architecture is not simulated, and effects of caching are ignored. Each instruction is decoded, and the state of registers is modified according to the instruction. This approach is used by early stage software developers, but it is not suitable for analysing performance of the target system.
+
+The focus in this research is to enable fast simulation of single core, embedded processors to provide accurate estimation of time and power spent in executing benchmark applications.
 
 \section{Related Work}
 Considerable work has been done in this area of research. The techniques developed can be roughly divided into two approaches. 

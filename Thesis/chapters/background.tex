@@ -1,1 +1,181 @@
 \chapter{Background}
+This chapter covers background knowledge that may be required to understand the project. The topics briefly covered in this chapter are as follows.
+
+\begin{itemize} \itemsep -6pt
+\item Basics of Computer Architecture: Pipeline, Caching, Branch Prediction.
+\item Details of ARM Cortex A5 Processor
+\item Execution of Bare Metal Applications on ARM
+\item Cross-Compiling using GCC
+\item Compiler Optimization
+\item Extracting Debug Information using GDB
+\end{itemize}
+
+Basic understanding of these topics is needed to understand this thesis. Readers may choose to skip this chapter. Further in the thesis, appropriate references are made to sections in this chapter. Reader may choose to revisit these sections if required.
+
+\section{Basics of Computer Architecture}
+\subsection{Pipeline Execution}
+\label{subsec:PipelineExecution}
+Most modern processors use a multi-stage pipeline architecture for the execution unit. Execution of an instruction can be divided into multiple stages as follows:
+
+\begin{itemize} \itemsep -6pt
+\item Instruction Fetch
+\item Instruction Decode
+\item Data Fetch
+\item Execute
+\item Write Back
+\end{itemize}
+
+This is only a general representation of the break down, and different processors use a slightly modified break down. The task performed in each of the stage is self-explanatory and usually, one clock cycle is spent in executing each stage. The execution unit of the processor is divided into separate units for each stage of the instruction execution.
+
+This allows for parallel execution of instructions. At the beginning of execution, the pipeline is empty and the first instruction is fetched from the memory. While this instruction is being decoded the subsequent instruction is being fetched and so on. This helps in achieving a performance of nearly 1 Cycle Per Instruction (CPI), when no branching instructions are encountered and all data is available in registers.
+
+This performance may not always be achievable due to interlocking between instructions. Interlocking occurs when subsequent instructions have control or data dependency. If an instruction depends on the result of the previous instruction, the pipeline must be stalled unless the result is made available.
+
+This performance is also hindered by conditional branching instructions. A simple \textit{if-then-else} branch is implemented as a compare instruction followed by a conditional branch instruction in the binary code. Depending on the result of the compare instruction, the branch instruction is either executed or ignored. The processor uses Branch Prediction Algorithms to predict the next instruction that will be executed and already feeds the instruction to the pipeline. Incorrect prediction leads to Pipeline Flush, which results in a wastage of a couple of cycles.
+
+\subsection{Cache Hierarchy}
+Memory access is a critical bottleneck in modern computers. Main memories used today take over hundreds of cycles to fetch data, while the processor halts execution waiting for the data to be delivered. This leads to considerable waste of resources.
+
+To optimize this, processors use a hierarchy of low-latency cache memories. The level 1 or L1 Cache is closely coupled with the processor. It has very low-latency for read and write operations, but is much smaller in size compared to the main memory. L2 Cache has higher latency than L1 Cache, but is much faster compared to main memory. Further levels of caching may be used, but it has been observed that the best performance is achieved by using 2 or 3 levels of caching.
+
+%When data needs to be loaded, it is first looked up in L1 Memory. If valid data is found, it is made available to the processor within a couple of cycles to ensure that the pipeline does not get stalled. If data is not found, it is subsequently checked in further levels of cache memory, and is eventually fetched from the main memory. The pipeline is stalled and the processor rests in idle state until the data is made available.
+
+Different techniques can be used to store and lookup data in a cache. The most popular technique is to use an N-way Set Associative Cache which has been explained graphically in figure [TODO]. The cache memory is divided into \textit{n-ways} of equal size. Each \textit{way} has a number of fixed size cache lines which can be indexed. Each entry in the cache contains a \textit{tag}, the \textit{data} and \textit{flags} which tell the validity of the data.
+
+When data on an address is requested by the processor, the address is divided into \textit{tag} and \textit{index}. The data can only reside in one of the cache ways in the cache line indexed by \textit{index}. The cache controller looks for valid data in the cache lines, which has the same \textit{tag} as the \textit{tag} derived from the address. If such a data is found, a cache hit occurs and the data is made available to the processor. If the data is not found, a cache miss occurs and lookup is carried out in further levels of cache. If none of the caches contain the data, it must be fetched from the memory. At this point, the data along with the tag is stored in the cache. If the same data is requested again, it is now available in cache and can be delivered with little latency.
+
+For a write operation, different policies can be used. On receiving a write operation request from the processor, a cache with Write-Through policy will immediately write the data back to the main memory. The processor must remain in an idle state until this write operation is completed. In Write-Back policy however, the data will only be written to the cache, and it will be flagged as \textit{dirty} data. The data will be written to the main memory later, and the processor does not need to wait, thereby improving performance. Most processors today use Write-Back Policy.
+
+Separate caches are usually used to store Instruction and Data, as the access pattern for the two is generally quite different. 
+
+Obviously, there is a limit to the amount of data that can be stored in the cache, and hence the cache controllers use a cache replacement policy to replace data which is less likely to be used again. Popular replacement policies are Least Recently Used and Pseudo Random Replacement.
+
+The memory management unit also tries to analyse the memory access pattern, and prefetches the data that the processor could use in future. This reduces the number of cache misses, and optimizes performance.
+
+This is just a basic understanding of how caches work, in a computer with a single processor. In multi-processor systems each processor may have a private L1 Cache. Different processors may try to read and write to the same address simultaneously leading to race conditions. The cache controllers must ensure data coherency. This topic is not discussed here, because the focus for this research is on single-processor systems.
+
+\subsection{Branch Prediction}
+\label{subsec:BranchPredition}
+The issue of pipeline flushing in presence of branching instructions was discussed in section \ref{subsec:PipelineExecution}. Processors use Branch Prediction Algorithms to improve performance by trying to predict the result of the conditional branch instruction. On fetching a branch instruction, the Branch Prediction Unit tells the Instruction Fetch unit in the pipeline the address of the next instruction to be fetched according to the prediction. If the prediction holds true, a few clock cycles are saved on execution. If the prediction was incorrect, the pipeline is flushed. 
+
+The general policy for Branch Prediction utilizes a track record of all branch instructions encountered previously. It uses a state machine (figure [TODO])for each branch instruction, and maintains the state of the machine in the table using 2 bits as follows.
+
+\begin{itemize} \itemsep -6pt
+\item 00 - Strongly Not Taken (SNT)
+\item 01 - Weakly Not Taken (WNT)
+\item 10 - Weakly Taken (WT)
+\item 11 - Strongly Taken (ST)
+\end{itemize}
+
+When in SNT and WNT state, the Branch Prediction Unit predicts that the branch will not be taken. Similarly, in WT and ST states it predicts that the branch will be taken. When a branch instruction is seen for the first time, the state is set to SNT. The state changes depending on whether the prediction was correct or incorrect.
+
+\section{ARM Cortex A5 Processor}
+ARM Cortex A5 has been used as the target processor to analyse the results in this research. In this section, features of the processor have been briefly described. Only the details relevant for understanding the thesis have been covered. 
+
+\subsection{Processor Pipeline}
+The Cortex A5 has an 8 stage processor pipeline. Each stage in the pipeline takes 1 cycle to execute. Interlocking may occur between instructions, which may lead to pipeline stalls. %TODO: Explain this as briefly as possible.
+
+\subsection{Cache Hierarchy}
+The Cortex A5 uses separate L1 cache for data and instructions. The size of the L1 Cache is configurable from 2 KB to 64 KB. On the target processor used for testing, the 32 KB of cache memory was used for Data and Instruction Caches. Each cache line has a fixed size of 32 Bytes.
+
+The Data Cache is 4-way Set Associative Cache, with Write-Back Policy. The Instruction cache is a 2-way Set Associative Cache. The replacement policy used is Pseudo Random Replacement. 
+
+The L2 Cache is a unified Cache for data and instruction. It is 256 KB in size and is a 16-way Set Associative Cache with 32 Byte cache line lenght. It also uses Write-Back Policy, and Pseudo Random Replacement strategy. 
+
+The Cache controller ensures that each data is only cached in one of the caches. When a data is fetched from main memory, it is stored in the L1 Cache. When a data needs to be evicted from L1 Cache, it is stored in L2 Cache. In case of a L2 Cache Hit, the data is moved from L2 cache to L1 cache.
+
+\subsection{Branch Prediction Unit}
+The branch prediction unit uses the algorithm described in section \ref{subsec:BranchPredition}. It maintains a 125 entry history table for the branches.
+%TODO: Add a little bit of content here.
+
+%TODO: What more to know about the taret processor
+
+\section{Bare Metal Applications on ARM}
+Bare Metal Applications are programs that are run on the processor without an underlying layer of Operating System. Running a bare metal application is quite different from running an application on top of an Operating System such as Linux.
+
+The job of an Operating System is to manage the resources of the computer system, and provide a mechanism to load and execute programs at the users request. Operating Systems take control of the main memory of the system, and try to make the most efficient use of it by appropriately sharing it among different applications. When an application needs to be executed, the Operating Systems creates space in the main memory, to load the code and the data for the application.
+
+The application code may be loaded at any address in the main memory, at the behest of the Operating System. Hence the code must be compiled in a way such that it is relocatable. The addresses used within the code are relative to the actual (physical) address where the application code will be loaded. During execution, each access to the relative address is translated by the Memory Management Unit, with support from Operating System, to the physical address.
+
+In some sense, it is much more easier to understand how a bare metal application is executed. When a program is compiled to be run as bare-metal application, a specifc address needs to be provided at which the program will be loaded. All memory addresses used in the binary code, will be actual (physical) addresses on the target processor. To run the application, the binary code needs to be loaded at the predefined start address. The processor starts executing the instruction the instruction at this address in a sequential manner, until a branch instruction is found. The processor then jumps to the address provided in the branch instructions and continues executing the code until the end of the program is reached.
+
+It is important to note, that for each instruction and data in the bare metal application, the exact address where it will be located in the memory of the target processor can be known. This information will be used later in the project.
+
+Apart from this, there are some limitations that arise with Bare Metal Applications. Since there is no Operating System, interaction with input and output devices is very difficult. Reading and writing of files from the disk is not possible, because the logic to understand the file system is not available. Using heap memory for dynamic memory allocation, while possible, is complicated. Using Shared libraries in bare-metal applications is not possible, because the Operating System is needed to perform dynamic linking at run-time. All applications must be statically linked.
+
+%TODO: This section is all bullshit!!! Fix It!
+
+\section{Cross-Compiling using GCC}
+%TODO: Write something about Loader Scripts etc.
+
+\section{Compiler Optimizations}
+\label{sec:CompilerOptimizations}
+The compiler uses a number of techniques to optimize the code, without changing the functionality. Often, this results in a substantially modified control flow in the binary code, compared to the flow in the source code.
+
+Some of these optimization strategies have been discussed here. This will be useful in understanding some of the challenges that the project aims to solve.
+
+\subsection{Partial or Full Loop Unrolling}
+To reduce the number of branching instructions that need to be executed, the compiler checks if the number of iterations of a loop can be reduced by merging a few iterations together. 
+
+In cases where the number of iterations of the loop are known at compile time, the compiler may try to eliminate the loop by replicating the instructions inside the loop. This may be useful when the number of iterations of the loop is less, and the body of the loop contains only a few instructions. It eliminates the need of branching instructions.
+
+\subsection{Conditional Execution}
+Conditional Execution or Predication is a feature that is provided by the Instruction Set for the target processor. Instructions can be predicated with a condition. The instruction is fed to the processor pipeline, but the result of the instruction is only written back (committed) if the condition holds true.
+
+Conditional Execution is used to eliminate conditional branching instructions. A simple \textit{if-then-else} construct is implemented in ARM binary code as a compare instruction, followed by a conditional branch instruction. The condition checks for the result of the compare instruction, and appropriately tells the processor to branch or continue executing the consecutive instruction. Since the result of the compare instruction will not be available until the last stage of the pipeline execution, the next instruction to be executed can not be known with certainty. 
+
+The Branch Prediction Unit, predicts whether the branch will be taken or not and accordingly tells the Instruction Fetch Unit to feed the appropriate instruction into the pipeline. If the prediction turns out to be incorrect, the instructions in the pipeline must be flushed and the correct instructions must be reloaded. On the ARM Cortex A5 with an 8-stage pipeline, this will lead to a loss of crucial 5-6 clock cycles.
+
+Conditional Execution can be used to eliminate the use of branching instructions. This will lead to an improvement in performance, especially when the code in \textit{then} and \textit{else} body contained only 1 or 2 instructions. Each instruction in the \textit{then} and \textit{else} body is predicated with an appropriate condition. After the compare instruction, the predicated instructions are fed into the pipeline. The predicated instructions progress in the pipeline, meanwhile the result of the compare instruction is available. The result of the predicated instruction is only written back (committed) if the condition evaluates to true.
+
+If the \textit{then} and \textit{else} bodies contain one instruction each, only one cycles is wasted by using Conditional Execution.
+
+The example in listing [TODO] shows Conditional Execution. Figure [TODO] shows how the control flow of the binary code varies significantly from the control flow of the source code.
+
+\subsection{Code Rearrangement}
+The compiler tries to remove data and control dependency among consecutive instructions by rearranging instructions. This leads to reduced pipeline stalls and overall improvement in performance.
+
+\section{Extracting Debug Information from GDB}
+GDB is an open source debug tool which can be used to debug applications. It can be used to extract a lot of information. In this project, GDB will be used to extract information about the variables used in the code. This section briefly discusses the scope of information that can be collected from GDB.
+
+For debugging ARM binaries, GDB specially compiled for the target must be used. The following command starts GDB and uses as input \textit{example.elf} which is a binary of a Bare-Metal application compiled to run on an ARM processor. This gives the GDB prompt. GDB can be used for remote debugging on a target hardware, and it also provides a functional simulator for the ARM processor. The following commands are given to tell GDB to use a simulator as a target, and load the binary.
+
+\begin{lstlisting}[frame=none,numbers=none,language=bash]
+$ arm-none-eabi-gdb example.elf
+(gdb) target sim
+(gdb) load
+(gdb) _
+\end{lstlisting}
+
+
+Often, many variables used in the source code are eliminated (optimized out) during compiler optimization. GDB can be used to extract information about the Global Variables being used in the binary code. It can provide the name, address and sizes of the global variables. To get this information, the following commands can be used.
+
+\begin{lstlisting}[frame=none,numbers=none,language=bash]
+(gdb) info variables
+From example.c
+unsigned int array[100];
+unsigend int result;
+
+(gdb) print &result
+$1 = 0x7c8
+
+(gdb) _ 
+\end{lstlisting}
+
+This shows that global variables \textit{array} and \textit{result} are declared in file \textit{example.c}. It shows the address of the variable \textit{result} using the second command.
+
+Getting similar information about local variables is also possible. The local variables are only visible inside the scope of the function in which they are defined. We need to configure a break point in the beginning of the function, then run the simulation and issue following commands to extract information about local variables defined in the function.
+
+\begin{lstlisting}[frame=none,numbers=none,language=bash]
+(gdb) b main
+Breakpoint 1 at 0x368: file example.c, line 10.
+
+(gdb) info locals
+i = 0
+j = 0
+
+(gdb) print &i
+$1 = 0x17b40
+\end{lstlisting}
+
+This shows that local variables \textit{i} and \textit{j} are declared inside the function main. Address of \textit{i} is printed, and it must be noted that this address resides in the stack, as \textit{i} is a local variable.

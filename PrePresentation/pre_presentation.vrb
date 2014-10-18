@@ -1,0 +1,11 @@
+\frametitle{Example: Annotation for Branch Prediction}
+\begin{lstlisting}[frame=none,numbers=none]
+...
+for(i=0; i<10; i++) {
+    @1execCyles += 23;@
+    @1execCycles -= (branchPred_enter(0x348, 0x380) ? 7 : 0);@
+    sum += array[i];
+    ...
+}
+...
+\end{lstlisting}

@@ -1967,6 +1967,7 @@
     <bcf:datasource type="file" datatype="bibtex">bibliography/literature.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
+    <bcf:citekey order="1">latex</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" type="entry" label="anyt">
   <bcf:sorting>

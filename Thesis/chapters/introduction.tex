@@ -4,37 +4,43 @@
 
 Simulation is the technique to imitate the behaviour of a system. It is generally used when developing or working with the real system is expensive or difficult. 
 
-Simulation is widely used in Hardware Software Co-development. The behaviour of a processor is simulated. It allows Hardware Developers to analyse and validate the performance impacts of design decisions at early stage of hardware development. This allows them to save the crucial effort and cost involved in fabricating hardware.
+Simulation is widely used in Hardware Software Co-development. The behaviour of a processor is simulated, and benchmarking applications are run. It allows Hardware Developers to analyse and validate the performance impacts of design decisions at early stage of hardware development. This saves the crucial effort and cost involved in the painstaking process of fabricating hardware at each milestone.
 
-The widely used approach in this area, is called \gls{iss}. In \gls{iss} the processor micro-architecture is simulated in great detail. Each stage of processor pipeline is simulated along with other building blocks of the processor like Caching and Branch Prediction Units. This approach provides cycle accurate estimates of performance. However, \gls{iss} is difficult to develop and slow to execute because of the amount of details that are simulated. \gls{iss} is not suitable for simulation of long running software scenarios.
+The popular approach used for simulation in the industry today is called \gls{cas}. In \gls{cas} the processor micro-architecture is simulated in great detail. Each stage of processor pipeline is simulated along with other building blocks of the processor like Cache Memory and Branch Prediction Units. This approach provides cycle accurate estimates of performance. However, \gls{cas} is difficult to develop and slow to execute because of the amount of details that are simulated. Long running software benchmarks are used to accurately estimate bottlenecks in the system, and \gls{cas} is not suited for this due to the slow execution speed.
 
-The focus of this research is to enable fast simulation of single core, embedded processors to provide accurate estimation of time and power spent in executing benchmark applications.
+In this research, a technique for fast simulation of processors has been explored. The aim is to extract accurate estimate of number of cycles spent and power consumed by a processor in running a software benchmark. 
 
 \section{Related Work}
-Considerable work has been done in this area of research. The techniques developed can be roughly divided into two approaches. 
+Research in this area has focussed on following approaches.
 
 \subsection{Sampling Based Approach}
 Sampling is an approach used in statistical analysis. Small, yet representative samples are chosen from a vast amount of data. These samples are analysed in detail, and the results are interpolated to gather information about the entire data set.
 
-In Sampling Based Approach, certain samples of the execution trace are simulated in detail using Instruction Set Simulation. The rest of the execution is carried out using Functional Simulation at a higher level of abstraction. This leads to a speed up in simulation.
+In this approach, the application is mostly run using Functional Simulation, and some samples are executed using the detailed \gls{cas}. The number of cycles spent in execution of the samples is calculated, and the number of cycles spent in executing the entire pipeline is estimated by interpolating.
 
-Research in this area mainly focuses on developing procedures to select the samples.
+This approach provides considerable speed up compared to \gls{cas}, however accuracy of the estimation is highly dependent on how the samples are chosen. Also, developing this technique is difficult, since \gls{cas} is used.
 
 % TODO: Add content
 
 \subsection{Host Compiled Simulation}
-Host Compiled Simulation is based on approach of \gls{sci}. \gls{sci} is the process of modifying source code to collect performance statistics and generate trace information during run-time. 
+Host Compiled Simulation is based on the approach of \gls{sci}. \gls{sci} is the process of modifying source code to collect performance statistics and generate trace information during run-time. 
 
-To accurately estimate the performance of a processor, we must take into consideration the effects due to following optimization techniques used in modern processors.
-\begin{itemize} \itemsep -8pt
-\item Processor Pipelining
-\item Branch Prediction
-\item Memory Caching and Prefetching
+When an application is run on a processor, most of the time is spent in 
+\begin{itemize} \itemsep -6pt
+\item Execution of the instructions in the processor pipeline, and 
+\item Fetching data from the memory. 
 \end{itemize}
-The instrumentation enables simulation of these
+
+If the number of cycles spent in each of these phases can be accurately estimated, the total number of cycles spent in running the application can be calculated.  In this approach, the source code is instrumented to do this. The instrumented source code is compiled for and run on the Host Machine (the machine where the simulation is run) and hence the name, Host Compiled Simulation.
 
 \section{Focus}
-
-\subsection{Simple Example}
+The focus in this research is to develop a tool to perform Host Compiled Simulation of a processor. The tool should be able to automatically instrument a given source code. The instrumented source code will be compiled and run, and accurate estimates of the performance will be reported.
 
 \section{Thesis Outline}
+\textbf{Chapter 2} covers some basic background knowledge that will be helpful in understanding the project. This chapter can be skipped by the knowledgeable readers. References to appropriate sections of the chapter is provided in the next chapters. The readers may choose to revisit these concepts if needed.
+
+\textbf{Chapter 3} presents an overview of the technique. A flow chart explaining the approach is described and the challenges in each stage are briefly illustrated using examples.
+
+\textbf{Chapter 4} deeply explains each stage of the technique in further detail. The challenges, and how they are tackled is discussed. It also sheds some light into the limitations of the tool and how it can be enhanced.
+
+\textbf{Chapter 5} presents a deep analysis of the results. The test setup is explained, and the accuracy of results from this technique is demonstrated.

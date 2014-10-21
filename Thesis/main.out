@@ -25,7 +25,7 @@
 \BOOKMARK [0][-]{chapter.3}{Host Compiled Simulation}{}% 25
 \BOOKMARK [1][-]{section.3.1}{The Technique}{chapter.3}% 26
 \BOOKMARK [2][-]{subsection.3.1.1}{Simple Example}{section.3.1}% 27
-\BOOKMARK [1][-]{section.3.2}{The Approach}{chapter.3}% 28
+\BOOKMARK [1][-]{section.3.2}{The Flow}{chapter.3}% 28
 \BOOKMARK [1][-]{section.3.3}{Mapping between Source and Binary Code}{chapter.3}% 29
 \BOOKMARK [1][-]{section.3.4}{Extracting Debug Information from GDB}{chapter.3}% 30
 \BOOKMARK [1][-]{section.3.5}{Data Cache Simulation}{chapter.3}% 31
@@ -38,5 +38,5 @@
 \BOOKMARK [0][-]{chapter.4}{Implementation}{}% 38
 \BOOKMARK [0][-]{chapter.5}{Results}{}% 39
 \BOOKMARK [0][-]{chapter.6}{Conclusion}{}% 40
-\BOOKMARK [0][-]{appendix*.8}{List of Figures}{}% 41
-\BOOKMARK [0][-]{appendix*.9}{List of Tables}{}% 42
+\BOOKMARK [0][-]{appendix*.9}{List of Figures}{}% 41
+\BOOKMARK [0][-]{appendix*.10}{List of Tables}{}% 42

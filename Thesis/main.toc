@@ -56,40 +56,40 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.1.1}Simple Example}{14}{subsection.3.1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.2}The Approach}{15}{section.3.2}
+\contentsline {section}{\numberline {3.2}The Flow}{16}{section.3.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.3}Mapping between Source and Binary Code}{16}{section.3.3}
+\contentsline {section}{\numberline {3.3}Mapping between Source and Binary Code}{17}{section.3.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.4}Extracting Debug Information from GDB}{17}{section.3.4}
+\contentsline {section}{\numberline {3.4}Extracting Debug Information from GDB}{18}{section.3.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.5}Data Cache Simulation}{18}{section.3.5}
+\contentsline {section}{\numberline {3.5}Data Cache Simulation}{19}{section.3.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5.1}Memory Access Reconstruction}{19}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.1}Memory Access Reconstruction}{20}{subsection.3.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5.2}Annotation for Data Cache Simulation}{20}{subsection.3.5.2}
+\contentsline {subsection}{\numberline {3.5.2}Annotation for Data Cache Simulation}{21}{subsection.3.5.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\nonumberline Global Variables}{20}{section*.4}
+\contentsline {subsubsection}{\nonumberline Global Variables}{21}{section*.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\nonumberline Local Variables}{21}{section*.5}
+\contentsline {subsubsection}{\nonumberline Local Variables}{22}{section*.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\nonumberline Function Parameters}{21}{section*.6}
+\contentsline {subsubsection}{\nonumberline Function Parameters}{22}{section*.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\nonumberline Register Spilling}{22}{section*.7}
+\contentsline {subsubsection}{\nonumberline Register Spilling}{23}{section*.8}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5.3}Implementation of Cache Simulator}{22}{subsection.3.5.3}
+\contentsline {subsection}{\numberline {3.5.3}Implementation of Cache Simulator}{23}{subsection.3.5.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.6}Instruction Cache Simulation}{22}{section.3.6}
+\contentsline {section}{\numberline {3.6}Instruction Cache Simulation}{23}{section.3.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.7}Annotation for Execution Time in Pipeline}{22}{section.3.7}
+\contentsline {section}{\numberline {3.7}Annotation for Execution Time in Pipeline}{23}{section.3.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.8}Annotation for Branch Prediction}{22}{section.3.8}
+\contentsline {section}{\numberline {3.8}Annotation for Branch Prediction}{23}{section.3.8}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Implementation}{23}{chapter.4}
+\contentsline {chapter}{\numberline {4}Implementation}{24}{chapter.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Results}{24}{chapter.5}
+\contentsline {chapter}{\numberline {5}Results}{25}{chapter.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Conclusion}{25}{chapter.6}
+\contentsline {chapter}{\numberline {6}Conclusion}{26}{chapter.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\nonumberline List of Figures}{26}{appendix*.8}
+\contentsline {chapter}{\nonumberline List of Figures}{27}{appendix*.9}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\nonumberline List of Tables}{27}{appendix*.9}
+\contentsline {chapter}{\nonumberline List of Tables}{28}{appendix*.10}

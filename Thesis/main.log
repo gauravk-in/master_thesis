@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.23)  21 OCT 2014 00:21
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.23)  22 OCT 2014 00:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1563,6 +1563,7 @@ Package glossaries Info: Writing glossary file main.glo on input line 8.
 Package glossaries Info: Writing glossary file main.acn on input line 8.
 ) (./settings/commands.tex) (./glossary/terms.tex)
 (./glossary/acronyms.tex)
+LaTeX Info: Redefining \emph on input line 23.
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package biblatex Info: Trying to load language 'american'...
@@ -1578,29 +1579,29 @@ File: english.lbx 2013/11/25 v2.8a biblatex localization (PK/JW/AB)
 )) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Try loading font information for T1+pplx on input line 23.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Try loading font information for T1+pplx on input line 25.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pplx.fd
 File: t1pplx.fd 2004/09/06 font definitions for T1/pplx.
 )
-Package nag Info: pgf.sty is broken: disabling dollar check on input line 23.
+Package nag Info: pgf.sty is broken: disabling dollar check on input line 25.
 Package nag Info: Command \RaggedLeft not defined, skipping amendment on input 
-line 23.
+line 25.
 Package nag Info: Command \RaggedRight not defined, skipping amendment on input
- line 23.
+ line 25.
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
 (biblatex)             Assuming data encoding 'utf8'.
@@ -1609,8 +1610,8 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
  (./main.bbl)
-Package biblatex Info: Reference section=0 on input line 23.
-Package biblatex Info: Reference segment=0 on input line 23.
+Package biblatex Info: Reference section=0 on input line 25.
+Package biblatex Info: Reference segment=0 on input line 25.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -1642,13 +1643,13 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \c@lstlisting=\count372
-Package scrhack Info: undefining \float@addtolists on input line 23.
+Package scrhack Info: undefining \float@addtolists on input line 25.
 
 ABD: EveryShipout initializing macros
 Package pgfplots notification 'compat/show suggested version=true': document ha
 s been generated with the most recent feature set (\pgfplotsset{compat=1.9}).
 
-LaTeX Info: Redefining \microtypecontext on input line 23.
+LaTeX Info: Redefining \microtypecontext on input line 25.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -1671,7 +1672,7 @@ Package: ltcaption 2013/02/03 v1.3-62 longtable captions (AR)
 Package caption Info: supertabular package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \AtBeginShipoutBox=\box76
-Package hyperref Info: Link coloring OFF on input line 23.
+Package hyperref Info: Link coloring OFF on input line 25.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -1681,9 +1682,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count373
 )
-LaTeX Info: Redefining \ref on input line 23.
-LaTeX Info: Redefining \pageref on input line 23.
-LaTeX Info: Redefining \nameref on input line 23.
+LaTeX Info: Redefining \ref on input line 25.
+LaTeX Info: Redefining \pageref on input line 25.
+LaTeX Info: Redefining \nameref on input line 25.
 
 (./main.out) (./main.out)
 \@outlinefile=\write8
@@ -1695,7 +1696,7 @@ English.dict
 Dictionary: glossaries-dictionary, Language: English 
 )
 Package nag Info: Command \hc@caption not defined, skipping amendment on input 
-line 23.
+line 25.
  (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2013/08/26 1.5b listings language file
 )
@@ -1779,7 +1780,7 @@ LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <10.95> not available
 
 
 ]
-Package tocbasic Info: character protrusion at toc deactivated on input line 53
+Package tocbasic Info: character protrusion at toc deactivated on input line 58
 .
  (./main.toc [4
 
@@ -1789,7 +1790,7 @@ Package tocbasic Info: character protrusion at toc deactivated on input line 53
 \openout9 = `main.toc'.
 
 LaTeX Font Info:    Font shape `T1/pplx/m/sl' in size <10.95> not available
-(Font)              Font shape `T1/pplx/m/it' tried instead on input line 56.
+(Font)              Font shape `T1/pplx/m/it' tried instead on input line 61.
  [5] (./chapters/introduction.tex
 Chapter 1.
 LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <14.4> not available
@@ -1850,20 +1851,27 @@ LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
  [14]
 
 Package nag Warning: `center' environment in table.
-(nag)                Maybe you want \centering instead on input line 97.
+(nag)                Maybe you want \centering instead on input line 98.
 
-[15] [16]
+<figures/HCS_FlowChart.pdf, id=452, 781.92125pt x 1096.095pt>
+File: figures/HCS_FlowChart.pdf Graphic file (type pdf)
 
-LaTeX Warning: Reference `sec:GDBInfo' on page 17 undefined on input line 138.
+<use figures/HCS_FlowChart.pdf>
+Package pdftex.def Info: figures/HCS_FlowChart.pdf used on input line 115.
+(pdftex.def)             Requested size: 326.23882pt x 457.3128pt.
+ [15] [16 <./figures/HCS_FlowChart.pdf>]
+[17] [18]
 
-[17] [18] [19] [20]) (./chapters/implementation.tex [21] [22]
+LaTeX Warning: Reference `sec:GDBInfo' on page 19 undefined on input line 152.
+
+[19] [20] [21]) (./chapters/implementation.tex [22] [23]
 Chapter 4.
-) (./chapters/results.tex [23
+) (./chapters/results.tex [24
 
 
 ]
 Chapter 5.
-) (./chapters/conclusion.tex [24
+) (./chapters/conclusion.tex [25
 
 
 ]
@@ -1871,21 +1879,21 @@ Chapter 6.
 )
 No file main.gls.
 No file main.acr.
-[25
+[26
 
 
 ]
-Package tocbasic Info: character protrusion at lof deactivated on input line 74
+Package tocbasic Info: character protrusion at lof deactivated on input line 79
 .
  (./main.lof)
 \tf@lof=\write10
 \openout10 = `main.lof'.
 
- [26
+ [27
 
 
 ]
-Package tocbasic Info: character protrusion at lot deactivated on input line 75
+Package tocbasic Info: character protrusion at lot deactivated on input line 80
 .
  (./main.lot)
 \tf@lot=\write11
@@ -1893,22 +1901,25 @@ Package tocbasic Info: character protrusion at lot deactivated on input line 75
 
 
 
-LaTeX Warning: Empty bibliography on input line 77.
+LaTeX Warning: Empty bibliography on input line 82.
 
 
-Package nag Warning: 1 complaints in total.
+Package nag Warning: Unmatched ``\center'' command on line 114.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 79.
-[27
+
+Package nag Warning: 2 complaints in total.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 84.
+[28
 
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 79.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 84.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 79.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 79.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 84.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 84.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 37083F1572385A04C35950B3100F70C8;2853.
+(rerunfilecheck)             Checksum: 61605FEBE8346BF29412223CDEA1F694;2850.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -1921,13 +1932,13 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 39445 strings out of 495028
- 785267 string characters out of 6181497
- 1437791 words of memory out of 5000000
- 41372 multiletter control sequences out of 15000+600000
- 69363 words of font info for 278 fonts, out of 8000000 for 9000
+ 39506 strings out of 495028
+ 786452 string characters out of 6181497
+ 1426291 words of memory out of 5000000
+ 41425 multiletter control sequences out of 15000+600000
+ 69586 words of font info for 281 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,11n,93p,1736b,3077s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 75i,11n,93p,1736b,3051s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{glo:cfg} has been referenced but does not exist, 
 replaced by a fixed one
 
@@ -1951,10 +1962,10 @@ hare/texmf/fonts/type1/public/cm-super/sftt1095.pfb></usr/share/texlive/texmf-d
 ist/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/urw/palatino/uplr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/pala
 tino/uplri8a.pfb>
-Output written on main.pdf (33 pages, 670951 bytes).
+Output written on main.pdf (34 pages, 764093 bytes).
 PDF statistics:
- 613 PDF objects out of 1000 (max. 8388607)
- 533 compressed objects within 6 object streams
- 182 named destinations out of 1000 (max. 500000)
- 42855 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 652 PDF objects out of 1000 (max. 8388607)
+ 570 compressed objects within 6 object streams
+ 184 named destinations out of 1000 (max. 500000)
+ 42860 words of extra memory for PDF output out of 42996 (max. 10000000)
 

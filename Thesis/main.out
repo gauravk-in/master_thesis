@@ -26,17 +26,19 @@
 \BOOKMARK [1][-]{section.3.1}{The Technique}{chapter.3}% 26
 \BOOKMARK [2][-]{subsection.3.1.1}{Simple Example}{section.3.1}% 27
 \BOOKMARK [1][-]{section.3.2}{The Flow}{chapter.3}% 28
-\BOOKMARK [1][-]{section.3.3}{Mapping between Source and Binary Code}{chapter.3}% 29
-\BOOKMARK [1][-]{section.3.4}{Extracting Debug Information from GDB}{chapter.3}% 30
-\BOOKMARK [1][-]{section.3.5}{Data Cache Simulation}{chapter.3}% 31
-\BOOKMARK [2][-]{subsection.3.5.1}{Memory Access Reconstruction}{section.3.5}% 32
-\BOOKMARK [2][-]{subsection.3.5.2}{Annotation for Data Cache Simulation}{section.3.5}% 33
-\BOOKMARK [2][-]{subsection.3.5.3}{Implementation of Cache Simulator}{section.3.5}% 34
-\BOOKMARK [1][-]{section.3.6}{Instruction Cache Simulation}{chapter.3}% 35
-\BOOKMARK [1][-]{section.3.7}{Annotation for Execution Time in Pipeline}{chapter.3}% 36
-\BOOKMARK [1][-]{section.3.8}{Annotation for Branch Prediction}{chapter.3}% 37
-\BOOKMARK [0][-]{chapter.4}{Implementation}{}% 38
-\BOOKMARK [0][-]{chapter.5}{Results}{}% 39
-\BOOKMARK [0][-]{chapter.6}{Conclusion}{}% 40
-\BOOKMARK [0][-]{appendix*.9}{List of Figures}{}% 41
-\BOOKMARK [0][-]{appendix*.10}{List of Tables}{}% 42
+\BOOKMARK [1][-]{section.3.3}{Source Code to Intermediate Source Code}{chapter.3}% 29
+\BOOKMARK [1][-]{section.3.4}{Mapping Algorithm}{chapter.3}% 30
+\BOOKMARK [1][-]{section.3.5}{Annotation for Execution Cycles and Branch Prediction}{chapter.3}% 31
+\BOOKMARK [1][-]{section.3.6}{Extracting Debug Information from GDB}{chapter.3}% 32
+\BOOKMARK [1][-]{section.3.7}{Data Cache Simulation}{chapter.3}% 33
+\BOOKMARK [2][-]{subsection.3.7.1}{Memory Access Reconstruction}{section.3.7}% 34
+\BOOKMARK [2][-]{subsection.3.7.2}{Annotation for Data Cache Simulation}{section.3.7}% 35
+\BOOKMARK [2][-]{subsection.3.7.3}{Implementation of Cache Simulator}{section.3.7}% 36
+\BOOKMARK [1][-]{section.3.8}{Instruction Cache Simulation}{chapter.3}% 37
+\BOOKMARK [1][-]{section.3.9}{Annotation for Execution Time in Pipeline}{chapter.3}% 38
+\BOOKMARK [1][-]{section.3.10}{Annotation for Branch Prediction}{chapter.3}% 39
+\BOOKMARK [0][-]{chapter.4}{Implementation}{}% 40
+\BOOKMARK [0][-]{chapter.5}{Results}{}% 41
+\BOOKMARK [0][-]{chapter.6}{Conclusion}{}% 42
+\BOOKMARK [0][-]{appendix*.10}{List of Figures}{}% 43
+\BOOKMARK [0][-]{appendix*.11}{List of Tables}{}% 44

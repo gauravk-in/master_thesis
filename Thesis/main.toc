@@ -58,38 +58,42 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.2}The Flow}{16}{section.3.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.3}Mapping between Source and Binary Code}{17}{section.3.3}
+\contentsline {section}{\numberline {3.3}Source Code to Intermediate Source Code}{17}{section.3.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.4}Extracting Debug Information from GDB}{18}{section.3.4}
+\contentsline {section}{\numberline {3.4}Mapping Algorithm}{18}{section.3.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.5}Data Cache Simulation}{19}{section.3.5}
+\contentsline {section}{\numberline {3.5}Annotation for Execution Cycles and Branch Prediction}{20}{section.3.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5.1}Memory Access Reconstruction}{20}{subsection.3.5.1}
+\contentsline {section}{\numberline {3.6}Extracting Debug Information from GDB}{21}{section.3.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5.2}Annotation for Data Cache Simulation}{21}{subsection.3.5.2}
+\contentsline {section}{\numberline {3.7}Data Cache Simulation}{21}{section.3.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\nonumberline Global Variables}{21}{section*.5}
+\contentsline {subsection}{\numberline {3.7.1}Memory Access Reconstruction}{22}{subsection.3.7.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\nonumberline Local Variables}{22}{section*.6}
+\contentsline {subsection}{\numberline {3.7.2}Annotation for Data Cache Simulation}{23}{subsection.3.7.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\nonumberline Function Parameters}{22}{section*.7}
+\contentsline {subsubsection}{\nonumberline Global Variables}{23}{section*.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\nonumberline Register Spilling}{23}{section*.8}
+\contentsline {subsubsection}{\nonumberline Local Variables}{24}{section*.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5.3}Implementation of Cache Simulator}{23}{subsection.3.5.3}
+\contentsline {subsubsection}{\nonumberline Function Parameters}{25}{section*.8}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.6}Instruction Cache Simulation}{23}{section.3.6}
+\contentsline {subsubsection}{\nonumberline Register Spilling}{25}{section*.9}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.7}Annotation for Execution Time in Pipeline}{23}{section.3.7}
+\contentsline {subsection}{\numberline {3.7.3}Implementation of Cache Simulator}{25}{subsection.3.7.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.8}Annotation for Branch Prediction}{23}{section.3.8}
+\contentsline {section}{\numberline {3.8}Instruction Cache Simulation}{25}{section.3.8}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Implementation}{24}{chapter.4}
+\contentsline {section}{\numberline {3.9}Annotation for Execution Time in Pipeline}{25}{section.3.9}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Results}{25}{chapter.5}
+\contentsline {section}{\numberline {3.10}Annotation for Branch Prediction}{25}{section.3.10}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Conclusion}{26}{chapter.6}
+\contentsline {chapter}{\numberline {4}Implementation}{26}{chapter.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\nonumberline List of Figures}{27}{appendix*.9}
+\contentsline {chapter}{\numberline {5}Results}{27}{chapter.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\nonumberline List of Tables}{28}{appendix*.10}
+\contentsline {chapter}{\numberline {6}Conclusion}{28}{chapter.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\nonumberline List of Figures}{29}{appendix*.10}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\nonumberline List of Tables}{30}{appendix*.11}

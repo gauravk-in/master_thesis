@@ -60,40 +60,60 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.3}Source Code to Intermediate Source Code}{17}{section.3.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.4}Mapping Algorithm}{18}{section.3.4}
+\contentsline {section}{\numberline {3.4}Mapping Algorithm}{17}{section.3.4}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.5}Annotation for Execution Cycles and Branch Prediction}{20}{section.3.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.6}Extracting Debug Information from GDB}{21}{section.3.6}
+\contentsline {subsection}{\numberline {3.5.1}Branch Prediction}{20}{subsection.3.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.7}Data Cache Simulation}{21}{section.3.7}
+\contentsline {section}{\numberline {3.6}Annotation for Memory Access}{21}{section.3.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.7.1}Memory Access Reconstruction}{22}{subsection.3.7.1}
+\contentsline {subsection}{\numberline {3.6.1}Cache Simulator}{22}{subsection.3.6.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.7.2}Annotation for Data Cache Simulation}{23}{subsection.3.7.2}
+\contentsline {section}{\numberline {3.7}Instruction Cache Simulation}{23}{section.3.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\nonumberline Global Variables}{23}{section*.6}
+\contentsline {section}{\numberline {3.8}Data Cache Simulation}{23}{section.3.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.8.1}Memory Access Reconstruction}{24}{subsection.3.8.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\nonumberline Global Variables}{24}{section*.6}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\nonumberline Local Variables}{24}{section*.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\nonumberline Function Parameters}{25}{section*.8}
+\contentsline {subsubsection}{\nonumberline Dynamically Allocated Memory}{25}{section*.8}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\nonumberline Register Spilling}{25}{section*.9}
+\contentsline {subsubsection}{\nonumberline Pointers as Function Parameters}{25}{section*.9}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.7.3}Implementation of Cache Simulator}{25}{subsection.3.7.3}
+\contentsline {section}{\numberline {3.9}Extracting Debug Information from GDB}{25}{section.3.9}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.8}Instruction Cache Simulation}{25}{section.3.8}
+\contentsline {section}{\numberline {3.10}Data Cache Simulation}{26}{section.3.10}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.9}Annotation for Execution Time in Pipeline}{25}{section.3.9}
+\contentsline {subsection}{\numberline {3.10.1}Memory Access Reconstruction}{27}{subsection.3.10.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.10}Annotation for Branch Prediction}{25}{section.3.10}
+\contentsline {subsection}{\numberline {3.10.2}Annotation for Data Cache Simulation}{28}{subsection.3.10.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Implementation}{26}{chapter.4}
+\contentsline {subsubsection}{\nonumberline Global Variables}{28}{section*.10}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Results}{27}{chapter.5}
+\contentsline {subsubsection}{\nonumberline Local Variables}{29}{section*.11}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Conclusion}{28}{chapter.6}
+\contentsline {subsubsection}{\nonumberline Function Parameters}{29}{section*.12}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\nonumberline List of Figures}{29}{appendix*.10}
+\contentsline {subsubsection}{\nonumberline Register Spilling}{29}{section*.13}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\nonumberline List of Tables}{30}{appendix*.11}
+\contentsline {subsection}{\numberline {3.10.3}Implementation of Cache Simulator}{29}{subsection.3.10.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.11}Instruction Cache Simulation}{29}{section.3.11}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.12}Annotation for Execution Time in Pipeline}{29}{section.3.12}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.13}Annotation for Branch Prediction}{29}{section.3.13}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Implementation}{30}{chapter.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Results}{31}{chapter.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {6}Conclusion}{32}{chapter.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\nonumberline List of Figures}{33}{appendix*.14}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\nonumberline List of Tables}{34}{appendix*.15}

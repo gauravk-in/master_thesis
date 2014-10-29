@@ -1,17 +1,17 @@
-\beamer@endinputifotherversion {3.24pt}
+\beamer@endinputifotherversion {3.33pt}
 \beamer@sectionintoc {1}{Introduction}{3}{0}{1}
 \beamer@subsectionintoc {1}{1}{Simulation}{3}{0}{1}
-\beamer@subsectionintoc {1}{2}{Focus}{5}{0}{1}
-\beamer@subsectionintoc {1}{3}{Related Work}{6}{0}{1}
-\beamer@subsectionintoc {1}{4}{Host Compiled Simulation}{7}{0}{1}
-\beamer@sectionintoc {2}{Simple Example}{8}{0}{2}
-\beamer@sectionintoc {3}{Timing Estimation}{12}{0}{3}
-\beamer@subsectionintoc {3}{1}{Mapping between Source and Binary}{12}{0}{3}
-\beamer@subsectionintoc {3}{2}{Annotation for Cycles spent in Pipeline}{19}{0}{3}
-\beamer@subsectionintoc {3}{3}{Cache Simulation}{26}{0}{3}
-\beamer@subsectionintoc {3}{4}{Instruction Cache Simulation}{28}{0}{3}
-\beamer@subsectionintoc {3}{5}{Data Cache Simulation}{29}{0}{3}
-\beamer@sectionintoc {4}{Power Estimation}{37}{0}{4}
-\beamer@sectionintoc {5}{Conclusion}{39}{0}{5}
-\beamer@subsectionintoc {5}{1}{Test Setup}{39}{0}{5}
-\beamer@subsectionintoc {5}{2}{Results}{40}{0}{5}
+\beamer@subsectionintoc {1}{2}{Focus}{4}{0}{1}
+\beamer@subsectionintoc {1}{3}{Host Compiled Simulation}{5}{0}{1}
+\beamer@sectionintoc {2}{Simple Example}{6}{0}{2}
+\beamer@sectionintoc {3}{Timing Estimation}{10}{0}{3}
+\beamer@subsectionintoc {3}{1}{Mapping between Source and Binary}{10}{0}{3}
+\beamer@subsectionintoc {3}{2}{Annotation for Cycles spent in Execution}{18}{0}{3}
+\beamer@subsectionintoc {3}{3}{Cache Simulation}{25}{0}{3}
+\beamer@subsectionintoc {3}{4}{Instruction Cache Simulation}{27}{0}{3}
+\beamer@subsectionintoc {3}{5}{Data Cache Simulation}{28}{0}{3}
+\beamer@sectionintoc {4}{Power Estimation}{34}{0}{4}
+\beamer@sectionintoc {5}{Conclusion}{37}{0}{5}
+\beamer@subsectionintoc {5}{1}{Limitations}{37}{0}{5}
+\beamer@subsectionintoc {5}{2}{Test Setup}{38}{0}{5}
+\beamer@subsectionintoc {5}{3}{Results}{39}{0}{5}

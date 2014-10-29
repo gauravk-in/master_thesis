@@ -1,0 +1,17 @@
+\frametitle{Annotation of Memory Access}
+To find the line in source code, which causes the memory access operation,
+\begin{itemize}
+\item Each line is parsed using a custom C Parser.
+\item Index information is extracted.
+\item Annotation as follows.
+\end{itemize}
+\begin{lstlisting}
+...
+for (i=0; i < 100; i++) {
+    sum += globalVar[i];
+    @1memAccessCycles += simDCache ( globalVar_addr + i * 4, True );@
+}
+localVar = sum / 100;
+@1memAccessCycles += simDCache ( SP + localVar_addr, False );@
+...
+\end{lstlisting}

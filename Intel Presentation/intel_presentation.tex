@@ -872,16 +872,21 @@ Target System is divided into components as follows
 \section{Conclusion}
 
 \subsection{Test Setup}
+\begin{frame}
+\frametitle{Test Setup}
 For testing, ARM Cortex A5 core was used. Results from ARM Performance Measurement Unit were compared.
 \begin{itemize}
 \item Number of Cache Misses.
 \item Total Cycles.
 \end{itemize}
 Accurate Prediction of Cache Misses, will verify the correctness of the instrumentation.
+\end{frame}
 
+\subsection{Results}
 \begin{frame}
 \frametitle{ADPCM Benchmark}
 \begin{table}[b]
+\fontsize{7}{9}\selectfont
 \centering
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -893,25 +898,28 @@ Total Cycles & 46110394 & 45594862 & 99.98\% \\
 \end{tabular}
 \end{table}
 \begin{figure}
-\includegraphics[width=150pt]{figures/adpcm_power_10000.png}
+\vspace*{-20pt}
+\includegraphics[width=200pt]{figures/adpcm_power_10000.png}
 \end{figure}
 \end{frame}
 
 \begin{frame}
 \frametitle{Sieve Benchmark}
 \begin{table}[b]
+\fontsize{7}{9}\selectfont
 \centering
 \begin{tabular}{|c|c|c|c|}
 \hline
     & HCS & Actual & Accuracy \\
 \hline
-Total Cache Miss & 91452 & 91604 & 99.99\% \\
-Total Cycles & 46110394 & 45594862 & 99.98\% \\
+Total Cache Miss & 933109 & 934250 & 99.88\% \\
+Total Cycles & 99068687 & 100403731 & 98.67\% \\
 \hline
 \end{tabular}
 \end{table}
 \begin{figure}
-\includegraphics[width=150pt]{figures/sieve_power_100000.png}
+\vspace*{-20pt}
+\includegraphics[width=200pt]{figures/sieve_power_100000.png}
 \end{figure}
 \end{frame}
 

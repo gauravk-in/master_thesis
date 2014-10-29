@@ -102,10 +102,13 @@
 \headcommand {\beamer@subsectionentry {0}{5}{1}{39}{Test Setup}}\headcommand {\beamer@subsectionpages {39}{38}}
 \headcommand {\slideentry {5}{1}{1}{39/39}{Test Setup}{0}}
 \headcommand {\beamer@framepages {39}{39}}
-\headcommand {\slideentry {5}{1}{2}{41/41}{Test Setup}{0}}
+\headcommand {\beamer@subsectionentry {0}{5}{2}{40}{Results}}\headcommand {\beamer@subsectionpages {39}{39}}
+\headcommand {\slideentry {5}{2}{1}{40/40}{Results}{0}}
+\headcommand {\beamer@framepages {40}{40}}
+\headcommand {\slideentry {5}{2}{2}{41/41}{Results}{0}}
 \headcommand {\beamer@framepages {41}{41}}
 \headcommand {\beamer@partpages {1}{41}}
-\headcommand {\beamer@subsectionpages {39}{41}}
+\headcommand {\beamer@subsectionpages {40}{41}}
 \headcommand {\beamer@sectionpages {39}{41}}
 \headcommand {\beamer@documentpages {41}}
-\headcommand {\def \inserttotalframenumber {40}}
+\headcommand {\def \inserttotalframenumber {41}}

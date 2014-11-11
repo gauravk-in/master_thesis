@@ -2,16 +2,15 @@
 
 \section{Simulation}
 
-Simulation is the technique to imitate the behaviour of a system. It is generally used when developing or working with the real system is expensive or difficult. 
+Simulation is the technique to imitate the operation of a real or abstract system. A model is created which represents the key characteristics and behaviour of the system. This model is then operated to analyse how the system will behave in various situations over time. Simulation has proved useful when working with the real system or developing an abstract system is difficult or expensive.
 
-Simulation is widely used in Hardware Software Co-development. The behaviour of a processor is simulated, and benchmarking applications are run. It allows Hardware Developers to analyse and validate the performance impacts of design decisions at early stage of hardware development. This saves the crucial effort and cost involved in the painstaking process of fabricating hardware at each milestone.
+Simulation is widely used in Hardware Software Co-development. In early stages of development, hardware engineers want to analyse in detail the impact of design decisions on performance of the overall system. Fabrication of hardware at each milestone is time-consuming and expensive. Instead, a model of the processor is created and benchmarking applications are run on these models.
 
-The popular approach used for simulation in the industry today is called \gls{cas}. In \gls{cas} the processor micro-architecture is simulated in great detail. Each stage of processor pipeline is simulated along with other building blocks of the processor like Cache Memory and Branch Prediction Units. This approach provides cycle accurate estimates of performance. However, \gls{cas} is difficult to develop and slow to execute because of the amount of details that are simulated. Long running software benchmarks are used to accurately estimate bottlenecks in the system, and \gls{cas} is not suited for this due to the slow execution speed.
+The popular approach used for simulation is called \gls{cas}. In \gls{cas} the processor micro-architecture is modelled in great detail. Each stage of processor pipeline is simulated along with other building blocks of the processor like Cache Memory and Branch Prediction Units. This approach provides cycle accurate estimates of performance. However, \gls{cas} is difficult to develop and slow to execute because of the amount of details that are taken into consideration. For analysing bottlenecks, long-running benchmark applications need to be executed. \gls{cas} is not suited for such use-cases due to the slow execution speeds.
 
-In this research, a technique for fast simulation of processors has been explored. The aim is to extract accurate estimate of number of cycles spent and power consumed by a processor in running a software benchmark. 
+In this research, a technique to accelerate performance benchmarking of micro-processors has been explored.
 
 \section{Related Work}
-Research in this area has focussed on following approaches.
 
 \subsection{Sampling Based Approach}
 Sampling is an approach used in statistical analysis. Small, yet representative samples are chosen from a vast amount of data. These samples are analysed in detail, and the results are interpolated to gather information about the entire data set.
@@ -36,11 +35,11 @@ If the number of cycles spent in each of these phases can be accurately estimate
 \section{Focus}
 The focus in this research is to develop a tool to perform Host Compiled Simulation of a processor. The tool should be able to automatically instrument a given source code. The instrumented source code will be compiled and run, and accurate estimates of the performance will be reported.
 
-\section{Thesis Outline}
-\textbf{Chapter 2} covers some basic background knowledge that will be helpful in understanding the project. This chapter can be skipped by the knowledgeable readers. References to appropriate sections of the chapter is provided in the next chapters. The readers may choose to revisit these concepts if needed.
-
-\textbf{Chapter 3} presents an overview of the technique. A flow chart explaining the approach is described and the challenges in each stage are briefly illustrated using examples.
-
-\textbf{Chapter 4} deeply explains each stage of the technique in further detail. The challenges, and how they are tackled is discussed. It also sheds some light into the limitations of the tool and how it can be enhanced.
-
-\textbf{Chapter 5} presents a deep analysis of the results. The test setup is explained, and the accuracy of results from this technique is demonstrated.
+%\section{Thesis Outline}
+%\textbf{Chapter 2} presents the technique of Host Compiled Simulation from a general perspective. 
+%
+%\textbf{Chapter 3} delves into details about implementation of each step. Platform specific details have also been discussed.
+%
+%\textbf{Chapter 4} presents an analysis of the test results. 
+%
+%\textbf{Chapter 5} provides hints for future contribution and conclusion.

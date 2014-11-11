@@ -13,7 +13,7 @@
 \input{glossary/acronyms}
 
 \addtolength{\topmargin}{-.3in}
-\setlength{\textheight}{620pt}
+\setlength{\textheight}{640pt}
 
 % Vertical space between paragraphs, and no indent space.
 %http://tex.stackexchange.com/questions/49188/how-to-insert-vertical-space-between-paragraphs
@@ -28,6 +28,11 @@
 
 \lstset{frame=single,
   language=C,
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  autogobble,
+  keywordstyle=\bfseries\color{MediumBlue},
+  stringstyle=\color{DarkGreen},
   aboveskip=3mm,
   belowskip=3mm,
   showstringspaces=false,
@@ -41,9 +46,9 @@
   breakatwhitespace=true,
   tabsize=4,
   captionpos=b,
-	escapeinside={(*@}{@*)},
-	moredelim=**[is][\btHL]{`}{`},
-	    moredelim=**[is][{\btHL[fill=green!30,draw=red,dashed,thin]}]{@}{@}
+  escapeinside={(*@}{@*)},
+  moredelim=**[is][{\btHL[fill=green!30,draw=red,dashed,thin]}]{`}{`}
+%	    moredelim=**[is][{\btHL[fill=green!30,draw=red,dashed,thin]}]{@}{@}
 }
 
 \input{pages/cover}
@@ -62,7 +67,7 @@
 
 %\input{chapters/outline}
 \input{chapters/introduction}
-\input{chapters/background}
+%\input{chapters/background}
 \input{chapters/hostCompiledSimulation}
 \input{chapters/implementation}
 \input{chapters/results}

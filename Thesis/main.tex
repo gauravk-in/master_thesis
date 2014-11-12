@@ -13,7 +13,11 @@
 \input{glossary/acronyms}
 
 \addtolength{\topmargin}{-.3in}
-\setlength{\textheight}{640pt}
+\setlength{\footskip}{30pt}
+\setlength{\textheight}{660pt}
+
+
+\setlength{\skip\footins}{.5cm}
 
 % Vertical space between paragraphs, and no indent space.
 %http://tex.stackexchange.com/questions/49188/how-to-insert-vertical-space-between-paragraphs
@@ -47,7 +51,7 @@
   tabsize=4,
   captionpos=b,
   escapeinside={(*@}{@*)},
-  moredelim=**[is][{\btHL[fill=green!30,draw=red,dashed,thin]}]{`}{`}
+  moredelim=**[is][{\btHL}]{`}{`}
 %	    moredelim=**[is][{\btHL[fill=green!30,draw=red,dashed,thin]}]{@}{@}
 }
 
@@ -84,6 +88,9 @@
 \listoffigures{}
 \listoftables{}
 \microtypesetup{protrusion=true}
-\printbibliography{}
+%\printbibliography{}
+
+\bibliography{main}
+\bibliographystyle{plain}
 
 \end{document}

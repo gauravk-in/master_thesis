@@ -1,16 +1,16 @@
 \chapter{Host Compiled Simulation}
 
-\gls{hcs} is based on the approach of Source Code Instrumentation (SCI). Instrumentation is the technique to modify the source code of an application, so as to extract trace information during run-time. In \gls{hcs}, the source code is instrumented to estimate the time spent in executing the application on a particular target processor. 
+\gls{hcs} is based on the approach of Source Code Instrumentation (SCI). Instrumentation is the technique to modify the source code of an application, in order to extract debug or trace information at run-time. In \gls{hcs}, the source code is instrumented to estimate the time spent in executing the application on a particular target processor. 
 
 When an application is run on a processor, most of the time is spent in following phases.
 \begin{itemize} \itemsep -6pt
 \item Execution of instructions.
-\item Fetching Data from memory, while the execution is stalled.
+\item Fetching Data from memory.
 \end{itemize}
 
 The technique is based on the assumption, that number of cycles spent in each phase of the execution can be accurately predicted using instrumentation. The trace generated from the run-time can be used for estimating the power consumption.
 
-The information generated is useful for architects to analyse the impact of design decisions on performance and power consumption of the system. In comparison to popular techniques like \gls{cas}, \gls{hcs} is easier to develop and fast to execute. This greatly optimizes the design space exploration effort.
+The information generated is useful for architects to analyse the impact of design decisions on performance and power consumption of the system. In comparison to popular techniques like Cycle Accurate Simulation (CAS), \gls{hcs} is easier to develop and fast to execute. This greatly optimizes the design space exploration effort.
 
 In this chapter, the concept of \gls{hcs} is illustrated using a simplified example. The steps involved in performing \gls{hcs} are outlined. Further, an overview of each step is provided. Detailed implementation of each step has been discussed in the next chapter.
 
@@ -18,7 +18,7 @@ In this chapter, the concept of \gls{hcs} is illustrated using a simplified exam
 
 Consider the source code in Listing \ref{lst:sumCCode}. The function \emph{sum} calculates the sum of elements in an array and returns the result. The source code is cross-compiled for a target processor\footnote{Target processor is the processor that is being simulated.}. Listing \ref{lst:sumObjCode} shows the object dump of the binary code. 
 
-To estimate the time spent in executing this code on the target processor, the code will be instrumented. The instrumented code is shown in Listing \ref{lst:sumInstCode}, where the annotations are highlighted. The instrumented code then compiled for and run on the host machine\footnote{Host Machine is the computer used by the developer, where the simulation will be run.}.
+To estimate the time spent in executing this code on the target processor, the code is instrumented. The instrumented code is shown in Listing \ref{lst:sumInstCode}, where the annotations are highlighted. The instrumented code is then compiled for and run on the host machine\footnote{Host Machine is the computer used by the developer, where the simulation will be run.}. This process is called Host Compiled Simulation. Let us look at each annotation in the code.
 
 \vspace*{10pt}
 \begin{minipage}{0.5\textwidth}
@@ -98,7 +98,7 @@ For accurate instrumentation, mapping  at basic block\footnote{Basic Block is a 
 \end{center}
 \end{table}
 
-Time spent in executing the instructions needs to be accounted. For simplicity, let us assume that the target processor executes each instruction in one cycle, and there is no latency in accessing memory. With these assumptions, the number of cycles spent in execution of each basic block can be estimated by static analysis. Each basic block is annotated as seen on lines 8, 15 and 19 to accumulate the total cycles spent in the global variable \emph{execCycles}.
+Time spent in executing the instructions needs to be accounted. For simplicity, let us assume that the target processor executes each instruction in one cycle, and there is no latency in accessing memory. The number of cycles spent in execution of each basic block can be estimated by static analysis. Each basic block is annotated as seen on lines 8, 15 and 19 to accumulate the total cycles spent in the global variable \emph{execCycles}.
 
 To accurately account for the cycles spent in accessing memory, the cache-hierarchy on the target processor needs to be simulated at run-time. Each load/store operation in the binary code is identified. Annotation is added to the source code to simulate the load/store operation. The cache simulator offers the API \emph{simDCache} to simulate data access. It takes as parameter the \emph{address} of the data and a \emph{flag} to tell whether it is a read or write access. The cycles spent in performing the memory access is returned.
 
@@ -108,7 +108,7 @@ The cycles spent in fetching instructions from the memory must also be accounted
 
 This instrumented code is compiled for and run on the Host Machine. The values of \emph{execCycles} and \emph{memAccessCycles} are delivered at the end. 
 
-The following sections will build upon this basic concept. Modern processors are more complicated than the target processor used for this illustration. The features of the modern processors will need to be simulated in sufficient detail to extract accurate estiamtes of performance.
+The following sections will build upon this basic concept. Modern processors are more complicated than the target processor used for this illustration. The features of the modern processors will need to be simulated in sufficient detail to extract accurate estimates of performance.
 
 \section{The Flow}
 
@@ -116,7 +116,7 @@ Figure \ref{fig:hcsFlowChart} shows a flow-chart depicting the stages involved i
 
 \begin{figure}[h!]
 \center
-\includegraphics[width=.75\textwidth]{figures/HCS_FlowChart.pdf}
+\includegraphics[width=.9\textwidth]{figures/HCS_FlowChart.pdf}
 \caption{Flow Chart}
 \label{fig:hcsFlowChart}
 \end{figure}
@@ -138,28 +138,58 @@ The compiler performs these optimizations in two stages. The front-end of the co
 
 The optimized IR Code has a control flow similar to that of the Binary Code, since front-end optimization strategies have already been applied. It should be comparatively easier to perform mapping between the IR Code and the Binary Code. However, instrumentation of IR Code is difficult as it is in the GIMPLE format. 
 
-In this project, the source code of the benchmark application is cross-compiled, and the optimized IR Code is translated back into a high-level language, C. The generated code is called \gls{isc}. The code to convert GIMPLE code to C code has been reused from [TODO].
+In this project, the source code of the benchmark application is cross-compiled, and the optimized IR Code is translated back into a high-level language, C. The generated code is called \gls{isc}. The code to convert GIMPLE code to C code has been reused from \cite{RBA2013}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.9\textwidth]{figures/ir2cConversion.pdf}
+\caption{Conversion of Source Code to Intermediate Source Code}
+\label{fig:ir2cConversion}
+\end{figure}
 
 Extracting mapping between \gls{isc} and binary code is comparatively easier. This is aided by the fact that \gls{isc} is easier to parse, as it uses simple \emph{if-else} constructs and \emph{goto} commands to implements loops. \gls{isc} is fairly easy to read and understand for the developer. Instrumentation is performed to the \gls{isc}. 
 
 To aid understanding, the ISC will be referred to as the source code in further sections.
 
 \section{Mapping between ISC and Binary Code}
-Even between \gls{isc} and Binary Code, the control flow is significantly different. This is because processor dependent optimizations are not included in the ISC. Modern processors provide complex optimization features. These optimizations are processor-dependent and can only be performed by the compiler back-end.
+Even between \gls{isc} and Binary Code, the control flow is significantly different. This is because processor dependent optimizations are not included in the ISC. Modern processors offer complex optimization features. These features are processor-dependent and can only be utilized by the compiler back-end.
 
-GDB provides mapping information, but this has been observed to be highly inaccurate. To perform accurate mapping, the \gls{cfg}\footnote{Control Flow Graph is a graph representing flow of control among basic blocks in the code. The nodes represent basic blocks, and the edges represent the possible flow of execution.} of \gls{isc} and binary code are compared using a mapping algorithm.
+Compiler optimizes code by moving instructions around. Sometimes new blocks will be created in the Binary Code. Using predication or conditional execution, the compiler may try to eliminate branching instructions. Blocks will be merged in doing so. A complete one to one mapping between basic blocks may often not exist. The mapping algorithm must take this into account, and find a mapping such that each basic block in the binary code maps to a basic block in the source code.
 
-The mapping algorithm is based on the standard Graph Matching Algorithm using recursive Depth First Traversal. It is augmented to take into consideration difference in Control Flow that occur due to various compiler optimizations. Each optimization strategy needs to be handled. Handling of one such optimization strategy has been briefly discussed in section \ref{subsec:CondExec}.
+GDB provides mapping information, but was observed to be highly inaccurate. To perform accurate mapping, complex techniques have been proposed based on analysis of Data and Control Flow. In this project, the Control Flow Graphs (CFGs)\footnote{Control Flow Graph is a graph representing flow of control among basic blocks in the code. The nodes represent basic blocks, and the edges represent the possible flow of execution.} of \gls{isc} and binary code are analysed using a mapping algorithm. The approach is inspired from \cite{RBA2013}.
+
+The mapping algorithm is based on the standard Graph Matching Algorithm using recursive Depth First Traversal. CFGs are extracted by parsing the source code and the binary code. To assist in mapping, a \textit{flow} value is calculated for each node in the graphs. The \textit{flow} value for a node is the sum of the \textit{flows} of the incoming edges to the node, which in turn is equally divided among the outgoing edges. The \textit{flow} value of the root node is 1. Only nodes with equal flow value can be mapped to each other.
+
+The mapping algorithm is implemented as a recursive function, which takes as parameters two nodes from the CFGs of the source code and the binary code. The pseudo code is presented below. 
+
+% http://tex.stackexchange.com/questions/163768/write-pseudo-code-in-latex
+
+\begin{algorithm}[h!]
+\caption{CFG Mapping Algorithm}\label{euclid}
+\begin{algorithmic}[1]
+\Function{Mapping}{BB\_src, BB\_bin}
+\If {\textit{flow}(BB\_src) != \textit{flow}(BB\_bin)} \Return false
+\EndIf
+\If {(BB\_src, BB\_bin) $\in$ MatchingDict} \Return true
+\EndIf
+\State // Check for effects due to Compiler Optimization here
+\State Succ\_src = \textit{Succ}(BB\_src)
+\State Succ\_bin = \textit{Succ}(BB\_bin)
+
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+It is augmented to take into consideration effects that may occur due to each compiler optimizations. 
 
 \subsection{Handling of Conditional Execution Optimization}
 \label{subsec:CondExec}
 Conditional Execution or Branch Predication is a feature supported in some Instruction Set Architectures to mitigate the cost associated with conditional branching. Consider the following example to understand the performance impact of this feature.
 
-Listing \ref{lst:cIfElse} shows a simple \emph{if-then-else} construct written in C. The code checks if \emph{a} is greater than \emph{b}. If true, the value of \emph{a} is assigned to \emph{max}, else the value of \emph{b} is assigned to \emph{max}. Listing \ref{lst:objIfElse} is representative of how the assembly code may look like without any optimization.
+Example \ref{ex:cIfElse} shows a simple \emph{if-then-else} construct written in C. The code checks if \emph{a} is greater than \emph{b}. If true, the value of \emph{a} is assigned to \emph{max}, else the value of \emph{b} is assigned to \emph{max}. Example \ref{ex:objIfElse} is representative of how the assembly code may look like without any optimization.
 
-\begin{center}
-\begin{minipage}{0.7\textwidth}
-\begin{lstlisting}[caption={Example C Code},label={lst:cIfElse}][h]
+\begin{Example}[h]
+\begin{lstlisting}
 int max(int a, int b)
 {
     int ret;
@@ -170,12 +200,12 @@ int max(int a, int b)
     return ret;
 }
 \end{lstlisting}
-\end{minipage}
-\end{center}
-\vspace*{-30pt}
-\begin{center}
-\begin{minipage}{0.7\textwidth}
-\begin{lstlisting}[caption={Unoptimized Object Code},label={lst:objIfElse}]
+\caption{Example C Code}
+\label{ex:cIfElse}
+\end{Example}
+
+\begin{Example}[h]
+\begin{lstlisting}
 00008068 <max>:
     8068:       cmp     r1, r0
     806c:       ble     8078   
@@ -184,34 +214,33 @@ int max(int a, int b)
     8078:       mov     r0, r0
     807c:       bx      lr
 \end{lstlisting}
-\end{minipage}
-\end{center}
-\vspace*{-15pt}
+\caption{Unoptimized Object Code}
+\label{ex:objIfElse}
+\end{Example}
 
 Instructions take more than one cycle to execute. To improve throughput, execution unit in almost all processors is implemented as a multi-stage pipeline. Instructions are fed into the pipeline and executed in parallel.
 
-The \emph{cmp} instruction on line 2 in Listing \ref{lst:ObjIfElse} is fetched. While it is being decoded in the next stage of the pipeline, the branch instruction on line 3 has been fetched. Depending on the result of the compare instruction, the branch will be taken or not taken. Since the result of the compare instruction is not known, the processor predicts the next instruction to load into the pipeline.
+The \emph{cmp} instruction on line 2 in Listing \ref{ex:objIfElse} is fetched by the first stage of the pipeline. While it is being decoded in the next stage of the pipeline, the branch instruction on line 3 has been fetched. Depending on the result of the compare instruction, the branch will be taken or not taken. The result of the compare instruction has not yet been evaluated. The processor cannot know with certainty which instruction to fetch after the branch instruction.
 
-By assuming that the branch will not be taken, the processor loads the \emph{mov} instruction on line 4. However, if the prediction is incorrect the pipeline must be flushed and \emph{mov} instruction on line 6 must be executed next. The pipeline flush leads to loss of multiple clock cycles.
+By assuming that the branch will not be taken, the processor fetches the \emph{mov} instruction on line 4. However, if the prediction is incorrect the pipeline must be flushed and \emph{mov} instruction on line 6 must be executed next. The pipeline flush leads to loss of multiple clock cycles.
 
-This loss can be reduced by using Conditional Execution, when supported by the architecture. Each instruction can be predicated with a condition. The instruction is executed in the pipeline, but the result is only written back (or committed) if the condition evaluates to true. Only one clock cycle is wasted, when the condition evaluates to false. The optimized binary code is as shown in Listing \ref{lst:objOptimizedIfElse}.
+This loss can be reduced by using Conditional Execution, when supported by the architecture. Each instruction can be predicated with a condition. The instruction is executed in the pipeline, but the result is only written back (or committed) if the condition evaluates to true. A few clock cycles can be saved if the length of the conditionally executed block is small. The optimized binary code is as shown in Example \ref{ex:objOptimizedIfElse}.
 
-\begin{center}
-\begin{minipage}{0.7\textwidth}
-\begin{lstlisting}[caption={Optimized Object Code},label={lst:objOptimizedIfElse}]
+\begin{Example}[h]
+\begin{lstlisting}
 00008068 <max>:
     8068:       cmp     r1, r0
     806c:       movge   r0, r1
     8070:       movlt   r0, r0
     8074:       bx      lr
 \end{lstlisting}
-\end{minipage}
-\end{center}
-\vspace*{-15pt}
+\caption{Optimized Object Code}
+\label{ex:objOptimizedIfElse}
+\end{Example}
 
-Since the branching instructions are eliminated, the code in Listing \ref{lst:objOptimizedIfElse} will be treated as a single basic block. The control flow graphs for the given source code, and the unoptimized binary code have been represented in figures \ref{fig:cfgSrc} and \ref{fig:cfgUnopt}. They are similar, and hence easy to map. Figure \ref{fig:cfgOpt} shows the Control Flow Graph of the optimized binary code. As expected, it is a single block. 
+Since the branching instructions are eliminated, the code in Example \ref{ex:objOptimizedIfElse} will be treated as a single basic block. The control flow graphs for the given source code, and the unoptimized binary code have been represented in figures \ref{fig:cfgSrc} and \ref{fig:cfgUnopt}. They are similar, and hence easy to map. Figure \ref{fig:cfgOpt} shows the Control Flow Graph of the optimized binary code. As expected, it is a single block. 
 
-Similarly, other optimization strategies may modify the Control Flow. To map the Control Flow Graphs, special handling has been done for each optimization strategy used by the compiler. Additionally, mapping information from GDB is used in corner cases.
+In such case, all four blocks in the source code should be mapped to the block in the optimized binary code. Occurrence of Conditional Execution instructions in a basic block is identified, and marked in the \gls{cfg} 
 
 \begin{figure}[h!]
 \centering
@@ -238,10 +267,6 @@ Similarly, other optimization strategies may modify the Control Flow. To map the
 \end{subfigure}
 \caption{Control Flow Graphs}
 \end{figure}
-
-\subsection{Mapping Algorithm}
-
-
 
 \section{Annotation for Execution Cycles}
 The annotation for number of cycles spent in execution of the instructions is done at a basic block granularity. A global variable \emph{execCycles} is declared. Cycles spent in executing each basic block in the binary code is estimated and annotated in the mapped basic block in source code. On entering the basic block, the annotated cycles for the block are added to \emph{execCycles}.

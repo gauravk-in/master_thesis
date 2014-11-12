@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.23)  18 OCT 2014 23:57
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.23)  11 NOV 2014 22:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1509,8 +1509,7 @@ Package biblatex Info: ... file 'english.lbx' found.
 
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/lbx/english.lbx
 File: english.lbx 2013/11/25 v2.8a biblatex localization (PK/JW/AB)
-))
-No file main.aux.
+)) (./main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
@@ -1528,7 +1527,7 @@ LaTeX Font Info:    ... okay on input line 15.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 15.
 LaTeX Font Info:    ... okay on input line 15.
 LaTeX Font Info:    Try loading font information for T1+pplx on input line 15.
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pplx.fd
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pplx.fd
 File: t1pplx.fd 2004/09/06 font definitions for T1/pplx.
 )
 Package nag Info: pgf.sty is broken: disabling dollar check on input line 15.
@@ -1542,11 +1541,11 @@ Package biblatex Info: Automatic encoding selection.
 \openout3 = `main.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'main.bbl' not found.
-
-No file main.bbl.
+Package biblatex Info: ... file 'main.bbl' found.
+ (./main.bbl)
 Package biblatex Info: Reference section=0 on input line 15.
 Package biblatex Info: Reference segment=0 on input line 15.
+
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count356
@@ -1618,6 +1617,8 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 15.
 LaTeX Info: Redefining \pageref on input line 15.
 LaTeX Info: Redefining \nameref on input line 15.
+
+(./main.out) (./main.out)
 \@outlinefile=\write8
 \openout8 = `main.out'.
 
@@ -1629,35 +1630,19 @@ Dictionary: glossaries-dictionary, Language: English
 Package nag Info: Command \hc@caption not defined, skipping amendment on input 
 line 15.
  (./pages/cover.tex
-
-! LaTeX Error: File `logos/tum' not found.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.13   \includegraphics[width=40mm]{logos/tum}
-                                              
-I could not locate the file with any of these extensions:
-.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPEG,.JBIG2,.JB2,.eps
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
+<logos/tum.pdf, id=43, 54.2025pt x 29.10875pt>
+File: logos/tum.pdf Graphic file (type pdf)
+ <use logos/tum.pdf>
+Package pdftex.def Info: logos/tum.pdf used on input line 13.
+(pdftex.def)             Requested size: 113.81102pt x 61.12839pt.
 LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <20.74> not available
 (Font)              Font shape `T1/pplx/b/n' tried instead on input line 25.
 
-! LaTeX Error: File `logos/faculty' not found.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.31   \includegraphics[width=20mm]{logos/faculty}
-                                                  
-I could not locate the file with any of these extensions:
-.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPEG,.JBIG2,.JB2,.eps
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+<logos/faculty.pdf, id=44, 30.1125pt x 33.12375pt>
+File: logos/faculty.pdf Graphic file (type pdf)
+ <use logos/faculty.pdf>
+Package pdftex.def Info: logos/faculty.pdf used on input line 31.
+(pdftex.def)             Requested size: 56.9055pt x 62.60217pt.
 
 [1
 
@@ -1665,22 +1650,14 @@ If that doesn't work, type  X <return>  to quit.
 
 
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]) (./pages/title.tex
-
-! LaTeX Error: File `logos/tum' not found.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.5   \includegraphics[width=40mm]{logos/tum}
-                                             
-I could not locate the file with any of these extensions:
-.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPEG,.JBIG2,.JB2,.eps
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./logos/tum.pdf> <./logos/
+faculty.pdf>]) (./pages/title.tex
+File: logos/tum.pdf Graphic file (type pdf)
+ <use logos/tum.pdf>
+Package pdftex.def Info: logos/tum.pdf used on input line 5.
+(pdftex.def)             Requested size: 113.81102pt x 61.12839pt.
 LaTeX Font Info:    Try loading font information for OT1+pplx on input line 23.
+
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pplx.fd
 File: ot1pplx.fd 2004/09/06 font definitions for OT1/pplx.
@@ -1713,30 +1690,20 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             `zplm' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
+File: logos/faculty.pdf Graphic file (type pdf)
 
-
-! LaTeX Error: File `logos/faculty' not found.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.31   \includegraphics[width=20mm]{logos/faculty}
-                                                  
-I could not locate the file with any of these extensions:
-.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPEG,.JBIG2,.JB2,.eps
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-[1
+<use logos/faculty.pdf>
+Package pdftex.def Info: logos/faculty.pdf used on input line 31.
+(pdftex.def)             Requested size: 56.9055pt x 62.60217pt.
+ [1
 
 
 
-]) (./pages/disclaimer.tex [2]) (./pages/acknowledgements.tex [3
+]) (./pages/disclaimer.tex [2])
+(./pages/acknowledgements.tex [3
 
 
-])
-(./pages/abstract.tex
+]) (./pages/abstract.tex
 LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/pplx/b/n' tried instead on input line 1.
 ) [4
@@ -1747,10 +1714,12 @@ LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <10.95> not available
 ]
 Package tocbasic Info: character protrusion at toc deactivated on input line 26
 .
+ (./main.toc)
 \tf@toc=\write9
 \openout9 = `main.toc'.
 
- [5
+
+[5
 
 
 ] (./chapters/introduction.tex
@@ -1762,40 +1731,13 @@ LaTeX Warning: Citation 'latex' on page 1 undefined on input line 4.
 
 LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <12> not available
 (Font)              Font shape `T1/pplx/b/n' tried instead on input line 6.
-
-LaTeX Warning: Reference `fig:sample' on page 1 undefined on input line 7.
-
-
-! LaTeX Error: File `logos/tum' not found.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.11   \includegraphics{logos/tum}
-                                  
-I could not locate the file with any of these extensions:
-.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPEG,.JBIG2,.JB2,.eps
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: Reference `tab:sample' on page 1 undefined on input line 17.
-
-
-LaTeX Warning: Reference `fig:sample-drawing' on page 1 undefined on input line
- 17.
-
-
-LaTeX Warning: Reference `fig:sample-plot' on page 1 undefined on input line 17
-.
-
-
-LaTeX Warning: Reference `fig:sample-listing' on page 1 undefined on input line
- 17.
-
+File: logos/tum.pdf Graphic file (type pdf)
+<use logos/tum.pdf>
+Package pdftex.def Info: logos/tum.pdf used on input line 11.
+(pdftex.def)             Requested size: 54.20236pt x 29.10867pt.
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
+
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2013/08/26 1.5b listings language file
 )
@@ -1817,8 +1759,8 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.38 \printglossaries
-                     {} [1
+l.41 \listoffigures
+                   {} [1
 
 
 
@@ -1828,6 +1770,7 @@ LaTeX Font Info:    Font shape `T1/pplx/m/sl' in size <10.95> not available
  [2]
 Package tocbasic Info: character protrusion at lof deactivated on input line 41
 .
+ (./main.lof)
 \tf@lof=\write10
 \openout10 = `main.lof'.
 
@@ -1837,37 +1780,29 @@ Package tocbasic Info: character protrusion at lof deactivated on input line 41
 ]
 Package tocbasic Info: character protrusion at lot deactivated on input line 42
 .
+ (./main.lot)
 \tf@lot=\write11
 \openout11 = `main.lot'.
 
-
-
-LaTeX Warning: Empty bibliography on input line 44.
-
-No complaints by nag.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 46.
-[4
+ [4
 
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 46.
+No complaints by nag.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 57.
+[5
+
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 57.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 46.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 46.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 57.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 57.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: A39429F61FFFDD099A23DA4D3ED86F96;463.
 
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  1DFCE16404D7B77AC208EBCEA6F31281;413.
 
 LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 
 Package biblatex Warning: Please (re)run Biber on the file:
@@ -1879,11 +1814,11 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 39061 strings out of 495028
- 788481 string characters out of 6181497
+ 39097 strings out of 495028
+ 789032 string characters out of 6181497
  1371525 words of memory out of 5000000
- 41404 multiletter control sequences out of 15000+600000
- 38506 words of font info for 88 fonts, out of 8000000 for 9000
+ 41429 multiletter control sequences out of 15000+600000
+ 40784 words of font info for 95 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  75i,19n,84p,1714b,2126s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texliv
@@ -1891,10 +1826,10 @@ e/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf/fonts/type1/public/c
 m-super/sftt1095.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/up
 lb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (10 pages, 74794 bytes).
+Output written on main.pdf (11 pages, 538628 bytes).
 PDF statistics:
- 91 PDF objects out of 1000 (max. 8388607)
- 74 compressed objects within 1 object stream
- 25 named destinations out of 1000 (max. 500000)
- 27149 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 187 PDF objects out of 1000 (max. 8388607)
+ 136 compressed objects within 2 object streams
+ 28 named destinations out of 1000 (max. 500000)
+ 27743 words of extra memory for PDF output out of 29859 (max. 10000000)
 

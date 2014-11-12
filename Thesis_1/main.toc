@@ -17,3 +17,5 @@
 \contentsline {chapter}{\nonumberline List of Figures}{3}{appendix*.8}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\nonumberline List of Tables}{4}{appendix*.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\nonumberline Bibliography}{5}{appendix*.10}

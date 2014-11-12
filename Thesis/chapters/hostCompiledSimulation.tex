@@ -508,95 +508,11 @@ By analysing the binary code, variables accessed in each basic block were identi
 
 In this stage, the focus is to identify the statement in source code which causes memory access to a variable. By parsing this statement, the exact address being accessed can be identified. A custom C Parser is implemented in Python to parse the Instrumented Source Code (ISC). Conversion of source code to ISC helps here, because ISC is easier to parse. The parser returns a list of variables being accessed by the statement, along with other information like index expression and whether it is a read or write operation.
 
-Matching statement is identified for each memory access in the binary code. In some cases, matching statement will not be found.
+Instrumentation for matching memory accesses found in source code and binary code is done. Instrumentation for local and global variables is handled in different ways as is shown below.
 
-\section{Data Cache Simulation}
-To estimate total time spent in fetching data from the memory, the tool performs detailed Cache Simulation. Each load/store instruction in the binary code is matched with to an instruction in the source code. The address from which the data is being fetched is identified, and memory access for the address is simulated. 
+Another typical case must be taken into consideration. In the simple example in Section \ref{sec:SimpleExample}, pointer to an array is passed as a parameter to the function. By simulating the binary code, access to Global Variable \emph{globVar} was identified. However, the function \emph{sum} may be called with a pointer to any other array. Special handling needs to be done for such cases, when pointers are sent as function parameters.
 
-Generally speaking, the host and target processors may use a different memory layout. For example, in some processors memory needs to be allocated in an aligned fashion for better performance, however this may not be the case for another processor. Also, the sizes for the basic data types may differ among different architectures. Size of an integer in one architecture may be 4 Bytes and in another may be 2 Bytes. For accurate cache simulation, the address at which the variable resides in the Host Machine, can not be used. Instead, each memory access as it would occur on the target processor must be simulated.
-
-The challenge lies in extracting the address from which the data is being fetched. This address can not be easily extracted from the cross-compiled binary by static analysis. To extract this address, the tool implements a mechanism to reconstruct each memory access as it occurs on the target processor. The approach is based on the research published in [TODO].
-
-An application uses memory to read and write input and output data. For simplicity, let us consider how an application written in C Programming language uses memory. The memory can be used by the application in 3 ways. 
-
-\begin{itemize} \itemsep -6pt
-\item \textbf{Global Memory.} Data stored in Global Memory is accessible by all functions in the program. The memory is stored in a fixed size Data Section. Size of each Global Variable must be known at compile time, so it is called statically allocated memory. In bare metal applications, the physical address of each global variable is known after compilation, and can be extracted from the binary.
-\item \textbf{Local Memory.} Each function can define variables which can only be used inside the function. The content of local variables is stored in the stack frame of the function. The size of the variable must be known at compile time. The addresses used by the local variables at run-time can not be known by static analysis, however the address relative to the Stack Pointer can be extracted.
-\item \textbf{Heap Memory.} Applications can also allocate memory at run-time. The content of this dynamically allocated memory is stored in a special section known as Heap. The heap can grow and contract at run-time. The address and sizes of this type of memory can not be known statically. 
-\end{itemize}
-
-The current implementation of the tool, only focuses on simulating access from the Local and Global Memory. Cache Simulation for Heap Memory is complicated, because the memory allocation algorithm used in the target processors have to be emulated to know the exact address where the memory will be allocated. This means, that the tool can only be used with Benchmark applications that do not use Dynamic Memory. This does not limit the importance of this tool since the goal is to simulate for performance analysis, and not functional verification. %TODO: unnecessary last sentence?
-
-The following section explains how each load/store instruction in binary code is mapped to a variable in the source code. Further, the approach to reconstruct the memory access is explained. Implementation of the cache simulator is explained in brief.
-
-\subsection{Memory Access Reconstruction}
-The tool parses binary code and emulates each instruction. It maintains the state of registers and updates it, as per the instructions. Branch instructions are ignored. The load/store instructions use register addressing modes to access data. From the content of the register the address of memory being accessed can be known. The memory being accessed may be an array, and this can not be clearly identified at this point.
-
-The addresses of the Global Variables are known. Also, the addresses of Local Variables relative to the Stack Pointer are known. Using this information, the address of the load/store instruction found by emulation can be mapped to one of the variables.
-
-Variables accessed in each basic block of the binary code are recorded, and this information will be used to map the load/store instruction to a specific line in the source code. For each basic block in the binary code, the basic block in the source code is parsed to find the line that causes the memory access. This is needed because the for accessing an array, the index to be added to the base pointer can only be extracted from the source code. 
-
-Once this information is known, the memory address for each access can be reconstructed.
-
-\subsection{Annotation for Data Cache Simulation}
-\subsubsection{Global Variables}
-For each Global Variable, say "\textit{var}" of any data type, another global variable "\textit{var\_addr}" of type "\textit{unsigned long}" is declared in the instrumented code to store the address where "\textit{var}" will be held in the target memory. This address was extracted using the method described in Section \ref{sec:C3GDBInfo}.
-
-The line in the source code where the global variable is being accessed is identified using the technique presented in Section [TODO]. Instrumentation to simulate cache is added after this line. The Cache Simulator is implemented in C language. It offers the following API to simulate Data Cache Access.
-
-\begin{lstlisting} [frame=none,numbers=none]
-/**
- * @brief API Function to simulate Data Cache Access
- * 
- * @param address The address being accessed.
- * @param isReadAccess Flag to indicate type of access.
- * 					     True, if Read Access.
- * 					     False, if Write Access.
- *
- * @return number of cycles spent in performing the memory access.
- */ 
-unsigned long long simDCache (unsigned long address, 
-							     unsigned int isReadAccess)
-\end{lstlisting}
-
-The source code is appropriately instrumented using the above API. For accesses to elements in an array, the index multiplied by the size of the data type is added to the base address. The return value is the number of cycles spent in performing the memory fetch. This value is accumulated in a global variable, in a similar way as shown in the simple example above.
-
-\begin{lstlisting}
-int result;
-unsigned long result_addr = 0x88ac;					// <--
-int input_array[20];
-unsigned long input_array_addr = 0x88b0;					// <--
-
-void foo()
-{
-	
-	
-}
-\end{lstlisting}
-
-\subsubsection{Local Variables}
-The approach for simulating access of Local Variables is quite similar to the approach used for global variables. A new local variable is declared for each local variable used in the function, with a suffix "\texttt{\_addr}" and data type "\texttt{unsigned long}". This variable contains the address of the local variable, relative to the current stack pointer. To accurately estimate the physical address where the memory resides, the value of the Stack Pointer is needed.
-
-The stack grows and contracts during the run-time of an application. Whenever a function is called, a stack frame is created and the stack pointer is incremented. The stack frame contains the values of the function parameters, the local variables used in the function and the return address for the function. The size of the stack frame for each function can be extracted from the binary, and the start address of the stack is fixed at compile time. 
-
-To maintain the value of the stack pointer, a global variable "\texttt{CSIM\_SP}" is added to the source code, which is initialized to the start address of the stack. At the beginning of each function, the value of "\texttt{CSIM\_SP}" is incremented by the size of the stack frame for the function. The address of the local variable, relative to the stack pointer is added to "\texttt{CSIM\_SP}", to calculate the physical address of the local variable, as would occur on the target processor.
-
-The memory access is simulated using the same API as above.
-
-\subsubsection{Function Parameters}
-A func
-
-\subsubsection{Register Spilling}
-
-\subsection{Implementation of Cache Simulator}
-
-\section{Instruction Cache Simulation}
-
-\section{Annotation for Execution Time in Pipeline}
-
-\section{Annotation for Branch Prediction}
-
-
+The approach used in this project, is to modify the signature of each function that takes pointers as arguments. For each pointer argument \emph{ptr}, a new argument is added \emph{ptr\_addr}. The calling function is accordingly modified, to provide address of the variable on the target processor. When \emph{ptr} is dereferenced, data cache access is simulated using \emph{ptr\_addr}. Refer to the following example for this annotation.
 
 
 

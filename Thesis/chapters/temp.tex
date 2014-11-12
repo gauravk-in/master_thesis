@@ -1,0 +1,58 @@
+\chapter{TODO Temp}
+
+\begin{minipage}{.5\textwidth}
+\begin{lstlisting}
+00008068 <sum>:
+8068:     mov     r3, #0
+806c:     mov     r2, r3
+8070:     ldr     r1, [r0, r3]
+8074:     add     r2, r2, r1
+8078:     add     r3, r3, #4
+807c:     cmp     r3, #80 ; 0x50
+8080:     bne     8070 <sum+0x8>
+8084:     mov     r0, r2
+8088:     bx      lr
+\end{lstlisting}
+\end{minipage}
+
+\begin{tabular}{|c|c|}
+  \hline
+  \textbf{Symbol} & \textbf{Address} \\
+    \hline
+  globVar & 0x7c8  \\
+  \hline
+  ... & ... \\
+    \hline
+\end{tabular}
+
+\begin{tabular}{|c|c|c|c|c|c|}
+  \hline
+  \textbf{r0} & \textbf{r1} & \textbf{r2} & \textbf{r3} & ... \\
+    \hline
+  0x7c8 & 23 & 56 & 2233 & ... \\
+    \hline
+\end{tabular}
+
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  \textbf{r0} & \textbf{r1} & \textbf{r2} & \textbf{r3} & ... \\
+    \hline
+  0x7c8 & 23 & 56 & 0 & ... \\
+    \hline
+\end{tabular}
+
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  \textbf{r0} & \textbf{r1} & \textbf{r2} & \textbf{r3} & ... \\
+    \hline
+  0x7c8 & 23 & 0 & 0 & ... \\
+    \hline
+\end{tabular}
+
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  \textbf{r0} & \textbf{r1} & \textbf{r2} & \textbf{r3} & ... \\
+    \hline
+  0x7c8 & 5 & 0 & 0 & ... \\
+    \hline
+\end{tabular}

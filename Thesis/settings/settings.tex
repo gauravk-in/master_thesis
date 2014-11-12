@@ -18,8 +18,12 @@
 % To ensure that the listing is not split between pages.
 %http://tex.stackexchange.com/questions/10141/how-to-prevent-lstlisting-from-splitting-code-between-pages
 \floatstyle{plain} % optionally change the style of the new float
-\newfloat{Example}{h}{myc}
+\newfloat{Example}{h}{mye}
 \renewcommand{\theExample}{\thechapter.\arabic{Example}}
+
+\floatstyle{plain} % optionally change the style of the new float
+\newfloat{Snippet}{h}{mys}
+\renewcommand{\theSnippet}{\thechapter.\arabic{Snippet}}
 
 \makeatletter
 \def\BState{\State\hskip-\ALG@thistlm}

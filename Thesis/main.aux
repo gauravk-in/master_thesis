@@ -29,19 +29,22 @@
 \@writefile{lot}{\select@language{american}}
 \@writefile{lol}{\select@language{american}}
 \@writefile{loa}{\select@language{american}}
-\@writefile{myc}{\select@language{american}}
+\@writefile{mye}{\select@language{american}}
+\@writefile{mys}{\select@language{american}}
 \@writefile{toc}{\contentsline {chapter}{\nonumberline Abstract}{iii}{chapter*.1}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
-\@writefile{myc}{\addvspace {10\p@ }}
+\@writefile{mye}{\addvspace {10\p@ }}
+\@writefile{mys}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
-\@writefile{myc}{\addvspace {10\p@ }}
+\@writefile{mye}{\addvspace {10\p@ }}
+\@writefile{mys}{\addvspace {10\p@ }}
 \newlabel{chapter:introduction}{{1}{1}{Introduction}{chapter.1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {1.1}Simulation}{1}{section.1.1}}
 \@writefile{toc}{\contentsline {section}{\numberline {1.2}Related Work}{1}{section.1.2}}
@@ -53,8 +56,10 @@
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
-\@writefile{myc}{\addvspace {10\p@ }}
+\@writefile{mye}{\addvspace {10\p@ }}
+\@writefile{mys}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {2.1}Simple Example}{3}{section.2.1}}
+\newlabel{sec:SimpleExample}{{2.1}{3}{Simple Example}{section.2.1}{}}
 \newlabel{lst:sumCCode}{{2.1}{4}{Simple C Code}{lstlisting.2.1}{}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {2.1}Simple C Code}{4}{lstlisting.2.1}}
 \newlabel{lst:sumObjCode}{{2.2}{4}{Objdump Code}{lstlisting.2.2}{}}
@@ -73,80 +78,95 @@
 \newlabel{fig:ir2cConversion}{{\relax 2.2}{7}{Conversion of Source Code to Intermediate Source Code\relax }{figure.caption.5}{}}
 \citation{RBA2013}
 \@writefile{toc}{\contentsline {section}{\numberline {2.4}Mapping between ISC and Binary Code}{8}{section.2.4}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces CFG Mapping Algorithm\relax }}{8}{algorithm.1}}
-\newlabel{euclid}{{1}{8}{CFG Mapping Algorithm\relax }{algorithm.1}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces CFG Mapping Algorithm\relax }}{9}{algorithm.1}}
+\newlabel{algo:mapping}{{1}{9}{CFG Mapping Algorithm\relax }{algorithm.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}Handling of Conditional Execution Optimization}{9}{subsection.2.4.1}}
 \newlabel{subsec:CondExec}{{2.4.1}{9}{Handling of Conditional Execution Optimization}{subsection.2.4.1}{}}
-\@writefile{myc}{\contentsline {Example}{\numberline {2.1}{\ignorespaces Example C Code\relax }}{9}{Example.1}}
-\newlabel{ex:cIfElse}{{2.1}{9}{Example C Code\relax }{Example.1}{}}
-\@writefile{myc}{\contentsline {Example}{\numberline {2.2}{\ignorespaces Unoptimized Object Code\relax }}{9}{Example.2}}
-\newlabel{ex:objIfElse}{{2.2}{9}{Unoptimized Object Code\relax }{Example.2}{}}
-\@writefile{myc}{\contentsline {Example}{\numberline {2.3}{\ignorespaces Optimized Object Code\relax }}{10}{Example.3}}
-\newlabel{ex:objOptimizedIfElse}{{2.3}{10}{Optimized Object Code\relax }{Example.3}{}}
-\newlabel{fig:cfgSrc}{{\relax 2.3a}{10}{Source Code\relax }{figure.caption.6}{}}
-\newlabel{sub@fig:cfgSrc}{{a}{10}{Source Code\relax }{figure.caption.6}{}}
-\newlabel{fig:cfgUnopt}{{\relax 2.3b}{10}{Unoptimized Binary Code\relax }{figure.caption.6}{}}
-\newlabel{sub@fig:cfgUnopt}{{b}{10}{Unoptimized Binary Code\relax }{figure.caption.6}{}}
-\newlabel{fig:cfgOpt}{{\relax 2.3c}{10}{Optimized Binary Code\relax }{figure.caption.6}{}}
-\newlabel{sub@fig:cfgOpt}{{c}{10}{Optimized Binary Code\relax }{figure.caption.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {\relax 2.3}{\ignorespaces Control Flow Graphs\relax }}{10}{figure.caption.6}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.5}Annotation for Execution Cycles}{10}{section.2.5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.1}Branch Prediction}{11}{subsection.2.5.1}}
-\@writefile{lof}{\contentsline {figure}{\numberline {\relax 2.4}{\ignorespaces State Machine Diagram implemented in the Branch Prediction Unit\relax }}{12}{figure.caption.7}}
-\newlabel{fig:bpuSMD}{{\relax 2.4}{12}{State Machine Diagram implemented in the Branch Prediction Unit\relax }{figure.caption.7}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.6}Annotation for Memory Access}{12}{section.2.6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.1}Cache Simulator}{12}{subsection.2.6.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.7}Instruction Cache Simulation}{14}{section.2.7}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.8}Data Cache Simulation}{14}{section.2.8}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.8.1}Memory Access Reconstruction}{15}{subsection.2.8.1}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.8.1.1}Resolve address of each variable}{15}{subsubsection.2.8.1.1}}
-\@writefile{toc}{\contentsline {paragraph}{\nonumberline Global Variables}{15}{section*.8}}
-\@writefile{myc}{\contentsline {Example}{\numberline {2.4}{\ignorespaces Instrumentation to resolve address of Global Variables on Target Device\relax }}{15}{Example.4}}
-\newlabel{ex:GlobVarInst}{{2.4}{15}{Instrumentation to resolve address of Global Variables on Target Device\relax }{Example.4}{}}
-\@writefile{toc}{\contentsline {paragraph}{\nonumberline Local Variables}{15}{section*.9}}
-\newlabel{lst:LocalVarInst}{{\caption@xref {lst:LocalVarInst}{ on input line 416}}{16}{}{lstlisting.2.-6}{}}
-\@writefile{myc}{\contentsline {Example}{\numberline {2.5}{\ignorespaces Instrumentation to resolve address of Local Variables on Target Device\relax }}{16}{Example.5}}
-\newlabel{ex:LocalVarInst}{{2.5}{16}{Instrumentation to resolve address of Local Variables on Target Device\relax }{Example.5}{}}
-\@writefile{toc}{\contentsline {paragraph}{\nonumberline Dynamically Allocated Memory}{16}{section*.10}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.8.1.2}Analyse binary code for identifying load/store operations on variables}{17}{subsubsection.2.8.1.2}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.8.1.3}Parse Source Code}{18}{subsubsection.2.8.1.3}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.9}Data Cache Simulation}{18}{section.2.9}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.9.1}Memory Access Reconstruction}{19}{subsection.2.9.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.9.2}Annotation for Data Cache Simulation}{20}{subsection.2.9.2}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.9.2.1}Global Variables}{20}{subsubsection.2.9.2.1}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.9.2.2}Local Variables}{21}{subsubsection.2.9.2.2}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.9.2.3}Function Parameters}{21}{subsubsection.2.9.2.3}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.9.2.4}Register Spilling}{21}{subsubsection.2.9.2.4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.9.3}Implementation of Cache Simulator}{21}{subsection.2.9.3}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.10}Instruction Cache Simulation}{21}{section.2.10}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.11}Annotation for Execution Time in Pipeline}{21}{section.2.11}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.12}Annotation for Branch Prediction}{21}{section.2.12}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Implementation}{22}{chapter.3}}
+\@writefile{mye}{\contentsline {Example}{\numberline {2.1}{\ignorespaces Example C Code\relax }}{10}{Example.1}}
+\newlabel{ex:cIfElse}{{2.1}{10}{Example C Code\relax }{Example.1}{}}
+\@writefile{mye}{\contentsline {Example}{\numberline {2.2}{\ignorespaces Unoptimized Object Code\relax }}{10}{Example.2}}
+\newlabel{ex:objIfElse}{{2.2}{10}{Unoptimized Object Code\relax }{Example.2}{}}
+\@writefile{mye}{\contentsline {Example}{\numberline {2.3}{\ignorespaces Optimized Object Code\relax }}{11}{Example.3}}
+\newlabel{ex:objOptimizedIfElse}{{2.3}{11}{Optimized Object Code\relax }{Example.3}{}}
+\newlabel{fig:cfgSrc}{{\relax 2.3a}{11}{Source Code\relax }{figure.caption.6}{}}
+\newlabel{sub@fig:cfgSrc}{{a}{11}{Source Code\relax }{figure.caption.6}{}}
+\newlabel{fig:cfgUnopt}{{\relax 2.3b}{11}{Unoptimized Binary Code\relax }{figure.caption.6}{}}
+\newlabel{sub@fig:cfgUnopt}{{b}{11}{Unoptimized Binary Code\relax }{figure.caption.6}{}}
+\newlabel{fig:cfgOpt}{{\relax 2.3c}{11}{Optimized Binary Code\relax }{figure.caption.6}{}}
+\newlabel{sub@fig:cfgOpt}{{c}{11}{Optimized Binary Code\relax }{figure.caption.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\relax 2.3}{\ignorespaces Control Flow Graphs\relax }}{11}{figure.caption.6}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.5}Annotation for Execution Cycles}{11}{section.2.5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.1}Branch Prediction}{12}{subsection.2.5.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\relax 2.4}{\ignorespaces State Machine Diagram implemented in the Branch Prediction Unit\relax }}{13}{figure.caption.7}}
+\newlabel{fig:bpuSMD}{{\relax 2.4}{13}{State Machine Diagram implemented in the Branch Prediction Unit\relax }{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.6}Annotation for Memory Access}{13}{section.2.6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.1}Cache Simulator}{13}{subsection.2.6.1}}
+\@writefile{mys}{\contentsline {Snippet}{\numberline {2.1}{\ignorespaces API provided by Cache Simulator\relax }}{14}{Snippet.1}}
+\newlabel{snip:csimAPI}{{2.1}{14}{API provided by Cache Simulator\relax }{Snippet.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.7}Instruction Cache Simulation}{15}{section.2.7}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.8}Data Cache Simulation}{15}{section.2.8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.8.1}Memory Access Reconstruction}{16}{subsection.2.8.1}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.8.1.1}Resolve address of each variable}{16}{subsubsection.2.8.1.1}}
+\@writefile{toc}{\contentsline {paragraph}{\nonumberline Global Variables}{16}{section*.8}}
+\@writefile{mye}{\contentsline {Example}{\numberline {2.4}{\ignorespaces Instrumentation to resolve address of Global Variables on Target Device\relax }}{16}{Example.4}}
+\newlabel{ex:GlobVarInst}{{2.4}{16}{Instrumentation to resolve address of Global Variables on Target Device\relax }{Example.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{\nonumberline Local Variables}{17}{section*.9}}
+\newlabel{lst:LocalVarInst}{{\caption@xref {lst:LocalVarInst}{ on input line 453}}{17}{}{lstlisting.2.-6}{}}
+\@writefile{mye}{\contentsline {Example}{\numberline {2.5}{\ignorespaces Instrumentation to resolve address of Local Variables on Target Device\relax }}{17}{Example.5}}
+\newlabel{ex:LocalVarInst}{{2.5}{17}{Instrumentation to resolve address of Local Variables on Target Device\relax }{Example.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{\nonumberline Dynamically Allocated Memory}{17}{section*.10}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.8.1.2}Analyse binary code for identifying load/store operations on variables}{18}{subsubsection.2.8.1.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\relax 2.5}{\ignorespaces Illustration of the Partial Functional Simulator used to extract address of each load/store instruction in the binary code\relax }}{18}{figure.caption.11}}
+\newlabel{fig:partialSimulator}{{\relax 2.5}{18}{Illustration of the Partial Functional Simulator used to extract address of each load/store instruction in the binary code\relax }{figure.caption.11}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.8.1.3}Parse Source Code}{19}{subsubsection.2.8.1.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.9}Data Cache Simulation}{19}{section.2.9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.9.1}Memory Access Reconstruction}{21}{subsection.2.9.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.9.2}Annotation for Data Cache Simulation}{21}{subsection.2.9.2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.9.2.1}Global Variables}{21}{subsubsection.2.9.2.1}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.9.2.2}Local Variables}{22}{subsubsection.2.9.2.2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.9.2.3}Function Parameters}{23}{subsubsection.2.9.2.3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.9.2.4}Register Spilling}{23}{subsubsection.2.9.2.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.9.3}Implementation of Cache Simulator}{23}{subsection.2.9.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.10}Instruction Cache Simulation}{23}{section.2.10}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.11}Annotation for Execution Time in Pipeline}{23}{section.2.11}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.12}Annotation for Branch Prediction}{23}{section.2.12}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Implementation}{24}{chapter.3}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
-\@writefile{myc}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Results}{23}{chapter.4}}
+\@writefile{mye}{\addvspace {10\p@ }}
+\@writefile{mys}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Results}{25}{chapter.4}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
-\@writefile{myc}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Conclusion}{24}{chapter.5}}
+\@writefile{mye}{\addvspace {10\p@ }}
+\@writefile{mys}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Conclusion}{26}{chapter.5}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
-\@writefile{myc}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {chapter}{\nonumberline List of Figures}{25}{appendix*.11}}
+\@writefile{mye}{\addvspace {10\p@ }}
+\@writefile{mys}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}TODO Temp}{27}{chapter.6}}
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{lol}{\addvspace {10\p@ }}
+\@writefile{loa}{\addvspace {10\p@ }}
+\@writefile{mye}{\addvspace {10\p@ }}
+\@writefile{mys}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {chapter}{\nonumberline List of Figures}{28}{appendix*.12}}
 \bibdata{main}
-\@writefile{toc}{\contentsline {chapter}{\nonumberline List of Tables}{26}{appendix*.12}}
+\@writefile{toc}{\contentsline {chapter}{\nonumberline List of Tables}{29}{appendix*.13}}
 \bibcite{RBA2013}{1}
 \bibstyle{plain}
-\@writefile{toc}{\contentsline {chapter}{\nonumberline Bibliography}{27}{appendix*.13}}
+\@writefile{toc}{\contentsline {chapter}{\nonumberline Bibliography}{30}{appendix*.14}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
-\@writefile{myc}{\addvspace {10\p@ }}
+\@writefile{mye}{\addvspace {10\p@ }}
+\@writefile{mys}{\addvspace {10\p@ }}

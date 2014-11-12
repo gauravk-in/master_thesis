@@ -4,8 +4,10 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {\relax 2.1}{\ignorespaces Flow Chart\relax }}{6}{figure.caption.4}
 \contentsline {figure}{\numberline {\relax 2.2}{\ignorespaces Conversion of Source Code to Intermediate Source Code\relax }}{7}{figure.caption.5}
-\contentsline {figure}{\numberline {\relax 2.3}{\ignorespaces Control Flow Graphs\relax }}{10}{figure.caption.6}
-\contentsline {figure}{\numberline {\relax 2.4}{\ignorespaces State Machine Diagram implemented in the Branch Prediction Unit\relax }}{12}{figure.caption.7}
+\contentsline {figure}{\numberline {\relax 2.3}{\ignorespaces Control Flow Graphs\relax }}{11}{figure.caption.6}
+\contentsline {figure}{\numberline {\relax 2.4}{\ignorespaces State Machine Diagram implemented in the Branch Prediction Unit\relax }}{13}{figure.caption.7}
+\contentsline {figure}{\numberline {\relax 2.5}{\ignorespaces Illustration of the Partial Functional Simulator used to extract address of each load/store instruction in the binary code\relax }}{18}{figure.caption.11}
+\addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

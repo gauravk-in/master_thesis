@@ -15,7 +15,7 @@ The information generated is useful for architects to analyse the impact of desi
 In this chapter, the concept of \gls{hcs} is illustrated using a simplified example. The steps involved in performing \gls{hcs} are outlined. Further, an overview of each step is provided. Detailed implementation of each step has been discussed in the next chapter.
 
 \section{Simple Example}
-
+\label{sec:SimpleExample}
 Consider the source code in Listing \ref{lst:sumCCode}. The function \emph{sum} calculates the sum of elements in an array and returns the result. The source code is cross-compiled for a target processor\footnote{Target processor is the processor that is being simulated.}. Listing \ref{lst:sumObjCode} shows the object dump of the binary code. 
 
 To estimate the time spent in executing this code on the target processor, the code is instrumented. The instrumented code is shown in Listing \ref{lst:sumInstCode}, where the annotations are highlighted. The instrumented code is then compiled for and run on the host machine\footnote{Host Machine is the computer used by the developer, where the simulation will be run.}. This process is called Host Compiled Simulation. Let us look at each annotation in the code.
@@ -160,27 +160,57 @@ GDB provides mapping information, but was observed to be highly inaccurate. To p
 
 The mapping algorithm is based on the standard Graph Matching Algorithm using recursive Depth First Traversal. CFGs are extracted by parsing the source code and the binary code. To assist in mapping, a \textit{flow} value is calculated for each node in the graphs. The \textit{flow} value for a node is the sum of the \textit{flows} of the incoming edges to the node, which in turn is equally divided among the outgoing edges. The \textit{flow} value of the root node is 1. Only nodes with equal flow value can be mapped to each other.
 
-The mapping algorithm is implemented as a recursive function, which takes as parameters two nodes from the CFGs of the source code and the binary code. The pseudo code is presented below. 
+The pseudo code of the \emph{mapping} function is presented in Algorithm \ref{algo:mapping}. The recursive function takes two nodes as parameter, and tries to find if the nodes map to each other. It checks that the nodes have the same \textit{flow} values, and returns \textit{False} if not. If the nodes have already been mapped to each other, the function returns \textit{True}. 
+
+At this point, special handling for different compiler optimizations is done. Section [TODO] will illustrate the handling for Conditional Execution optimization that is frequently seen in the test set of benchmarks.
+
+Hereafter, the successor sets of both nodes are created. To find successor nodes, only forward edges to are considered. Back edges representing loops are ignored. Two nodes can be mapped to each other, only if they have the same number of successor nodes. For each successor \emph{S\_src} in \emph{SS\_src}, a matching node in \emph{SS\_bin} is identified by recursively calling the \emph{mapping} function. 
+
+The nodes map to each other, if a mapping can be found for all successor nodes. The algorithm tries to find matching path from the start node, to the exit node and creates mapping between the nodes on this path.
 
 % http://tex.stackexchange.com/questions/163768/write-pseudo-code-in-latex
-
+% TODO Complete algorithm
 \begin{algorithm}[h!]
-\caption{CFG Mapping Algorithm}\label{euclid}
+\caption{CFG Mapping Algorithm}\label{algo:mapping}
 \begin{algorithmic}[1]
 \Function{Mapping}{BB\_src, BB\_bin}
-\If {\textit{flow}(BB\_src) != \textit{flow}(BB\_bin)} \Return false
+\If {\textit{flow}(BB\_src) != \textit{flow}(BB\_bin)}
+\State \Return false
 \EndIf
-\If {(BB\_src, BB\_bin) $\in$ MatchingDict} \Return true
+\\
+\If {(BB\_src, BB\_bin) $\in$ MappingDict}
+\State \Return true
 \EndIf
+\\
 \State // Check for effects due to Compiler Optimization here
-\State Succ\_src = \textit{Succ}(BB\_src)
-\State Succ\_bin = \textit{Succ}(BB\_bin)
-
+\\
+\State SS\_src = \textit{Succ}(BB\_src)
+\State SS\_bin = \textit{Succ}(BB\_bin)
+\If {\textit{len}(SS\_src) != \textit{len}(SS\_bin)} 
+\State \Return False
+\EndIf
+\\
+\For {S\_src in SS\_src}
+\For {S\_bin in SS\_bin}
+\If {\textit{Mapping}(S\_src, S\_bin) == True}
+\State break
+\Else
+\State continue
+\EndIf
+\EndFor
+\State // Mapping could not be found for S\_src
+\State \Return false
+\EndFor
+\\
+\State // All children mapped; Input Nodes must map to each other
+\State MappingDict $\leftarrow$ (BB\_src, BB\_bin)
+\State \Return true
+\\
 \EndFunction
 \end{algorithmic}
 \end{algorithm}
 
-It is augmented to take into consideration effects that may occur due to each compiler optimizations. 
+The instrumentation tool generates graphical representation of the mapping between the CFGs. Mapping for some benchmarks, that were used to test the tool have been shown in [TODO].
 
 \subsection{Handling of Conditional Execution Optimization}
 \label{subsec:CondExec}
@@ -222,9 +252,9 @@ Instructions take more than one cycle to execute. To improve throughput, executi
 
 The \emph{cmp} instruction on line 2 in Listing \ref{ex:objIfElse} is fetched by the first stage of the pipeline. While it is being decoded in the next stage of the pipeline, the branch instruction on line 3 has been fetched. Depending on the result of the compare instruction, the branch will be taken or not taken. The result of the compare instruction has not yet been evaluated. The processor cannot know with certainty which instruction to fetch after the branch instruction.
 
-By assuming that the branch will not be taken, the processor fetches the \emph{mov} instruction on line 4. However, if the prediction is incorrect the pipeline must be flushed and \emph{mov} instruction on line 6 must be executed next. The pipeline flush leads to loss of multiple clock cycles.
+By assuming that the branch will not be taken, the processor fetches the \emph{mov} instruction on line 4. If the prediction is incorrect the pipeline must be flushed and \emph{mov} instruction on line 6 must be executed next. The pipeline flush leads to loss of multiple clock cycles.
 
-This loss can be reduced by using Conditional Execution, when supported by the architecture. Each instruction can be predicated with a condition. The instruction is executed in the pipeline, but the result is only written back (or committed) if the condition evaluates to true. A few clock cycles can be saved if the length of the conditionally executed block is small. The optimized binary code is as shown in Example \ref{ex:objOptimizedIfElse}.
+This loss can be reduced by using Conditional Execution, when supported by the architecture. Each instruction can be predicated with a condition. The instruction is executed in the pipeline, but the result is only written back (or committed) if the condition evaluates to true. In the optimized code in Example \ref{ex:objOptimizedIfElse} the \emph{movge} instruction will be executed, but the value of \emph{r1} will be written to \emph{r0} only if the result of the compare instruction is "Greater than" or "Equal". A few clock cycles can be saved if the length of the conditionally executed block is small.
 
 \begin{Example}[h]
 \begin{lstlisting}
@@ -238,9 +268,9 @@ This loss can be reduced by using Conditional Execution, when supported by the a
 \label{ex:objOptimizedIfElse}
 \end{Example}
 
-Since the branching instructions are eliminated, the code in Example \ref{ex:objOptimizedIfElse} will be treated as a single basic block. The control flow graphs for the given source code, and the unoptimized binary code have been represented in figures \ref{fig:cfgSrc} and \ref{fig:cfgUnopt}. They are similar, and hence easy to map. Figure \ref{fig:cfgOpt} shows the Control Flow Graph of the optimized binary code. As expected, it is a single block. 
+The CFGs for the source code, and the unoptimized binary code have been represented in figures \ref{fig:cfgSrc} and \ref{fig:cfgUnopt}. The labels in the nodes represent line numbers for the corresponding basic blocks. These graphs are similar, and hence easy to map. 
 
-In such case, all four blocks in the source code should be mapped to the block in the optimized binary code. Occurrence of Conditional Execution instructions in a basic block is identified, and marked in the \gls{cfg} 
+However, in the optimized binary code the branching instructions are eliminated. The code is considered as a single basic block, as shown in the CFG in figure \ref{fig:cfgOpt}.
 
 \begin{figure}[h!]
 \centering
@@ -267,6 +297,8 @@ In such case, all four blocks in the source code should be mapped to the block i
 \end{subfigure}
 \caption{Control Flow Graphs}
 \end{figure}
+
+To handle this optimization, the binary basic block is analysed to check if Conditional Execution Instructions have been used. The mapping algorithm maps all four blocks of the source code, to the single block in the binary code. 
 
 \section{Annotation for Execution Cycles}
 The annotation for number of cycles spent in execution of the instructions is done at a basic block granularity. A global variable \emph{execCycles} is declared. Cycles spent in executing each basic block in the binary code is estimated and annotated in the mapped basic block in source code. On entering the basic block, the annotated cycles for the block are added to \emph{execCycles}.
@@ -312,9 +344,11 @@ Most processors use a hierarchy of low-latency cache memories to improve perform
 
 The Cache Simulator emulates the caching hierarchy of the target processor. It keeps a track of the data stored in the caches. Whenever a memory access is performed, the simulator checks whether the data can be fetched from the caches. If the data is not found in any cache, it must be fetched from the memory. The simulator returns the number of cycles that would be spent in performing the memory access on the target processor.
 
-Most processors use separate cache for Data and Instructions. The cache simulator offers the following API for the different types of memory accesses.
+Most processors use separate cache for Data and Instructions. The cache simulator offers the API mentioned in snippet \ref{snip:csimAPI} to simulate different types of memory accesses.
 
-\begin{lstlisting}[numbers=none, frame=none]
+\vspace*{10pt}
+\begin{Snippet}[h]
+\begin{lstlisting}[numbers=none]
 /**
  * @brief Function to simulate Data Cache Access.
  *
@@ -342,6 +376,9 @@ unsigned long long simICache(unsigned long address,
                                 unsigned long size,
                                 struct csim_result_t *csim_result);
 \end{lstlisting}
+\caption{API provided by Cache Simulator}
+\label{snip:csimAPI}
+\end{Snippet}
 
 For each data access in the application, annotation is done in the source code to call function \emph{simDCache} and trigger Data Cache simulation. The address of the data being fetched is provided as parameter, along with a flag to signify whether it is a read or write access. Simulation of Instruction Cache is done at basic block granularity. \emph{simICache} is called, with the start address of the basic block and the size of the basic block in bytes as parameters. Number of cycles spent in performing the memory access is returned by the cache simulator.
 
@@ -442,10 +479,21 @@ To identify which variable is being accessed, the binary code is partially simul
 
 When function calls are identified, the current state of the registers is stored. This state will be used when simulating the called function. This is done to keep track of function parameters that are passed as values in registers. For parameters being passed in the stack, this approach does not correctly work. A queue is maintained for each function that is called. Each function is simulated with the initial state of registers that was recorded when the function was first called. Note that each function will only be simulated once, and subsequent calls to the function were ignored.
 
-By doing this type of partial simulation, the address of each load/store instruction can be extracted. This information helps in identifying which variable is being accessed by the load/store instruction. 
+The illustration in figure \ref{fig:partialSimulator} shows how this works. The code from the simple example in section \ref{sec:SimpleExample} has been used for illustration. The binary code of the \emph{sum} function is shown on the left. On the right, the symbol table shows the address of the global variable, \emph{globVar}. 
+
+The state of the registers is shown when the function was called. Address of the \emph{globVar} was sent as a parameter to the function in register \emph{r0}. The values in the rest of the registers are arbitrary. The state of the registers is updated after parsing each instruction in the code. On line 4, a load instruction is seen. The address in \emph{r0} is indexed by the value in \emph{r3}, and the data is read into \emph{r1}. The address belongs to global variable \emph{globVar}. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/ParitalSimulator.png}
+\caption{Illustration of the Partial Functional Simulator used to extract address of each load/store instruction in the binary code}
+\label{fig:partialSimulator}
+\end{figure}
+
+By doing this simulation, the address of each load/store instruction can be extracted. This information helps in identifying which variable is being accessed by the load/store instruction. 
 
 \begin{itemize}
-\item If the address belongs to Data Section, the instruction must be accessing a Global or Static Variable. The address is compared with the address of each Global Variable extracted from GDB in previous phase. The correct variable being accessed is identified. 
+\item If the address belongs to Data Section, the instruction must be accessing a Global or Static Variable. Addresses of Global and Static Variables were extracted in the previous stage. The variable being accessed can be identified. 
 \item If the address belongs to the Stack Space, it could be accessing a local variable. The variable being accessed is again identified from the information collected in the previous phase. Additionally, the stack space is used to spill registers. The load/store instruction could be associated with this operation. This can be distinctively identified, if no local variable is located on this address.
 \end{itemize}
 
@@ -453,7 +501,7 @@ The memory accesses performed in each basic block in the binary code are recorde
 
 This approach has certain limitations. It may fail, in the presence of some pointer dereferencing operations. When the variable being accessed by a load/store instruction is not identified, appropriate hints are provided in the log to enable the user of the tool to manually instrument the code.
 
-Note, that in this phase only the variables being accessed were identified. The variable may be an array of a stream of data which was been accessed with an index in a loop. Since branching instructions were ignored, this information could not be extracted. For extracting this information, the source code needs to be parsed.
+Note, that in this step only the variables being accessed were identified. In the example shown above \emph{globVar} is an array of integers. Elements of this array are accessed sequentially in the code, but this can not be identified in this step. To correctly instrument the Data Cache Access, the index being added to the base address of an array must be known. This information can only be extracted by parsing the source code.
 
 \subsubsection{Parse Source Code}
 By analysing the binary code, variables accessed in each basic block were identified. Additionally, load/store instructions associated with register spilling were distinctly identified. Instrumentation for register spilling is straight forward.

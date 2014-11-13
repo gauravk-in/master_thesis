@@ -7,4 +7,11 @@ S.~Chakravarty, Zhuoran Zhao, and A.~Gerstlauer.
 \newblock In {\em Hardware/Software Codesign and System Synthesis (CODES+ISSS),
   2013 International Conference on}, pages 1--10, Sept 2013.
 
+\bibitem{Lu2013}
+Kun Lu, D.~Muller-Gritschneder, and U.~Schlichtmann.
+\newblock Memory access reconstruction based on memory allocation mechanism for
+  source-level simulation of embedded software.
+\newblock In {\em Design Automation Conference (ASP-DAC), 2013 18th Asia and
+  South Pacific}, pages 729--734, Jan 2013.
+
 \end{thebibliography}

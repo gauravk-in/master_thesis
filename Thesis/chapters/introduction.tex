@@ -2,13 +2,13 @@
 
 \section{Simulation}
 
-Simulation is the technique to imitate the operation of a real or abstract system. A model is created which represents the key characteristics and behaviour of the system. This model is then operated to analyse how the system will behave in various situations over time. Simulation has proved useful when working with the real system or developing an abstract system is difficult or expensive.
+Simulation is the technique to imitate the operation of a real or abstract system. The first step in simulation is to develop a model which represents the key characteristics and behaviour of the real or abstract system. Simulation is then the process of operating this model to analyse how the system will behave in the various situations. Simulation is frequently used working with the real model is difficult or impossible.
 
-Simulation is widely used in Hardware Software Co-development. In early stages of development, hardware engineers want to analyse in detail the impact of design decisions on performance of the overall system. Fabrication of hardware at each milestone is time-consuming and expensive. Instead, a model of the processor is created and benchmarking applications are run on these models.
+Simulation is widely used in Hardware Software Co-development. In early stages of development, hardware architects want to analyse the impact of design decisions on performance of the overall system. Fabrication of hardware at each milestone is a time-consuming and expensive process. Instead, a model of the processor is created and benchmarking applications are run on these models.
 
 The popular approach used for simulation is called \gls{cas}. In \gls{cas} the processor micro-architecture is modelled in great detail. Each stage of processor pipeline is simulated along with other building blocks of the processor like Cache Memory and Branch Prediction Units. This approach provides cycle accurate estimates of performance. However, \gls{cas} is difficult to develop and slow to execute because of the amount of details that are taken into consideration. For analysing bottlenecks, long-running benchmark applications need to be executed. \gls{cas} is not suited for such use-cases due to the slow execution speeds.
 
-In this research, a technique to accelerate performance benchmarking of micro-processors has been explored.
+Researchers have focussed on developing techniques to accelerate performance benchmarking of micro-processors. This will save cost and effort spent in the design space exploration phase. In this research, a technique for fast simulation of micro-processors has been implemented. 
 
 \section{Related Work}
 

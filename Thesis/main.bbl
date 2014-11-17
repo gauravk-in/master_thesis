@@ -1,5 +1,11 @@
 \begin{thebibliography}{1}
 
+\bibitem{CortexA5TRM}
+{\em Cortex-A5 Technical Reference Manual}.
+
+\bibitem{WCET}
+Worst-case execution time (wcet) analysis project.
+
 \bibitem{RBA2013}
 S.~Chakravarty, Zhuoran Zhao, and A.~Gerstlauer.
 \newblock Automated, retargetable back-annotation for host compiled performance

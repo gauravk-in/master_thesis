@@ -8,17 +8,17 @@ When an application is run on a processor, most of the time is spent in followin
 \item Fetching Data from memory.
 \end{itemize}
 
-The technique is based on the assumption, that number of cycles spent in each phase of the execution can be accurately predicted using instrumentation. The trace generated from the run-time can be used for estimating the power consumption.
+The technique is based on the assumption, that number of cycles spent in each phase of the execution can be accurately predicted using instrumentation. The trace generated from the run-time can be used for estimating consumption.
 
-The information generated is useful for architects to analyse the impact of design decisions on performance and power consumption of the system. In comparison to popular techniques like Cycle Accurate Simulation (CAS), \gls{hcs} is easier to develop and fast to execute. This greatly optimizes the design space exploration effort.
+The information generated is useful for architects to analyse the impact of design decisions on performance and power consumption of the system. In comparison to popular techniques like Cycle Accurate Simulation (CAS), \gls{hcs} is easier to develop and fast to execute. This reduces the cost and effort invested in the Design Space Exploration Phase.
 
-In this chapter, the concept of \gls{hcs} is illustrated using a simplified example. The steps involved in performing \gls{hcs} are outlined. Further, an overview of each step is provided. Detailed implementation of each step has been discussed in the next chapter.
+In this chapter, the concept of \gls{hcs} is illustrated using a simplified example. Then, each step involved in performing \gls{hcs} is described in detail. References to appendix have been made for implementation specific details where needed.
 
 \section{Simple Example}
 \label{sec:SimpleExample}
-Consider the source code in Listing \ref{lst:sumCCode}. The function \emph{sum} calculates the sum of elements in an array and returns the result. The source code is cross-compiled for a target processor\footnote{Target processor is the processor that is being simulated.}. Listing \ref{lst:sumObjCode} shows the object dump of the binary code. 
+Consider the source code in Listing \ref{lst:sumCCode}. The function \emph{sum} calculates the sum of elements in an array and returns the result. The source code is cross-compiled for a target processor\footnote{The term target processor is used to refer to the processor that is being simulated.}. Listing \ref{lst:sumObjCode} shows the object dump of the binary code. 
 
-To estimate the time spent in executing this code on the target processor, the code is instrumented. The instrumented code is shown in Listing \ref{lst:sumInstCode}, where the annotations are highlighted. The instrumented code is then compiled for and run on the host machine\footnote{Host Machine is the computer used by the developer, where the simulation will be run.}. This process is called Host Compiled Simulation. Let us look at each annotation in the code.
+To estimate the time spent in executing this code on the target processor, the code is instrumented. The instrumented code is shown in Listing \ref{lst:sumInstCode}, where the annotations are highlighted. The instrumented code is then compiled for and run on the host machine\footnote{The term host machine is used to refer to the computer where the simulation will be run.}. This process is called Host Compiled Simulation. Let us look at each annotation in the code.
 
 \vspace*{10pt}
 \begin{minipage}{0.5\textwidth}
@@ -132,9 +132,9 @@ Figure \ref{fig:hcsFlowChart} shows a flow-chart depicting the stages involved i
 %To estimate the amount of cycles spent in execution of a basic block in the processor pipeline, each instruction in a basic block is sequentially parsed to identify interlocking. Interlocking occurs when there is a Control or Data Dependency between instructions, which results in pipeline stall for a few cycles. The cycles used by each basic block are annotated back to the code. Further, a mechanism to emulate Branch Prediction Unit has been implemented. 
 
 \section{Source Code to Intermediate Source Code}
-From the example, it is clear that accurate mapping between source code and binary code is very important for instrumentation. Unfortunately, this mapping is destroyed during the optimization phases of the compiler. Extracting accurate mapping information is a challenging problem. In this project, an approach recommended in [TODO] has been used to reduce the complexity of this problem.
+From the example, it is clear that accurate mapping between source code and binary code is very important for instrumentation. Unfortunately, this mapping is destroyed during the optimization phases of the compiler. Extracting accurate mapping information is a challenging problem. In this project, an approach recommended in \cite{RBA2013} has been used to reduce the complexity of this problem.
 
-The compiler performs these optimizations in two stages. The front-end of the compiler, translates the source code from a high-level language like C, to an Intermediate Representation (IR) called GIMPLE. The processor independent optimization strategies are applied to the IR code. In the back-end of the compiler, the optimized IR code is translated into Machine Language for the target processor. The processor dependent optimization strategies are applied in this phase.
+The compiler performs these optimizations in two stages. The front-end of the compiler, translates the source code from a high-level language like C, to an Intermediate Representation (IR) called GIMPLE. The processor independent optimization strategies are applied in the front-end. In the back-end of the compiler, the optimized IR code is translated into Machine Language for the target processor. The processor dependent optimization strategies are applied in this phase.
 
 The optimized IR Code has a control flow similar to that of the Binary Code, since front-end optimization strategies have already been applied. It should be comparatively easier to perform mapping between the IR Code and the Binary Code. However, instrumentation of IR Code is difficult as it is in the GIMPLE format. 
 
@@ -149,22 +149,24 @@ In this project, the source code of the benchmark application is cross-compiled,
 
 Extracting mapping between \gls{isc} and binary code is comparatively easier. This is aided by the fact that \gls{isc} is easier to parse, as it uses simple \emph{if-else} constructs and \emph{goto} commands to implements loops. \gls{isc} is fairly easy to read and understand for the developer. Instrumentation is performed to the \gls{isc}. 
 
-To aid understanding, the ISC will be referred to as the source code in further sections.
+To aid understanding, the ISC will be interchangeably referred to as the source code in further sections.
+
+A sample of ISC code generated by the tool is shown in Appendix \ref{app:ir2cConversion}.
 
 \section{Mapping between ISC and Binary Code}
 Even between \gls{isc} and Binary Code, the control flow is significantly different. This is because processor dependent optimizations are not included in the ISC. Modern processors offer complex optimization features. These features are processor-dependent and can only be utilized by the compiler back-end.
 
-Compiler optimizes code by moving instructions around. Sometimes new blocks will be created in the Binary Code. Using predication or conditional execution, the compiler may try to eliminate branching instructions. Blocks will be merged in doing so. A complete one to one mapping between basic blocks may often not exist. The mapping algorithm must take this into account, and find a mapping such that each basic block in the binary code maps to a basic block in the source code.
+Compiler optimizes code by moving instructions around. Sometimes new blocks will be created in the Binary Code. Using predication or conditional execution, the compiler may try to eliminate branching instructions. Blocks will be merged in doing so. A complete one to one mapping between basic blocks may often not exist. The mapping algorithm must take this into account, and find a mapping such that each basic block in the binary code maps to one or many basic blocks in the source code.
 
-GDB provides mapping information, but was observed to be highly inaccurate. To perform accurate mapping, complex techniques have been proposed based on analysis of Data and Control Flow. In this project, the Control Flow Graphs (CFGs)\footnote{Control Flow Graph is a graph representing flow of control among basic blocks in the code. The nodes represent basic blocks, and the edges represent the possible flow of execution.} of \gls{isc} and binary code are analysed using a mapping algorithm. The approach is inspired from \cite{RBA2013}.
+GDB can be used to extract mapping between instructions in binary code and statements in the source code. However, this mapping was observed to be highly inaccurate. To perform accurate mapping, complex techniques have been proposed based on analysis of Data and Control Flow. In this project, the Control Flow Graphs (CFGs)\footnote{Control Flow Graph is a graph representing flow of control among basic blocks in the code. The nodes represent basic blocks, and the edges represent the possible flow of execution.} of \gls{isc} and binary code are analysed using a mapping algorithm. The approach is inspired from \cite{RBA2013}.
 
 The mapping algorithm is based on the standard Graph Matching Algorithm using recursive Depth First Traversal. CFGs are extracted by parsing the source code and the binary code. To assist in mapping, a \textit{flow} value is calculated for each node in the graphs. The \textit{flow} value for a node is the sum of the \textit{flows} of the incoming edges to the node, which in turn is equally divided among the outgoing edges. The \textit{flow} value of the root node is 1. Only nodes with equal flow value can be mapped to each other.
 
 The pseudo code of the \emph{mapping} function is presented in Algorithm \ref{algo:mapping}. The recursive function takes two nodes as parameter, and tries to find if the nodes map to each other. It checks that the nodes have the same \textit{flow} values, and returns \textit{False} if not. If the nodes have already been mapped to each other, the function returns \textit{True}. 
 
-At this point, special handling for different compiler optimizations is done. Section [TODO] will illustrate the handling for Conditional Execution optimization that is frequently seen in the test set of benchmarks.
+At this point, special handling for different compiler optimizations is done. Section \ref{subsec:CondExec} illustrates the handling for Conditional Execution optimization that is frequently seen in the test set of benchmarks.
 
-Hereafter, the successor sets of both nodes are created. To find successor nodes, only forward edges to are considered. Back edges representing loops are ignored. Two nodes can be mapped to each other, only if they have the same number of successor nodes. For each successor \emph{S\_src} in \emph{SS\_src}, a matching node in \emph{SS\_bin} is identified by recursively calling the \emph{mapping} function. 
+Hereafter, the successor sets of both nodes are created. To find successor nodes, only forward edges are considered. Back edges representing loops are ignored. Two nodes can be mapped to each other, only if they have the same number of successor nodes. For each successor \emph{S\_src} in \emph{SS\_src}, a matching node in \emph{SS\_bin} is identified by recursively calling the \emph{mapping} function. 
 
 The nodes map to each other, if a mapping can be found for all successor nodes. The algorithm tries to find matching path from the start node, to the exit node and creates mapping between the nodes on this path.
 
@@ -210,7 +212,7 @@ The nodes map to each other, if a mapping can be found for all successor nodes. 
 \end{algorithmic}
 \end{algorithm}
 
-The instrumentation tool generates graphical representation of the mapping between the CFGs. Mapping for some benchmarks, that were used to test the tool have been shown in [TODO].
+The instrumentation tool generates graphical representation of the mapping between the CFGs. Mapping for some benchmarks, that were used to test the tool have been shown in Appendix \ref{app:mappingAlgo}.
 
 \subsection{Handling of Conditional Execution Optimization}
 \label{subsec:CondExec}
@@ -312,9 +314,18 @@ In the example, a very simple processor was used where each instruction takes on
 \label{fig:genericPipeline}
 \end{figure}
 
-The first instruction is \textit{fetched} into the pipeline in the first stage. While this instruction is being \textit{decoded} in the next stage, the consecutively next instruction is \textit{fetched}. The \textit{execution} of the instruction is done in the third stage. The fourth stage is used for instructions that need to access memory, such as the load/store. The result of the execution is written back to the destination register in the final stage.
+The first instruction is \textit{fetched} into the pipeline in the first stage. While this instruction is being \textit{decoded} in the next stage, the consecutively next instruction is \textit{fetched}. The \textit{execution} of the instruction is done in the third stage. The fourth stage is used for instructions that need to access memory, such as the load/store. The result of the execution is written back to the destination register in the final stage. In a best case scenario, the cycles consumed in execution of each basic block can be calculated as follows.
 
-Consecutive instructions may have data and control dependency which will lead to stalling of the pipeline. Data dependency occurs when an instruction needs as input, result generated by the previous instruction. Refer to the example \ref{ex:dataDep}.  The result of the \emph{add} instruction will be written to \emph{r0} in the final stage in the pipeline. Meanwhile, the next instruction \emph{mul} needs the value of \emph{r0}. The execution of the \emph{mul} instruction will be stalled until, the result of the \emph{add} instruction has been written in \emph{r0}.
+\begin{gather}\label{eq:2.1}
+Cycles = n\_inst + n\_stages - 1
+\intertext{where}
+\begin{aligned}
+n\_inst &= \text{Number of instructions in the basic block}\\
+n\_stages &= \text{Number of stages in the pipeline}
+\end{aligned} \notag
+\end{gather}
+
+However, consecutive instructions may have data and control dependency which will lead to stalling of the pipeline. Data dependency occurs when an instruction needs as input, result generated by the previous instruction. Refer to the example \ref{ex:dataDep}.  The result of the \emph{add} instruction will be written to \emph{r0} in the final stage in the pipeline. Meanwhile, the next instruction \emph{mul} needs the value of \emph{r0}. The execution of the \emph{mul} instruction will be stalled until, the result of the \emph{add} instruction has been written in \emph{r0}.
 
 \begin{Example}
 \begin{lstlisting}
@@ -329,9 +340,9 @@ Consecutive instructions may have data and control dependency which will lead to
 
 Some operations like floating point arithmetic, need more than one cycle to execute. The execution unit for such operations is implemented outside the pipeline. Control dependency occurs when an instruction needs resource, which is being used by the previous instruction. Again, execution of the subsequent instruction is stalled until the resource is freed by the previous instruction.
 
-To estimate the cycles spent in execution of a basic block, the structure of the pipeline and effects due to Data and Control Dependencies are taken into consideration. Instructions each basic block are parsed sequentially, and dependencies are identified. The cycles spent in execution on the pipeline, are estimated by adding appropriate penalties for pipeline stalls.
+To estimate the cycles spent in execution of a basic block, the structure of the pipeline and effects due to Data and Control Dependencies are taken into consideration. Instructions each basic block are parsed sequentially, and dependencies are identified. The actual cycles spent in execution on the pipeline, are estimated by adding appropriate penalties for pipeline stalls to the equation \ref{eq:2.1}.
 
-In this step, the latency in fetching data from the memory is ignored. This will be taken into account in section [TODO]. Also, it is assumed that the pipeline is empty at the beginning of each basic block. This may not be the case always, and will be considered in section [TODO].
+In this step, the latency in fetching data from the memory is ignored. This will be taken into account in section \ref{sec:AnnotMemAccess}. Also, it is assumed that the pipeline is empty at the beginning of each basic block. This may not be the case always, and will be considered in section \ref{subsec:BranchPred}.
 
 The total number of cycles as calculated from the simulation is annotated to the corresponding basic block in the source code, as illustrated in the example below. On entering the basic block, global variable \emph{execCycles} is incremented by the number of cycles spent in executing the basic block. This is done each time the basic block gets executed.
 
@@ -355,6 +366,7 @@ void foo()
 \end{Example}
 
 \subsection{Branch Prediction}
+\label{subsec:BranchPred}
 To calculate the cycles spent in execution, it was assumed that the pipeline is empty at the beginning of each basic block. This may not always be the case and will be taken into account here.
 
 \begin{Example}[h]
@@ -433,6 +445,7 @@ void foo()
 \end{Example}
 
 \section{Annotation for Memory Access}
+\label{sec:AnnotMemAccess}
 The cycles spent in fetching data and instructions from the memory must be accurately estimated. To do this a Cache Simulator has been implemented. The source code is instrumented to invoke the Cache Simulator at run-time. In the following sections details about the Cache Simulator have been discussed, followed by the process to instrument the code.
 
 \subsection{Cache Simulator}
@@ -476,37 +489,102 @@ unsigned long long simICache(unsigned long address,
 \label{snip:csimAPI}
 \end{Snippet}
 
-For each data access in the application, annotation is done in the source code to call function \emph{simDCache} and trigger Data Cache simulation. The address of the data being fetched is provided as parameter, along with a flag to signify whether it is a read or write access. Simulation of Instruction Cache is done at basic block granularity. \emph{simICache} is called with the start address of the basic block and the size of the basic block in bytes as parameters. Number of cycles spent in performing the memory access is returned by the cache simulator.
+For each data access in the application, annotation is done in the source code to call function \emph{simDCache} and trigger Data Cache simulation. The address of the data being fetched is provided as parameter, along with a flag to signify whether it is a read or write access. Simulation of Instruction Cache is done at basic block granularity. \emph{simICache} is called with the start address of the basic block and the size of the basic block in bytes as parameters. Number of cycles spent in performing the memory access is returned by the cache simulator. The return value from the cache simulator is accumulated in a global variable \emph{memAccessCycles}. 
 
-The third parameter to both \emph{simDCache} and \emph{simICache} is an address to an object of type \emph{struct csim\_result\_t} where detailed result of the simulation is stored. This data will be useful for estimating power consumption, as will be discussed later.
+\vspace*{10pt}
+\begin{Snippet}[h]
+\begin{lstlisting}[numbers=none]
+struct csim_result_t
+{
+	unsigned long long L1Hits;
+	unsigned long long L2Hits;
+	unsigned long long L2Misses;
+	unsigned long long prefetches;
+};
+\end{lstlisting}
+\caption{API provided by Cache Simulator}
+\label{snip:csimAPI}
+\end{Snippet}
+
+In addition, the Cache Simulator provides detailed statistics. These results are stored by the Cache Simulator in an object of type \emph{struct csim\_result\_t}. The pointer to the object is passed to the Cache Simulator as the third parameter in the API. This data will be useful for estimating power consumption, as will be discussed later. 
+
+The source code is instrumented, as illustrated in example \ref{ex:cacheSimGlobVar}, to create global variables to record the result of cache simulation.
+
+\vspace*{10pt}
+\begin{Example}[h]
+\begin{lstlisting}
+unsigned long long execCycles = 0;
+`unsigned long long memAccessCycles = 0;`
+`struct csim_result_t csim_result;`
+
+void foo()
+{
+    ...
+    for(i=0; i<20; i++)
+    {
+        execCycles += 24; // Cycles spent in execution of this basic block
+        execCycles -= (enterBlock(0x8040, 0x8080) ? 4 : 0);
+        ...
+    }
+    ...
+}
+\end{lstlisting}
+\caption{Instrumentation for simulating Branch Prediction Unit}
+\label{ex:cacheSimGlobVar}
+\end{Example}
 
 Caches may have varying parameters and features such as,
-\begin{itemize} \itemsep -6pt
+\begin{itemize} \itemsep -2pt
 \item Sizes
 \item Approach for Associativity of Data (Direct Mapped, N-way Set Associative)
 \item Hierarchy (multiple levels of caching)
 \item Replacement Policies
+\item Data Prefetching Policies
 \end{itemize}
 
 The cache simulator has been designed in a modular fashion. Platform specific implementation of the cache may be plugged into the API. Architects can alter specific parameters of the cache and analyse the impact on performance, without having to instrument the code again.
 
-Details about the hierarchy and features that have been implemented in the Cache Simulator to model the target processor used for testing have been discussed in Section [TODO].
+Details about the hierarchy and features that have been implemented in the Cache Simulator to model the target processor used for testing have been discussed in Section \ref{sec:c3CacheHierarchy}.
 
 \section{Instrumentation for Instruction Access}
 For estimating cycles spent in fetching the instructions from memory, instrumentation is performed at the basic block granularity. 
 
 For each basic block in the cross-compiled binary code, the address of the first instruction in the block and size of the block in bytes is extracted by static analysis. Note that since the binary is compiled to be run on Bare-Metal, the load address of the binary was decided at compile time. The addresses of instructions extracted from the binary, are the physical addresses where the instructions will reside in the memory of the target system.
 
-The corresponding basic block in the source code is identified from the mapping information. Instrumentation is performed at the beginning of the basic block, and the instruction access is simulated using the API provided by the cache simulator.
+The corresponding basic block in the source code is identified from the mapping information. Instrumentation is performed at the beginning of the basic block, and the instruction access is simulated using the API provided by the cache simulator. The instrumentation is illustrated in Example \ref{ex:instCacheInst}.
 
-This is done exactly as illustrated in the simple example in section \ref{sec:SimpleExample}.
+\vspace*{10pt}
+\begin{Example}[h!]
+\begin{lstlisting}
+unsigned long long execCycles = 0;
+unsigned long long memAccessCycles = 0;
+struct csim_result_t csim_result;
+
+void foo()
+{
+    ...
+    for(i=0; i<20; i++)
+    {
+        execCycles += 24; // Cycles spent in execution of this basic block
+        execCycles -= (enterBlock(0x8040, 0x8080) ? 4 : 0);
+        `memAccessCycles += simICache(0x8040, 32, &csim_result);`
+        ...
+    }
+    ...
+}
+\end{lstlisting}
+\caption{Instrumentation for simulating Branch Prediction Unit}
+\label{ex:instCacheInst}
+\end{Example}
 
 \section{Instrumentation for Data Access}
-The example shown in Section \ref{sec:SimpleExample} was simplified for illustration. It had a flaw which will result in inaccuracy of estimation. To simulate load operation for fetching elements of \emph{array}, the address of \emph{array} at run-time from the Host Machine was used. For accurate estimation, data access must be simulated using target addresses. This is important since the host and target memory systems may vary significantly. For instance, the host and target system may use different sizes for basic data types, like integers. This will lead to severe inaccuracy when accessing a sequence of elements from an array of integers. 
+The instrumentation in the example shown in Section \ref{sec:SimpleExample} was simplified for illustration. It had a flaw which will result in inaccuracy of estimation. To simulate load operation for fetching elements of \emph{array}, the address of \emph{array} from the Host Machine was used. For accurate estimation, data access must be simulated using target addresses. This is important since the host and target memory systems may vary significantly. 
 
-It is not possible to resolve the address of each load/store instruction by static analysis. The technique to do this is inspired from research published in \cite{Lu2013} and is called Memory Access Reconstruction. Memory Access Reconstruction is the technique to resolve address of each load/store instruction as it would occur on the target processor. The address is then used for accurately simulating data access. 
+For instance, the host and target system may use different sizes for basic data types. The host machine in our test setup uses 8 Bytes for \emph{long int} and the target machine uses 4 Bytes for the same data type. When accessing elements of an array of \emph{long int}s using host addresses, twice the number of cache-misses will be reported than what is expected on the target device.
 
-Multiple steps are involved in this process. Each of these has been described in detailed in the following sections.
+The address for each load/store instruction needs to be resolved for the target processor. This can not be done by static analysis. The technique to do this is inspired from research published in \cite{Lu2013} and is called Memory Access Reconstruction. 
+
+Multiple steps are involved in this process. These steps are described in the following sections.
 
 %The steps needed for Memory Access Reconstruction are as follows
 %
@@ -518,14 +596,14 @@ Multiple steps are involved in this process. Each of these has been described in
 %\end{itemize}
 
 \subsection{Resolve address of each variable}
-The address of each variable used in the program is extracted. This information is useful in later steps. A program may use different types of variables. The technique to resolve the address of each type of variable has been described in the section.
+The address of each variable used in the program is extracted. This information is useful in later steps. A program may use different types of variables. The technique to resolve the address of each type of variable has been described in this section.
 
 \subsubsection{Global Variables}
 Global Variables are accessible by all functions, and are stored in the Data Section of the application memory. The physical addresses of the global variables are decided at compile time. The address, size and type of each Global Variable is extracted by static analysis of the binary using GDB. 
 
 For each global variable \emph{var}, another global variable \emph{var\_addr} is declared by instrumentation. The address of the global variable on the target system is stored in this variable. This address is later used for simulating access to the global variable. Refer to the example \ref{ex:GlobVarInst}.
 
-\vspace*{15pt}
+\vspace*{10pt}
 \begin{Example}
 \begin{lstlisting}
 int globalVar[20];
@@ -541,15 +619,16 @@ void foo ()
 \end{Example}
 
 \subsubsection{Local Variables}
-Local Variables are defined inside a function definition, and are only accessible inside the function. Memory for Local Variables is only allocated when the function is called, and is located in the stack frame of the function. The actual physical address of the local variables can not be resolved by static analysis, as the stack grows and compacts at run-time. However, the address of each local variable relative to the value of the stack pointer, can be known.
+Local Variables are defined inside a function definition, and are only accessible inside the function. Memory for local variables is only allocated when the function is called, and is located in the stack frame of the function. The actual physical address of the local variables can not be resolved by static analysis, as the stack grows and compacts at run-time. However, the address of each local variable relative to the value of the stack pointer, can be known.
 
 If the value of the stack pointer is known, the relative address can be added to it to resolve the physical address of the local variable. Whenever a function is called, the stack frame of the function is pushed to the stack. The stack frame is popped when the function returns. To keep track of the stack pointer at run-time, a global variable \emph{CSIM\_SP} is declared and initialized with the initial value of the stack pointer. The stack frame size of each function is extracted by static analysis of the binary. \emph{CSIM\_SP} is incremented at the beginning of each function by the stack frame size of the function and decremented before the function returns.
 
 Example \ref{ex:LocalVarInst} illustrates the annotations needed to resolve the physical address of local variables.
 
+\vspace*{10pt}
 \begin{Example}
 \begin{lstlisting}[label=lst:LocalVarInst]
-`unsigned long CSIM_SP = 0x1ff280;` // Intial Value of Stack Pointer
+`unsigned long CSIM_SP = 0x1ff28;` // Intial Value of Stack Pointer
 
 void foo ()
 {
@@ -573,6 +652,7 @@ void foo ()
 Dynamically Allocated Memory is stored in the Heap Section. To allocate and free heap memory, the application uses API provided by system libraries. The memory allocation algorithm of the target system needs to be emulated at run-time of simulation, to resolve physical addresses of dynamically allocated memory. This approach is discussed in [TODO]. However, this is complicated to achieve, and has been ignored for this project. Only benchmark applications that do not use Dynamically Allocated Memory can be used. The project can later be extended to include this functionality.
 
 \subsection{Analyse binary code for identifying load/store operations on variables}
+\label{subsec:analyseBinary}
 To identify which variable is being accessed, the binary code is partially simulated. A simple simulator is developed in Python, which maintains the state of each register in the target processor. Starting from the main function, each instruction in the binary code is parsed and state of the registers is updated. In this simulation, the branching instructions are ignored. This means, each instruction will only be parsed once. 
 
 When function calls are identified, the current state of the registers is stored. This state will be used when simulating the called function. This is done to keep track of function parameters that are passed as values in registers. For parameters being passed in the stack, this approach does not correctly work. A queue is maintained for each function that is called. Each function is simulated with the initial state of registers that was recorded when the function was first called. Note that each function will only be simulated once, and subsequent calls to the function were ignored.
@@ -599,21 +679,161 @@ The memory accesses performed in each basic block in the binary code are recorde
 
 This approach has certain limitations. It may fail, in the presence of some pointer dereferencing operations. When the variable being accessed by a load/store instruction is not identified, appropriate hints are provided in the log to enable the user of the tool to manually instrument the code.
 
-Note, that in this step only the variables being accessed were identified. In the example shown above \emph{globVar} is an array of integers. Elements of this array are accessed sequentially in the code, but this can not be identified in this step. To correctly instrument the Data Cache Access, the index being added to the base address of an array must be known. This information can only be extracted by parsing the source code.
-
 \subsection{Parse Source Code}
-By analysing the binary code, variables accessed in each basic block were identified. Additionally, load/store instructions associated with register spilling were distinctly identified. Instrumentation for register spilling is straight forward.
+Note, that in the previous step only the variable being accessed by each load/store instruction were identified. In the example shown above \emph{globVar} is an array of integers. Elements of the array are accessed in a loop by adding an index to the base address of the array. To correctly instrument the Data Cache Access, the index must be known. This information can only be extracted by parsing the source code.
 
-In this stage, the focus is to identify the statement in source code which causes memory access to a variable. By parsing this statement, the exact address being accessed can be identified. A custom C Parser is implemented in Python to parse the Instrumented Source Code (ISC). Conversion of source code to ISC helps here, because ISC is easier to parse. The parser returns a list of variables being accessed by the statement, along with other information like index expression and whether it is a read or write operation.
+\begin{figure}[h]
+\centering
+\includegraphics[width=.5\textwidth]{figures/cParser.png}
+\caption{Block Diagram for a custom C parser, that parses a statement and returns information about each variable accessed in the statement.}
+\label{fig:customCParser}
+\end{figure}
 
-Instrumentation for matching memory accesses found in source code and binary code is done. Instrumentation for local and global variables is handled in different ways as is shown below.
+In this stage, the focus is to identify the statement in source code which causes memory access. By parsing this statement, additional information will be extracted to accurately instrument the code. A custom C Parser is implemented in Python to parse the Instrumented Source Code (ISC). Conversion of source code to ISC helps here, because ISC is easier to parse. The parser returns a list of variables being accessed by the statement, along with other information like index expression and whether it is a read or write operation. Refer to figure \ref{fig:customCParser}.
 
-Another typical case must be taken into consideration. In the simple example in Section \ref{sec:SimpleExample}, pointer to an array is passed as a parameter to the function. By simulating the binary code, access to Global Variable \emph{globVar} was identified. However, the function \emph{sum} may be called with a pointer to any other array. Special handling needs to be done for such cases, when pointers are sent as function parameters.
+For each basic block in binary code, the mapped basic block in the source code is parsed. One to one mapping between each load/store operation and a statement in the source code is extracted. Annotation for the data access is performed. 
 
-The approach used in this project, is to modify the signature of each function that takes pointers as arguments. For each pointer argument \emph{ptr}, a new argument is added \emph{ptr\_addr}. The calling function is accordingly modified, to provide address of the variable on the target processor. When \emph{ptr} is dereferenced, data cache access is simulated using \emph{ptr\_addr}. Refer to the following example for this annotation.
+\vspace*{10pt}
+\begin{Example}[h]
+\begin{lstlisting}
+unsigned long CSIM_SP = 0x1ff28; // Initial Value of SP
 
+unsigned long long memAccessCycles = 0;
+struct csim_result_t csim_result;
 
+unsigned int globVar[20];
+unsigned long long globVar_addr = 0x7c8; // Address of Global Variable
 
+void foo()
+{
+    unsigned int localVar;
+    unsigned long localVar_addr = 0x08; // Address relative to SP
+    
+    CSIM_SP = CSIM_SP + 0x16; // Increment by size of stack frame
+    
+    ...
+    *@localVar += globVar[i];@*
+    `memAccessCycles += simDCache(globVar_addr + i * sizeof(int),`
+                                    `READ_ACCESS,`
+                                    `&csim_result);`
+    `memAccessCycles += simDCache(CSIM_SP + localVar_addr,`
+                                    `WRITE_ACCESS,`
+                                    `&csim_result);`
+    ...
+    
+    CSIM_SP = CSIM_SP - 0x16; // Decrement by size of stack frame
+    return;    
+}        
+\end{lstlisting}
+\caption{Instrumentation for simulating Branch Prediction Unit}
+\label{ex:dataCacheInst}
+\end{Example}
 
+Annotation for simulating access to a global variable is straight forward. The index expression extracted from the source code is added to the base address of the global variable in the target processor. For local variables, the value of \emph{CSIM\_SP} is added to the relative address to extract the base address of the local variable. The index, if any, is then added to this base address. Example \ref{ex:dataCacheInst} shows instrumentation of a local and global variable. The highlighted statement on line 17, causes a read operation on an element of array \emph{globVar} and a write operation to \emph{localVar}. Appropriate instrumentation is shown between lines 18 and 23.
 
+\subsubsection{Handling of pointers sent as function parameters}
 
+In the simple example in Section \ref{sec:SimpleExample}, pointer to an array is passed as a parameter to the function. By simulating the binary code in Section \ref{subsec:analyseBinary}, access to global variable \emph{globVar} was identified. However, the function \emph{sum} may be called with a pointer to any other array. Special handling needs to be done for such cases, when pointers are sent as function parameters.
+
+The approach used in this project, is to modify the signature of each function that takes pointers as arguments. For each pointer argument \emph{ptr}, a new argument is added \emph{ptr\_addr}. The calling function is accordingly modified, to provide address of the variable on the target processor. When \emph{ptr} is dereferenced, data cache access is simulated using \emph{ptr\_addr}. 
+
+\section{Estimation of Power Consumption}
+Apart from the speed of execution, the power consumption is a key performance indicator for modern processors. The balance between performance and power is critical, and needs to be maintained. An accurate estimate of power consumption can help architects keep this balance in check.
+
+The approach to estimate the power consumption is inspired from [TODO]. The power consumption of processors mainly comes from dynamic power consumption due to switching activity and static power consumption due to the leakage current. This power consumption can be attributed to various components in the processor. These components are in active or idle state, depending on the operations being performed. In idle state, the power consumption is reduced as there is no switching activity. Through careful measurement, accurate estimation of dynamic and static power consumption of each component of the processor can be known.
+
+The Dynamic Power Consumption of a system is a function of the Voltage and Frequency. It is derived by the following formula.
+
+\begin{gather}
+P = \alpha CV^{2}f 
+\intertext{where}
+\begin{aligned}
+\alpha C &= \text{Equivalent Switching Capacitance of the circuit} \\
+V &= \text{Supply Voltage} \\
+f &= \text{Frequency}
+\end{aligned} \notag
+\end{gather}
+
+The value of equivalent switching capacitance, $\alpha C$ can be calculated for each component. Also, the frequency and supply voltage for each component is known. The Static Power Consumption for each component is constant, and can be measured.
+
+%TODO: keep always, check if image is aligned well.
+\begin{wrapfigure}{hrt}{0.3\textwidth}
+\vspace{-30pt}
+\begin{center}
+\includegraphics[width=.28\textwidth]{figures/components.pdf}
+\end{center}
+\vspace{-20pt}
+\caption{Components of a processor}
+\vspace{-20pt}
+\label{fig:components}
+\end{wrapfigure}
+
+Some processors use Dynamic Voltage and Frequency Scaling technique to reduce the power consumption. Certain operating points are defined, and depending on the current load on the components the frequency and voltage is decided. The switching between operating points is handled by firmware, and can be disabled. This feature has not been considered in this project currently, however the approach can be extended to handle this feature effectively.
+
+From information about state of each component at a point in time, the total power being consumed by the processor at that time can be estimated. This information can be extracted from the instrumentation performed in previous steps. An accurate model of components in the processor needs to be created. In this project, the processor has been divided into three components, as shown in Figure \ref{fig:components}
+
+The CPU and the L1 Cache are collocated on a single die, and generally operate at the same frequency. They are grouped as a single component. This component is active when the instructions are being executed and L1 Miss does not occur. On L1 Miss, the L2 Cache is requested for data. The L2 Cache generally runs on a lower frequency, and is treated as a separate component. The L2 Cache is only active when an L1 Miss occurs. On L2 Miss, the data is fetched from the main memory. The main memory is generally located on an external chip. The memory is linked to the processor, generally though an External Memory Controller on a memory bus. The external memory, along with the interconnect is treated as a third component.
+
+\subsection{Trace Collection}
+Rather than average power consumption, it is interesting to see how the consumption changes over the time of execution of the application. In this project, the power consumption is estimated at the granularity of basic blocks. Using statistics generated from instrumentation performed previously, state of each component can be known over the time of execution of the basic block. The power consumed over the period of executing of this basic block can thus be calculated.
+
+The CPU remains in switching state for \emph{execCycles} and in idle state for \emph{memAccessCycles}. Note, that when the data is fetched from L1 Cache, the CPU is not put idle state. Hence, grouping of L1 Cache with the CPU is justified. 
+
+The Cache Simulator can tell whether the data was fetched from either of the caches or from the memory. The number of cycles spent in each access from L2 cache is constant. The L2 cache is in active state when an L1 Miss occurs. The data is looked up in the L2 cache. If data is not found, L2 Miss occurs and data is fetched from Memory. The memory is also in active state when data is prefetched by the processor. The Cache Simulator provides detailed statistics of number of L1 Hits, L2 Hits and L2 Misses and prefetches.
+
+For estimating power consumption, this data is collected at the basic block graularity. The API provided by the Power Estimation Utility is shown in Snippet \ref{snip:pestAPI}
+
+\vspace*{10pt}
+\begin{Snippet}[h]
+\begin{lstlisting}[numbers=none]
+/**
+ * @brief API to estimate the power
+ *
+ * @param Name of the current Basic Block
+ * @param Number of cycles spent in active state of CPU
+ * @param Number of cycles spent in fetching data from memory
+ * @param Number of L2 Accesses = L2 Hits + L2 Misses
+ * @param Number of memory accesses = L2 Misses + Prefetches
+ *
+ * @return Amount of Energy spent in the period of time in uJ.
+ */
+double estimate_power(unsigned long long execCycles,
+                		unsigned long long memAccessCycles,
+                		unsigned long long L2_Access,
+                		unsigned long long memAccesses)
+\end{lstlisting}
+\caption{API provided by Power Estimation Utility}
+\label{snip:pestAPI}
+\end{Snippet}
+
+The API is called at the end of each basic block. The current value of global variables \emph{execCycles} and \emph{memAccessCycles} is passed as parameter. The utility keeps track of previously reported cycles, and calculates the cycles spent in each activity in the current block. Similarly, the current value of sum of number of L2 Hits and number of L2 Misses is passed as the fourth parameter. Current value of sum of number of L2 Misses and number of prefetches is sent as the fifth parameter.
+
+Using this data, the Power Estimation Utility calculates the total power consumed over this period. The data is written to an output file which can be plotted and analysed.
+
+Example \ref{ex:powerEstInst} illustrates the instrumentation for estimating power consumption.
+
+\vspace*{10pt}
+\begin{Example}[h!]
+\begin{lstlisting}
+unsigned long long execCycles = 0;
+unsigned long long memAccessCycles = 0;
+struct csim_result_t csim_result;
+
+void foo()
+{
+    ...
+    for(i=0; i<20; i++)
+    {
+        ...
+        `estimate_power(execCycles,`
+                        `memAccessCycles,`
+                        `csim_result.L2_Hits + csim_result.L2_Misses,`
+                        `csim_result.L2_Misses + csim_result.prefetches);`
+
+    }
+    ...
+}
+\end{lstlisting}
+\caption{Instrumentation for estimating Power Consumption}
+\label{ex:powerEstInst}
+\end{Example}

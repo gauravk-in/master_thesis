@@ -50,9 +50,9 @@
   breakatwhitespace=true,
   tabsize=4,
   captionpos=b,
-  escapeinside={(*@}{@*)},
-  moredelim=**[is][{\btHL}]{`}{`}
-%	    moredelim=**[is][{\btHL[fill=green!30,draw=red,dashed,thin]}]{@}{@}
+%  escapeinside={(*@}{@*)},
+  moredelim=**[is][{\btHL}]{`}{`},
+  moredelim=**[is][{\btHL[fill=green!30,draw=red,dashed,thin]}]{*@}{@*}
 }
 
 \input{pages/cover}
@@ -76,7 +76,14 @@
 \input{chapters/implementation}
 \input{chapters/results}
 \input{chapters/conclusion}
-\input{chapters/temp}
+%\input{chapters/temp}
+\begin{appendices}
+\input{chapters/ir2cConversion}
+\input{chapters/mappingAlgo}
+%\input{chapters/cacheSimulator}
+%\input{chapters/instForDataAccess}
+\end{appendices}
+
 % TODO: add more chapters here
 
 \appendix{}

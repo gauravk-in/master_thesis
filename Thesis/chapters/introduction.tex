@@ -2,11 +2,13 @@
 
 \section{Simulation}
 
-Simulation is the technique to imitate the operation of a real or abstract system. The first step in simulation is to develop a model which represents the key characteristics and behaviour of the real or abstract system. Simulation is then the process of operating this model to analyse how the system will behave in the various situations. Simulation is frequently used working with the real model is difficult or impossible.
+Simulation is the technique to imitate the operation of a real or abstract system. A model is developed which represents the key characteristics and behaviour of the real or abstract system. Simulation is the process of operating this model to analyse how the system will behave in the various situations. Simulation is frequently used when working with the real system is difficult or impossible.
 
 Simulation is widely used in Hardware Software Co-development. In early stages of development, hardware architects want to analyse the impact of design decisions on performance of the overall system. Fabrication of hardware at each milestone is a time-consuming and expensive process. Instead, a model of the processor is created and benchmarking applications are run on these models.
 
 The popular approach used for simulation is called \gls{cas}. In \gls{cas} the processor micro-architecture is modelled in great detail. Each stage of processor pipeline is simulated along with other building blocks of the processor like Cache Memory and Branch Prediction Units. This approach provides cycle accurate estimates of performance. However, \gls{cas} is difficult to develop and slow to execute because of the amount of details that are taken into consideration. For analysing bottlenecks, long-running benchmark applications need to be executed. \gls{cas} is not suited for such use-cases due to the slow execution speeds.
+
+Simulation is also performed at a higher level of abstraction. The state of registers of the target processor are maintained by the simulator. Each instruction of the cross-compiled binary code is read and state of the registers is updated. This is known as Functional Simulation, and is used for functional verification and early software development. Performance estimates cannot be gathered at the higher level of abstraction.
 
 Researchers have focussed on developing techniques to accelerate performance benchmarking of micro-processors. This will save cost and effort spent in the design space exploration phase. In this research, a technique for fast simulation of micro-processors has been implemented. 
 
@@ -15,7 +17,7 @@ Researchers have focussed on developing techniques to accelerate performance ben
 \subsection{Sampling Based Approach}
 Sampling is an approach used in statistical analysis. Small, yet representative samples are chosen from a vast amount of data. These samples are analysed in detail, and the results are interpolated to gather information about the entire data set.
 
-In this approach, the application is mostly run using Functional Simulation, and some samples are executed using the detailed \gls{cas}. The number of cycles spent in execution of the samples is calculated, and the number of cycles spent in executing the entire pipeline is estimated by interpolating.
+In this approach, the application is mostly run using faster Functional Simulation, and some samples are executed using the detailed \gls{cas}. The number of cycles spent in execution of the samples is calculated, and the number of cycles spent in executing the entire application is estimated by interpolating.
 
 This approach provides considerable speed up compared to \gls{cas}, however accuracy of the estimation is highly dependent on how the samples are chosen. Also, developing this technique is difficult, since \gls{cas} is used.
 
@@ -30,16 +32,20 @@ When an application is run on a processor, most of the time is spent in
 \item Fetching data from the memory. 
 \end{itemize}
 
-If the number of cycles spent in each of these phases can be accurately estimated, the total number of cycles spent in running the application can be calculated.  In this approach, the source code is instrumented to do this. The instrumented source code is compiled for and run on the Host Machine (the machine where the simulation is run) and hence the name, Host Compiled Simulation.
+If the number of cycles spent in each of these phases can be accurately estimated, the total number of cycles spent in running the application can be calculated.  In this approach, the source code is instrumented to do this. The instrumented code is compiled for and run on the Host Machine and hence the name, Host Compiled Simulation.
 
 \section{Focus}
-The focus in this research is to develop a tool to perform Host Compiled Simulation of a processor. The tool should be able to automatically instrument a given source code. The instrumented source code will be compiled and run, and accurate estimates of the performance will be reported.
+In this research, the Host Compiled Simulation approach has been explored. A tool to perform automatic instrumentation of source code has been developed. In addition to estimating the performance of the target processor, the technique has been extended to estimate the power consumption. Detailed implementation of the tool and the technique has been described in this thesis. The results from simulation have been compared with results gathered from the actual hardware.
 
-%\section{Thesis Outline}
-%\textbf{Chapter 2} presents the technique of Host Compiled Simulation from a general perspective. 
-%
-%\textbf{Chapter 3} delves into details about implementation of each step. Platform specific details have also been discussed.
-%
-%\textbf{Chapter 4} presents an analysis of the test results. 
-%
-%\textbf{Chapter 5} provides hints for future contribution and conclusion.
+\section{Thesis Outline}
+%\vspace*{-10pt}
+\paragraph{Chapter 2} presents the concept of Host Compiled Simulation from a general perspective. The overall flow of the technique is discussed in detail, along with the challenges at each step.
+
+\vspace*{-15pt}
+\paragraph{Chapter 3} describes the features of the target processor that have been implemented in the simulation.
+
+\vspace*{-15pt}
+\paragraph{Chapter 4} presents a detailed analysis of the results.
+
+\vspace*{-15pt}
+\paragraph{Chapter 5} provides conclusion and pointers for future contribution.

@@ -2,32 +2,50 @@
 \contentsline {chapter}{\nonumberline Abstract}{iii}{chapter*.1}
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Simulation}{1}{section.1.1}
-\contentsline {section}{\numberline {1.2}Related Work}{1}{section.1.2}
-\contentsline {subsection}{\numberline {1.2.1}Sampling Based Approach}{1}{subsection.1.2.1}
+\contentsline {section}{\numberline {1.2}Related Work}{2}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Sampling Based Approach}{2}{subsection.1.2.1}
 \contentsline {subsection}{\numberline {1.2.2}Host Compiled Simulation}{2}{subsection.1.2.2}
 \contentsline {section}{\numberline {1.3}Focus}{2}{section.1.3}
-\contentsline {chapter}{\numberline {2}Host Compiled Simulation}{3}{chapter.2}
-\contentsline {section}{\numberline {2.1}Simple Example}{3}{section.2.1}
-\contentsline {section}{\numberline {2.2}The Flow}{6}{section.2.2}
-\contentsline {section}{\numberline {2.3}Source Code to Intermediate Source Code}{7}{section.2.3}
-\contentsline {section}{\numberline {2.4}Mapping between ISC and Binary Code}{8}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}Handling of Conditional Execution Optimization}{9}{subsection.2.4.1}
-\contentsline {section}{\numberline {2.5}Annotation for Execution Cycles}{11}{section.2.5}
-\contentsline {subsection}{\numberline {2.5.1}Branch Prediction}{13}{subsection.2.5.1}
-\contentsline {section}{\numberline {2.6}Annotation for Memory Access}{15}{section.2.6}
-\contentsline {subsection}{\numberline {2.6.1}Cache Simulator}{15}{subsection.2.6.1}
-\contentsline {section}{\numberline {2.7}Instrumentation for Instruction Access}{17}{section.2.7}
-\contentsline {section}{\numberline {2.8}Instrumentation for Data Access}{17}{section.2.8}
-\contentsline {subsection}{\numberline {2.8.1}Resolve address of each variable}{18}{subsection.2.8.1}
-\contentsline {subsubsection}{\numberline {2.8.1.1}Global Variables}{18}{subsubsection.2.8.1.1}
-\contentsline {subsubsection}{\numberline {2.8.1.2}Local Variables}{18}{subsubsection.2.8.1.2}
-\contentsline {subsubsection}{\numberline {2.8.1.3}Dynamically Allocated Memory}{19}{subsubsection.2.8.1.3}
-\contentsline {subsection}{\numberline {2.8.2}Analyse binary code for identifying load/store operations on variables}{19}{subsection.2.8.2}
-\contentsline {subsection}{\numberline {2.8.3}Parse Source Code}{21}{subsection.2.8.3}
-\contentsline {chapter}{\numberline {3}Implementation}{22}{chapter.3}
-\contentsline {chapter}{\numberline {4}Results}{23}{chapter.4}
-\contentsline {chapter}{\numberline {5}Conclusion}{24}{chapter.5}
-\contentsline {chapter}{\numberline {6}TODO Temp}{25}{chapter.6}
-\contentsline {chapter}{\nonumberline List of Figures}{26}{appendix*.10}
-\contentsline {chapter}{\nonumberline List of Tables}{27}{appendix*.11}
-\contentsline {chapter}{\nonumberline Bibliography}{28}{appendix*.12}
+\contentsline {section}{\numberline {1.4}Thesis Outline}{3}{section.1.4}
+\contentsline {paragraph}{\nonumberline Chapter 2}{3}{section*.3}
+\contentsline {paragraph}{\nonumberline Chapter 3}{3}{section*.4}
+\contentsline {paragraph}{\nonumberline Chapter 4}{3}{section*.5}
+\contentsline {paragraph}{\nonumberline Chapter 5}{3}{section*.6}
+\contentsline {chapter}{\numberline {2}Host Compiled Simulation}{4}{chapter.2}
+\contentsline {section}{\numberline {2.1}Simple Example}{4}{section.2.1}
+\contentsline {section}{\numberline {2.2}The Flow}{7}{section.2.2}
+\contentsline {section}{\numberline {2.3}Source Code to Intermediate Source Code}{8}{section.2.3}
+\contentsline {section}{\numberline {2.4}Mapping between ISC and Binary Code}{9}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Handling of Conditional Execution Optimization}{10}{subsection.2.4.1}
+\contentsline {section}{\numberline {2.5}Annotation for Execution Cycles}{12}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Branch Prediction}{14}{subsection.2.5.1}
+\contentsline {section}{\numberline {2.6}Annotation for Memory Access}{16}{section.2.6}
+\contentsline {subsection}{\numberline {2.6.1}Cache Simulator}{17}{subsection.2.6.1}
+\contentsline {section}{\numberline {2.7}Instrumentation for Instruction Access}{19}{section.2.7}
+\contentsline {section}{\numberline {2.8}Instrumentation for Data Access}{19}{section.2.8}
+\contentsline {subsection}{\numberline {2.8.1}Resolve address of each variable}{20}{subsection.2.8.1}
+\contentsline {subsubsection}{\numberline {2.8.1.1}Global Variables}{20}{subsubsection.2.8.1.1}
+\contentsline {subsubsection}{\numberline {2.8.1.2}Local Variables}{21}{subsubsection.2.8.1.2}
+\contentsline {subsubsection}{\numberline {2.8.1.3}Dynamically Allocated Memory}{21}{subsubsection.2.8.1.3}
+\contentsline {subsection}{\numberline {2.8.2}Analyse binary code for identifying load/store operations on variables}{22}{subsection.2.8.2}
+\contentsline {subsection}{\numberline {2.8.3}Parse Source Code}{23}{subsection.2.8.3}
+\contentsline {subsubsection}{\numberline {2.8.3.1}Handling of pointers sent as function parameters}{24}{subsubsection.2.8.3.1}
+\contentsline {section}{\numberline {2.9}Estimation of Power Consumption}{25}{section.2.9}
+\contentsline {subsection}{\numberline {2.9.1}Trace Collection}{27}{subsection.2.9.1}
+\contentsline {chapter}{\numberline {3}Test Hardware}{29}{chapter.3}
+\contentsline {section}{\numberline {3.1}Target Processor}{29}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Instruction Pipeline}{29}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Interlocking}{30}{subsection.3.1.2}
+\contentsline {paragraph}{\nonumberline Result Latency}{30}{section*.17}
+\contentsline {paragraph}{\nonumberline Early Register}{30}{section*.18}
+\contentsline {paragraph}{\nonumberline Late Register}{30}{section*.19}
+\contentsline {subsection}{\numberline {3.1.3}Branch Prediction Unit}{31}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}Cache Hierarchy}{31}{subsection.3.1.4}
+\contentsline {chapter}{\numberline {4}Results}{33}{chapter.4}
+\contentsline {chapter}{\numberline {5}Conclusion}{34}{chapter.5}
+\contentsline {chapter}{Appendices}{35}{section*.21}
+\contentsline {chapter}{\numberline {A}Source Code to ISC Conversion}{36}{Appendix.1.A}
+\contentsline {chapter}{\numberline {B}Mapping Algorithm}{37}{Appendix.1.B}
+\contentsline {chapter}{\nonumberline List of Figures}{39}{appendix*.24}
+\contentsline {chapter}{\nonumberline List of Tables}{40}{appendix*.25}
+\contentsline {chapter}{\nonumberline Bibliography}{41}{appendix*.26}

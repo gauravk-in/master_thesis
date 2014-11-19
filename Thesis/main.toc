@@ -2,11 +2,13 @@
 \contentsline {chapter}{\nonumberline Abstract}{iii}{chapter*.1}
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Simulation}{1}{section.1.1}
-\contentsline {section}{\numberline {1.2}Related Work}{2}{section.1.2}
-\contentsline {subsection}{\numberline {1.2.1}Sampling Based Approach}{2}{subsection.1.2.1}
-\contentsline {subsection}{\numberline {1.2.2}Host Compiled Simulation}{2}{subsection.1.2.2}
-\contentsline {section}{\numberline {1.3}Focus}{2}{section.1.3}
-\contentsline {section}{\numberline {1.4}Thesis Outline}{3}{section.1.4}
+\contentsline {section}{\numberline {1.2}Popular Techniques}{1}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Cycle Accurate Simuation (CAS)}{1}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Functional Simulation}{2}{subsection.1.2.2}
+\contentsline {section}{\numberline {1.3}Motivation}{2}{section.1.3}
+\contentsline {section}{\numberline {1.4}Related Work}{2}{section.1.4}
+\contentsline {subsection}{\numberline {1.4.1}Sampling Based Approach}{2}{subsection.1.4.1}
+\contentsline {section}{\numberline {1.5}Thesis Outline}{3}{section.1.5}
 \contentsline {paragraph}{\nonumberline Chapter 2}{3}{section*.3}
 \contentsline {paragraph}{\nonumberline Chapter 3}{3}{section*.4}
 \contentsline {paragraph}{\nonumberline Chapter 4}{3}{section*.5}
@@ -23,13 +25,13 @@
 \contentsline {subsection}{\numberline {2.6.1}Cache Simulator}{17}{subsection.2.6.1}
 \contentsline {subsubsection}{\numberline {2.6.1.1}Cache Features and Parameters}{19}{subsubsection.2.6.1.1}
 \contentsline {section}{\numberline {2.7}Instrumentation for Instruction Access}{19}{section.2.7}
-\contentsline {section}{\numberline {2.8}Instrumentation for Data Access}{19}{section.2.8}
+\contentsline {section}{\numberline {2.8}Instrumentation for Data Access}{20}{section.2.8}
 \contentsline {subsection}{\numberline {2.8.1}Resolve address of each variable}{20}{subsection.2.8.1}
-\contentsline {subsubsection}{\numberline {2.8.1.1}Global Variables}{20}{subsubsection.2.8.1.1}
+\contentsline {subsubsection}{\numberline {2.8.1.1}Global Variables}{21}{subsubsection.2.8.1.1}
 \contentsline {subsubsection}{\numberline {2.8.1.2}Local Variables}{21}{subsubsection.2.8.1.2}
 \contentsline {subsubsection}{\numberline {2.8.1.3}Dynamically Allocated Memory}{22}{subsubsection.2.8.1.3}
 \contentsline {subsection}{\numberline {2.8.2}Analyse binary code for identifying load/store operations on variables}{22}{subsection.2.8.2}
-\contentsline {subsection}{\numberline {2.8.3}Parse Source Code}{23}{subsection.2.8.3}
+\contentsline {subsection}{\numberline {2.8.3}Parse Source Code}{24}{subsection.2.8.3}
 \contentsline {subsubsection}{\numberline {2.8.3.1}Handling of pointers sent as function parameters}{25}{subsubsection.2.8.3.1}
 \contentsline {section}{\numberline {2.9}Estimation of Power Consumption}{26}{section.2.9}
 \contentsline {subsection}{\numberline {2.9.1}Trace Collection}{27}{subsection.2.9.1}
@@ -43,6 +45,8 @@
 \contentsline {subsection}{\numberline {3.1.3}Branch Prediction Unit}{32}{subsection.3.1.3}
 \contentsline {subsection}{\numberline {3.1.4}Cache Hierarchy}{32}{subsection.3.1.4}
 \contentsline {chapter}{\numberline {4}Results}{34}{chapter.4}
+\contentsline {section}{\numberline {4.1}Test Setup}{34}{section.4.1}
+\contentsline {section}{\numberline {4.2}Sieve Benchmark Application}{34}{section.4.2}
 \contentsline {chapter}{\numberline {5}Conclusion}{35}{chapter.5}
 \contentsline {chapter}{Appendices}{36}{section*.22}
 \contentsline {chapter}{\numberline {A}Source Code to ISC Conversion}{37}{Appendix.1.A}

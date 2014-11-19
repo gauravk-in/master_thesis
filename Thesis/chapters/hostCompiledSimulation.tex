@@ -1,16 +1,21 @@
 \chapter{Host Compiled Simulation}
 
-\gls{hcs} is based on the approach of Source Code Instrumentation (SCI). Instrumentation is the technique to modify the source code of an application, in order to extract debug or trace information at run-time. In \gls{hcs}, the source code is instrumented to estimate the time spent in executing the application on a particular target processor. 
+Host Compiled Simulation (HCS) is a popular research topic as a techniques to accelerate the benchmarking of processors. \gls{hcs} is based on the approach of Source Code Instrumentation (SCI). Instrumentation is the technique to modify the source code of an application, in order to extract debug or trace information at run-time. In \gls{hcs}, the source code is instrumented to estimate the time spent in executing the application on a particular target processor. The instrumented source code is run on the host machine, and hence the name.
+
+While earlier research has mostly focussed on using \gls{hcs} for timing estimation, in this work the technique has been extended to estimate the power consumption.
 
 When an application is run on a processor, most of the time is spent in following phases.
+
 \begin{itemize} \itemsep -6pt
 \item Execution of instructions.
 \item Fetching Data from memory.
 \end{itemize}
 
-The technique is based on the assumption, that number of cycles spent in each phase of the execution can be accurately predicted using instrumentation. The trace generated from the run-time can be used for estimating consumption.
+The technique is based on the assumption, that number of cycles spent in each phase of the execution can be accurately predicted using instrumentation. The trace generated from the run-time can also be used for estimating the power consumption.
 
-The information generated is useful for architects to analyse the impact of design decisions on performance and power consumption of the system. In comparison to popular techniques like Cycle Accurate Simulation (CAS), \gls{hcs} is easier to develop and fast to execute. This reduces the cost and effort invested in the Design Space Exploration Phase.
+In comparison to Cycle Accurate Simulation (CAS), \gls{hcs} is supposed to be much faster to execute since details of the processor micro-architecture are not simulated at run-time. The technique is also easier to understand and implement. From earlier research, it has shown a promise of highly accurate estimation [TODO: References].
+
+This technique could prove to be a competitive edge in the industry, as it will allow architects to better analyse the performance of the system at an early stage in development. Engineers will be able to iterate faster, and explore the design space extensively.
 
 In this chapter, the concept of \gls{hcs} is illustrated using a simplified example. Then, each step involved in performing \gls{hcs} is described in detail. References to appendix have been made for implementation specific details where needed.
 
@@ -116,7 +121,7 @@ Figure \ref{fig:hcsFlowChart} shows a flow-chart depicting the stages involved i
 
 \begin{figure}[h!]
 \center
-\includegraphics[width=.9\textwidth]{figures/HCS_FlowChart.pdf}
+\includegraphics[width=.73\textwidth]{figures/HCS_FlowChart.pdf}
 \caption{Flow Chart}
 \label{fig:hcsFlowChart}
 \end{figure}
@@ -226,13 +231,16 @@ The pseudo code of the \emph{mapping} function is presented in Algorithm \ref{al
 
 At this point, special handling for different compiler optimizations is done. Section \ref{subsec:CondExec} illustrates the handling for Conditional Execution optimization that is frequently seen in the test set of benchmarks.
 
-Hereafter, the successor sets of both nodes are created. To find successor nodes, only forward edges are considered. Back edges representing loops are ignored. Two nodes can be mapped to each other, only if they have the same number of successor nodes. For each successor \emph{S\_src} in \emph{SS\_src}, a matching node in \emph{SS\_bin} is identified by recursively calling the \emph{mapping} function. 
+Hereafter, the successor sets of both nodes are created. Two nodes can be mapped to each other, only if they have the same number of successor nodes. For each successor \emph{S\_src} in \emph{SS\_src}, a matching node in \emph{SS\_bin} is identified by recursively calling the \emph{mapping} function. 
 
 The nodes map to each other, if a mapping can be found for all successor nodes. The algorithm tries to find matching path from the start node, to the exit node and creates mapping between the nodes on this path.
 
+The mapping algorithm has limitations. For instance, it can not differentiate between the \emph{then} and the \emph{else} block in an \emph{if-then-else} construct. Mapping from GDB is used to resolve such situations.
 
+The mapping algorithm might fail in some corner cases. For the benchmark applications used for testing, the algorithm was found to work accurately.
+The instrumentation tool generates graphical representation of the mapping between the CFGs. Users can easily verify the accuracy of mapping by analysing this output.
 
-The instrumentation tool generates graphical representation of the mapping between the CFGs. Mapping for some benchmarks, that were used to test the tool have been shown in Appendix \ref{app:mappingAlgo}.
+Mappings generated for some benchmark applications that were used for testing have been shown in Appendix \ref{app:mappingAlgo}.
 
 \subsection{Handling of Conditional Execution Optimization}
 \label{subsec:CondExec}
@@ -319,11 +327,11 @@ This loss can be reduced by using Conditional Execution, when supported by the a
 \caption{Control Flow Graphs}
 \end{figure}
 
-The CFGs for the source code, and the unoptimized binary code have been represented in figures \ref{fig:cfgSrc} and \ref{fig:cfgUnopt}. The labels in the nodes represent line numbers for the corresponding basic blocks. These graphs are similar, and hence easy to map. 
+The CFGs for the source code, and the unoptimized binary code have been represented in figures \ref{fig:cfgSrc} and \ref{fig:cfgUnopt}. The labels in the nodes represent line numbers for the corresponding basic blocks. These graphs are similar, and hence easy to map. However, in the optimized binary code the branching instructions are eliminated. The code is considered as a single basic block, as shown in the CFG in figure \ref{fig:cfgOpt}.
 
-However, in the optimized binary code the branching instructions are eliminated. The code is considered as a single basic block, as shown in the CFG in figure \ref{fig:cfgOpt}.
+To handle this optimization, the binary basic block is analysed to check if Conditional Execution Instructions have been used. The corresponding basic block in source code must have a conditional branch, which can be identified by analysing the CFG. If the length of each conditional execution block in source code is smaller than a threshold, the algorithm predicts that the blocks have been merged using Conditional Execution. All four blocks in the source code are mapped to the single block in the binary code.
 
-To handle this optimization, the binary basic block is analysed to check if Conditional Execution Instructions have been used. The mapping algorithm maps all four blocks of the source code, to the single block in the binary code. 
+The mapping continues between the source code basic block after the \emph{if-then-else} construct, and the current binary basic block. If mapping is not found by this approach, the algorithm will recursively visit this step, and try another approach. 
 
 \section{Annotation for Execution Cycles}
 The estimation of number of cycles spent in execution of the instructions is done at a basic block granularity. Cycles spent in executing each basic block in binary code is estimated by static analysis. The cycles are annotated in the mapped basic block in the source code. Each time when the basic block is executed, the annotated cycles are accumulated in a global variable.

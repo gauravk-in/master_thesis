@@ -5,9 +5,9 @@
 \contentsline {figure}{\numberline {\relax 2.1}{\ignorespaces Flow Chart\relax }}{7}{figure.caption.8}
 \contentsline {figure}{\numberline {\relax 2.2}{\ignorespaces Conversion of Source Code to Intermediate Source Code\relax }}{8}{figure.caption.9}
 \contentsline {figure}{\numberline {\relax 2.3}{\ignorespaces Computation of Flow Value\relax }}{9}{figure.caption.10}
-\contentsline {figure}{\numberline {\relax 2.4}{\ignorespaces Control Flow Graphs\relax }}{12}{figure.caption.11}
+\contentsline {figure}{\numberline {\relax 2.4}{\ignorespaces Control Flow Graphs\relax }}{13}{figure.caption.11}
 \contentsline {figure}{\numberline {\relax 2.5}{\ignorespaces Stages in a Pipelined Execution Unit\relax }}{13}{figure.caption.12}
-\contentsline {figure}{\numberline {\relax 2.6}{\ignorespaces State Machine Diagram implemented in the Branch Prediction Unit\relax }}{15}{figure.caption.13}
+\contentsline {figure}{\numberline {\relax 2.6}{\ignorespaces State Machine Diagram implemented in the Branch Prediction Unit\relax }}{16}{figure.caption.13}
 \contentsline {figure}{\numberline {\relax 2.7}{\ignorespaces Illustration of the Partial Functional Simulator used to extract address of each load/store instruction in the binary code\relax }}{23}{figure.caption.14}
 \contentsline {figure}{\numberline {\relax 2.8}{\ignorespaces Block Diagram for a custom C parser, that parses a statement and returns information about each variable accessed in the statement.\relax }}{24}{figure.caption.15}
 \contentsline {figure}{\numberline {\relax 2.9}{\ignorespaces Components of a processor\relax }}{27}{figure.caption.16}

@@ -1,1 +1,19 @@
 \chapter{Results}
+
+\section{Test Setup}
+The general technique described in Chapter 2 was implemented for estimating performance and power consumption of a target processor based on the ARM Cortex A5 core. Details about the target hardware have been briefly discussed in Chapter 3.
+
+The Cortex A5 supports a Performance Monitoring Unit. A cycle counter can be used to calculate the cycles spent in executing the code. Two other counters can be programmed to count various other events. This functionality was used to extract the results from the actual hardware. The accuracy of estimation was calculated by comparing the results from the simulation.
+
+Apart from the cycle count, following results were extracted using the programmable counters.
+
+\begin{itemize}
+\item Number of Cache Misses
+\item Number of Data Prefetches
+\item Number of Branch Mispredictions
+\end{itemize}
+
+A number of benchmark applications were simulated. A brief description of these applications, and detailed analysis of the results for each have been discussed in the following Sections.
+
+\section{Sieve Benchmark Application}
+This application 

@@ -5,37 +5,37 @@
 Simulation is the technique to imitate the operation of a real-world system. 
 A model or a virtual prototype is developed which represents the key characteristics and behaviour of the system. Simulation is the process of operating this model to analyse how the system will behave in the various situations. Simulation is frequently used when working with the real system is difficult or impossible.
 
-Simulation is widely used in Hardware Software Co-development. In early stages of processor development, architects want to analyse the impact of minor design decisions on the overall system. The balance between performance and power consumption is critical and delicate. Fabrication of prototypes to measure the impact of each modification, is an expensive and time-consuming process. Instead, a Virtual Prototype of the processor is created and simulated for analysis.
+Simulation is widely used in Hardware/Software Co-development. Architects focus on maximising the performance of embedded systems while minimizing the cost and power consumption. To achieve this, engineers try to optimize the hardware designs and software implementation. Frequent prototyping is needed, to keep the balance in check. Fabrication of hardware prototypes with each minor variation is expensive and time-consuming. Instead, simulation is used. A model of the processor is developed and software is run on the model. By modifying this model, the architects can analyse the impact of hardware design changes on performance of the overall system. Software developers can identify bottlenecks by analysing the execution on the model and optimize the code. 
 
-Virtual Prototyping is a very popular approach in the industry today. This greatly reduces the cost and effort in the Design Space Exploration Phase. By saving time, engineers can now iterate on design decisions more quickly. It also allows architects to identify critical issues at an early stage. These issues would have otherwise emerged during Integration Phase. In addition, the Virtual Prototypes serve as a tangible environment for early software development.
+Virtual Prototyping is a very popular approach in the industry today. It has resulted in huge savings, by reducing the cost and effort spent in fabrication of prototypes. It allows architects to identify critical issues that would otherwise become visible during Integration Phase. This has accelerated the iterations in the Design Space Exploration Phase. 
 
-\section{Popular Techniques}
+\section{Instruction Set Simulation}
 
-\subsection{Cycle Accurate Simuation (CAS)}
-In this technique, the micro-architecture of the processor is modelled in great detail. Each stage of the execution pipeline is modelled along with other building blocks of the processor like Cache and Branch Prediction Unit. This approach provides a cycle accurate estimation of performance.
+The popular technique used for simulation in the industry is called Instruction Set Simulation (ISS). In this, a model of the processor is developed. Each instruction from the cross-compiled target binary is read and executed on the model. The behaviour of the model can be observed. Depending on the use case, the model is implemented at various levels of abstraction. 
 
-However, \gls{cas} is difficult to develop and slow to execute because of the amount of details that are taken into consideration. For analysing bottlenecks, long-running software scenarios are executed. \gls{cas} is not suited for such use-cases due to the slow execution speeds.
+\subsection{Cycle Accurate Simuation}
+For Cycle Accurate Simulation (CAS) [TODO: References], a detailed model of the processor micro-architecture is developed. Each stage of the execution pipeline is modelled in a cycle accurate fashion, along with other building blocks of the processor like Memory Hierarchy, Branch Prediction Unit etc.
+
+With ever increasing complexity of processors, developing and maintaining such a model is very difficult. The simulation runs at very low speeds, and the technique is not suitable for analysing performance of long-running software scenarios.
 
 \subsection{Functional Simulation}
 In this technique, simulation is carried out at a higher level of abstraction. The state of registers in the target processor is maintained by the simulator. Each instruction of the cross-compiled binary code is read and state of the registers is updated. This is known as Functional Simulation.
 
-This technique is used for functional verification, and as an environment for early software development. Since the details of the processor are ignored, performance estimates can not be extracted.
+This technique is used for functional verification, and as an environment for early software development. Since the details of the processor micro-architecture are ignored, the technique cannot be used for performance estimation.
 
-\section{Motivation}
-With ever increasing complexity of processors, developing \gls{cas} is very difficult. The inhibiting slow speed of execution is another impediment to the relevance of this technique. Researchers have focussed on developing techniques to accelerate performance benchmarking of micro-processors. 
+\section{Host Compiled Simulation}
+In this thesis, an approach to further accelerate the benchmarking of embedded systems has been explored. Host Compiled Simulation, also known as Source-Level Simulation, is a promising research topic in this area \cite{RBA2013, Lu2013, Mueller2011}. 
 
-Host Compiled Simulation or Source-Level Simulation is a popular research area [TODO: References]. HCS is based on the approach of Instrumentation. Source code of a benchmarking application is modified to extract important trace information. This trace information will be used at run-time to analyse how the application will perform on a target processor. Additionally, this trace information can be used to estimate the power consumed by the target processor in running the benchmark application. The instrumented source code is compiled and run on a Host Machine.
+HCS is based on the approach of Instrumentation. Source code of an application is modified to extract trace information during run-time. This trace information will be used to analyse how the application will perform on a target processor. Additionally, this trace information can be used to estimate the power consumed by the target processor in running the benchmark application. The instrumented source code is compiled and run on a Host Machine. In comparison to \gls{cas}, \gls{hcs} is easy to understand and develop. It can provide a very high accuracy of estimation, while running at much higher speeds.
 
-In comparison to \gls{cas}, \gls{hcs} is easy to understand and develop. It can provide a very high accuracy of estimation, while running at much higher speeds.
-
-In this thesis, the approach of \gls{hcs} has been explored. A tool to automate instrumentation of source code has been developed. Estimation of execution time using this approach has been covered earlier[TODO: References]. The contribution of this research is the technique to estimate the power consumption. 
+In this work, the approach of \gls{hcs} has been explored. A tool to automate instrumentation of source code has been developed. Estimation of execution time using this approach has been covered earlier. In addition, the contribution in this research is the technique to estimate the power consumption.
 
 \section{Related Work}
 
 \subsection{Sampling Based Approach}
 Sampling is an approach used in statistical analysis. Small, yet representative samples are chosen from a vast amount of data. These samples are analysed in detail, and the results are interpolated to gather information about the entire data set.
 
-In this approach, the application is mostly run using faster Functional Simulation, and some samples are executed using the detailed \gls{cas}. The number of cycles spent in execution of the samples is calculated. The results are interpolated to estimate the number of cycles spent in executing the entire application.
+In this approach \cite{Wunderlich:2003,Ardestani:2013}, the application is mostly run using faster Functional Simulation, and some samples are executed using the detailed \gls{cas}. The number of cycles spent in execution of the samples is calculated. The results are interpolated to estimate the number of cycles spent in executing the entire application.
 
 This approach provides considerable speed up compared to \gls{cas}, however accuracy of the estimation is highly dependent on how the samples are chosen. Also, developing this technique is difficult, since \gls{cas} is used.
 

@@ -6,6 +6,13 @@
 \bibitem{WCET}
 Worst-case execution time (wcet) analysis project.
 
+\bibitem{Ardestani:2013}
+Ehsan~K. Ardestani and Jose Renau.
+\newblock Esesc: A fast multicore simulator using time-based sampling.
+\newblock In {\em Proceedings of the 2013 IEEE 19th International Symposium on
+  High Performance Computer Architecture (HPCA)}, HPCA '13, pages 448--459,
+  Washington, DC, USA, 2013. IEEE Computer Society.
+
 \bibitem{RBA2013}
 S.~Chakravarty, Zhuoran Zhao, and A.~Gerstlauer.
 \newblock Automated, retargetable back-annotation for host compiled performance
@@ -19,5 +26,19 @@ Kun Lu, D.~Muller-Gritschneder, and U.~Schlichtmann.
   source-level simulation of embedded software.
 \newblock In {\em Design Automation Conference (ASP-DAC), 2013 18th Asia and
   South Pacific}, pages 729--734, Jan 2013.
+
+\bibitem{Mueller2011}
+D.~Mueller-Gritschneder, Kun Lu, and U.~Schlichtmann.
+\newblock Control-flow-driven source level timing annotation for embedded
+  software models on transaction level.
+\newblock In {\em Digital System Design (DSD), 2011 14th Euromicro Conference
+  on}, pages 600--607, Aug 2011.
+
+\bibitem{Wunderlich:2003}
+Roland~E. Wunderlich, Thomas~F. Wenisch, Babak Falsafi, and James~C. Hoe.
+\newblock Smarts: Accelerating microarchitecture simulation via rigorous
+  statistical sampling.
+\newblock In {\em Proceedings of the 30th Annual International Symposium on
+  Computer Architecture}, ISCA '03, pages 84--97, New York, NY, USA, 2003. ACM.
 
 \end{thebibliography}

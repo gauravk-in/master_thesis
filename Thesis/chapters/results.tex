@@ -1,19 +1,149 @@
 \chapter{Results}
 
 \section{Test Setup}
-The general technique described in Chapter 2 was implemented for estimating performance and power consumption of a target processor based on the ARM Cortex A5 core. Details about the target hardware have been briefly discussed in Chapter 3.
+The general technique described in Chapter 2 was implemented for estimating performance and power consumption of a target processor based on the ARM Cortex A5 core. Details about the target hardware have been discussed in Chapter 3.
 
-The Cortex A5 supports a Performance Monitoring Unit. A cycle counter can be used to calculate the cycles spent in executing the code. Two other counters can be programmed to count various other events. This functionality was used to extract the results from the actual hardware. The accuracy of estimation was calculated by comparing the results from the simulation.
+For measuring performance, the Cortex A5 supports a Performance Monitoring Unit. A cycle counter can be used to calculate the cycles spent in executing the code. Two other counters can be programmed to count various other events. This functionality was used to measure the results from the real hardware. 
 
-Apart from the cycle count, following results were extracted using the programmable counters.
+Following events were counted from the hardware.
 
-\begin{itemize}
-\item Number of Cache Misses
-\item Number of Data Prefetches
-\item Number of Branch Mispredictions
+\begin{itemize} \itemsep -4pt
+\item Cycle Count
+\item Number of cache linefills including speculative loads (prefetches)
+\item Number of Prefetches
+\item Branch Mispredictions
 \end{itemize}
 
-A number of benchmark applications were simulated. A brief description of these applications, and detailed analysis of the results for each have been discussed in the following Sections.
+Tests were carried out on two benchmark applications. In this section, the results showing accuracy of timing estimation have been shown. In the next section, a brief insight about each benchmark application is provided, followed by graphs showing power consumption throughout the execution of the application on the target processor. 
 
-\section{Sieve Benchmark Application}
-This application 
+\section{Timing Estimates}
+
+\subsection{Without Branch Prediction and Prefetching}
+
+%\vspace*{10pt}
+\begin{table}[h]
+\begin{center}
+\begin{tabularx}{400pt}{|>{\centering\arraybackslash}c||>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X||>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}
+	\hline
+    & \multicolumn{3}{c||}{Cycle Count} & \multicolumn{3}{c|}{Cache Misses} \\ 
+	\hline
+	Benchmark & Act. & HCS & Error & Act. & HCS & Error  \\
+    \hline
+    Sieve & 82291347 & 78616556 & -4.56\% & 827411 & 825744 & -0.20\% \\
+    \hline
+    ADPCM & 54563565 & 50647509 & -7.18\% & 91415 & 91407 & -0.01\% \\
+    \hline
+    SHA & 19187696 & 19552752 & 1.90\% & 12573 & 12866 & 2.33\% \\
+\hline
+\end{tabularx}
+\caption{Results with Branch Prediction, Data Prefetching and Read Allocate Mode disabled.}
+%\label{tbl:ExMapping}
+\label{tbl:ResultsWOFeatures}
+\end{center}
+\end{table}
+\vspace*{-10pt}
+
+For the first tests, some features on the target hardware were disabled. The branch prediction was configured to predict that the branch will always be taken. Data Prefetching and Read-Allocate Mode were also disabled. The results are shown in Table \ref{tbl:ResultsWOFeatures}. The number of cache linefills reported by the PMU, can be treated as number of Cache Misses, because prefetching has been disabled. Number of Cache Misses were estimated with very high accuracy. The error in the cycle count could be caused due to some effects discussed in Chapter 3.
+
+\subsection{With Branch Prediction}
+
+\vspace*{10pt}
+\begin{table}[h]
+\begin{center}
+\begin{tabularx}{400pt}{|>{\centering\arraybackslash}c||>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X||>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}
+	\hline
+    & \multicolumn{3}{c||}{Cycle Count} & \multicolumn{3}{c|}{Branch Mispredictions} \\ 
+	\hline
+	Benchmark & Act. & HCS & Error & Act. & HCS & Error  \\
+    \hline
+    Sieve & 82035214 & 78325783 & -4.53\% & 441 & 511 & 15.87\%  \\
+    \hline
+    ADPCM & 54393612 & 50427191 & -7.30\% & 223 & 272 & 21.97\% \\
+    \hline
+    SHA & 16677616 & 16980482 & 1.81\% & 48870 & 58474 & 19.65\% \\
+\hline
+\end{tabularx}
+\caption{Results with Branch Prediction Enabled.}
+\label{tbl:ResultsWBranchPred}
+\end{center}
+\end{table}
+\vspace*{-10pt}
+
+In the next test, the effects due to Branch Prediction were taken into consideration. Table \ref{tbl:ResultsWBranchPred} shows the results. The estimate for Branch Mispredictions has an error of 20\%. The specific algorithm used in the Branch Prediction Unit in Cortex A5 has not been disclosed in the Reference Manual. The algorithm described in Section [TODO] was used in the simulator. This could be the reason for the error.
+
+\subsection{With Branch Prediction and Prefetching}
+
+\vspace*{10pt}
+\begin{table}[h]
+\footnotesize
+\begin{center}
+\begin{tabularx}{420pt}{|>{\centering\arraybackslash}c||>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}c||>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X||>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}
+%	\cline{2-10}
+\hline
+    & \multicolumn{3}{c||}{Cycle Count} & \multicolumn{3}{c||}{Cache Linefills} & \multicolumn{3}{c|}{Prefetches} \\ 
+	\hline
+	Benchmark & Act. & HCS & Error & Act. & HCS & Error & Act. & HCS & Error \\
+    \hline
+    Sieve & 75.68 & 74.39 & -1.71\% & 827484 & 854880 & 3.31\% & 55236 & 50170 & -9.18\% \\
+    \hline
+    ADPCM & 51.60 & 47.39 & -8.17\% & 91624 & 91245 & -2.76\% & 23607 & 42535 & 80.17\% \\
+    \hline
+    SHA & 16.67 & 16.98 & 1.81\% & 12602 & 15317 & 21.54\% & 6188 & 9477 & 53.15\% \\
+\hline
+\end{tabularx}
+\caption{Results with Branch Prediction and Data Prefetching enabled. The cycle count is reported in millions.}
+\label{tbl:ResultsWFeatures}
+\end{center}
+\end{table}
+\vspace*{-10pt}
+
+For the last test, Branch Prediction and Data Prefetching were enabled. Table \ref{tbl:ResultsWFeatures} shows the results. The cycle count and number of prefetches are shown. Note, that the Cache Linefills reported in this table, include the linefills due to cache miss and prefetches.
+
+\section{Simulation Speed}
+A key benefit of Host Compiled Simulation is faster simulation speeds. The specificiation of the Host Machine used for testing are as follows. 
+
+TODO: Host Machine Specifications
+
+Results based on our testing are shown below.
+
+
+\begin{table}[h]
+\begin{center}
+\begin{tabularx}{350pt}{|>{\centering\arraybackslash}c|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}
+\hline
+	Benchmark & Configuration & \specialcell{Native\\(MIPS)} & \specialcell{Simulation\\(MIPS)} \\
+    \hline
+    \hline
+    \multirow{3}{*}{Sieve} & \footnotesize{without features} & 55.98 & 66.98  \\
+    \cline{2-4}
+                           & \footnotesize{with BP} & 56.16 & 66.24 \\
+    \cline{2-4}
+                           & \footnotesize{with BP and DP} & 60.86 & 61.70  \\
+\hline
+\hline
+%	& Benchmark & Native (MIPS) & Simulation (MIPS) \\
+%    \hline
+    \multirow{3}{*}{ADPCM} & \footnotesize{without features} & 189.48 & 184.68  \\
+    \cline{2-4}
+                           & \footnotesize{with BP} & 190.07 & 173.08 \\
+    \cline{2-4}
+                           & \footnotesize{with BP and DP} & 200.33 & 168.04  \\
+\hline
+\hline
+%	& Benchmark & Native (MIPS) & Simulation (MIPS) \\
+%    \hline
+    \multirow{3}{*}{SHA} & \footnotesize{without features} & 193.51 & 95.42  \\
+    \cline{2-4}
+                           & \footnotesize{with BP} & 222.64 & 85.15 \\
+    \cline{2-4}
+                           & \footnotesize{with BP and DP} & 230.29 & 86.33  \\
+\hline
+\end{tabularx}
+\caption{Simulation speeds with various configurations}
+%\label{tbl:ResultsWFeatures}
+\end{center}
+\end{table}
+\vspace*{-10pt}
+
+
+

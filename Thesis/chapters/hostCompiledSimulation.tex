@@ -1,8 +1,6 @@
 \chapter{Host Compiled Simulation}
 
-Host Compiled Simulation (HCS) is a popular research topic as a techniques to accelerate the benchmarking of processors. \gls{hcs} is based on the approach of Source Code Instrumentation (SCI). Instrumentation is the technique to modify the source code of an application, in order to extract debug or trace information at run-time. In \gls{hcs}, the source code is instrumented to estimate the time spent in executing the application on a particular target processor. The instrumented source code is run on the host machine, and hence the name.
-
-While earlier research has mostly focussed on using \gls{hcs} for timing estimation, in this work the technique has been extended to estimate the power consumption.
+Host Compiled Simulation (HCS) is a promising research topic as a technique to accelerate the benchmarking of processors. \gls{hcs} is based on the approach of Source Code Instrumentation (SCI). Instrumentation is the technique to modify the source code of an application, in order to extract debug or trace information at run-time. In \gls{hcs}, the source code is instrumented to estimate the time spent in executing the application on a particular target processor. The instrumented source code is run on the host machine, and hence the name. While earlier research has mostly focussed on using \gls{hcs} for timing estimation, in this work the technique has been extended to estimate the power consumption.
 
 When an application is run on a processor, most of the time is spent in following phases.
 
@@ -15,7 +13,7 @@ The technique is based on the assumption, that number of cycles spent in each ph
 
 In comparison to Cycle Accurate Simulation (CAS), \gls{hcs} is supposed to be much faster to execute since details of the processor micro-architecture are not simulated at run-time. The technique is also easier to understand and implement. From earlier research, it has shown a promise of highly accurate estimation [TODO: References].
 
-This technique could prove to be a competitive edge in the industry, as it will allow architects to better analyse the performance of the system at an early stage in development. Engineers will be able to iterate faster, and explore the design space extensively.
+This technique could prove to be beneficial as it will allows architects to better analyse the performance of the system at an early stage in development. Engineers will be able to iterate faster, and explore the design space extensively.
 
 In this chapter, the concept of \gls{hcs} is illustrated using a simplified example. Then, each step involved in performing \gls{hcs} is described in detail. References to appendix have been made for implementation specific details where needed.
 
@@ -333,7 +331,7 @@ To handle this optimization, the binary basic block is analysed to check if Cond
 
 The mapping continues between the source code basic block after the \emph{if-then-else} construct, and the current binary basic block. If mapping is not found by this approach, the algorithm will recursively visit this step, and try another approach. 
 
-\section{Annotation for Execution Cycles}
+\section{Timing Characterisation for Pipeline Execution}
 The estimation of number of cycles spent in execution of the instructions is done at a basic block granularity. Cycles spent in executing each basic block in binary code is estimated by static analysis. The cycles are annotated in the mapped basic block in the source code. Each time when the basic block is executed, the annotated cycles are accumulated in a global variable.
 
 In the example in Section \ref{sec:SimpleExample}, a very simple processor was used where each instruction takes one cycle to execute. Estimation of cycles consumed in executing a set of instructions in such a processor is easy. In reality, each instruction takes multiple cycles to execute. To improve the throughput processors use a multi-stage pipelined execution unit. Each stage in the pipeline takes one cycle. The stages in a general pipelined execution unit are shown in Figure \ref{fig:genericPipeline}.
@@ -475,7 +473,7 @@ void foo()
 \label{ex:branchPred}
 \end{Example}
 
-\section{Annotation for Memory Access}
+\section{Timing Characterization for Memory Accesses}
 \label{sec:AnnotMemAccess}
 The cycles spent in fetching data and instructions from the memory must be accurately estimated. To do this a Cache Simulator has been implemented. The source code is instrumented to invoke the Cache Simulator at run-time. In the following sections details about the Cache Simulator have been discussed, followed by the process to instrument the code.
 
@@ -568,7 +566,7 @@ The cache simulator has been designed in a modular fashion. Platform specific im
 
 Details about the hierarchy and features that have been implemented in the Cache Simulator to model the target processor used for testing have been discussed in Section \ref{sec:c3CacheHierarchy}.
 
-\section{Instrumentation for Instruction Access}
+\section{Instrumentation for Instruction Access Simulation}
 For estimating cycles spent in fetching the instructions from memory, instrumentation is performed at the basic block granularity. 
 
 For each basic block in the cross-compiled binary code, the address of the first instruction in the block and size of the block in bytes is extracted by static analysis. Note that since the binary is compiled to be run on Bare-Metal, the load address of the binary was decided at compile time. The addresses of instructions extracted from the binary, are the physical addresses where the instructions will reside in the memory of the target system.
@@ -599,7 +597,7 @@ void foo()
 \label{ex:instCacheInst}
 \end{Example}
 
-\section{Instrumentation for Data Access}
+\section{Instrumentation for Data Access Simulation}
 The instrumentation in the example shown in Section \ref{sec:SimpleExample} was simplified for illustration. It had a flaw which will result in inaccuracy of estimation. To simulate load operation for fetching elements of \emph{array}, the address of \emph{array} from the Host Machine was used. For accurate estimation, data access must be simulated using target addresses. This is important since the host and target memory systems may vary significantly. 
 
 For instance, the host and target system may use different sizes for basic data types. The host machine in our test setup uses 8 Bytes for \emph{long int} and the target machine uses 4 Bytes for the same data type. When accessing elements of an array of \emph{long int}s using host addresses, twice the number of cache-misses will be reported than what is expected on the target device.
